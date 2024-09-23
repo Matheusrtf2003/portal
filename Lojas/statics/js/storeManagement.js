@@ -126,12 +126,14 @@ function createStoreRow(store) {
 
 // Função para preencher o formulário de edição com os dados da loja
 function populateStoreForm(store) {
+    console.log('Store recebido:', store);
     if (document.getElementById('storeId')) {
         document.getElementById('storeId').value = store.id;
+        console.log('storeId definido para:', store.id);
     } else {
         console.error('Elemento storeId não encontrado no DOM');
     }
-
+    
     if (document.getElementById('storeName')) {
         document.getElementById('storeName').value = store.nome;
     } else {

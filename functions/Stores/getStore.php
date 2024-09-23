@@ -20,16 +20,32 @@ try {
 
     // Consulta para buscar a loja e seus marcadores
     $stmt = $pdo->prepare("
-        SELECT s.*, 
-               GROUP_CONCAT(m.id) as marcador_ids, 
-               GROUP_CONCAT(m.nome) as marcador_nomes, 
-               GROUP_CONCAT(m.cor) as marcador_cores 
-        FROM stores s
-        LEFT JOIN stores_markers sm ON s.id = sm.loja_id
-        LEFT JOIN markers m ON sm.marcador_id = m.id
-        WHERE s.id = ?
-        GROUP BY s.id
-    ");
+    SELECT 
+        s.id AS store_id,  -- Alias para evitar conflito de nomes
+        s.nome,
+        s.cnpj,
+        s.status,
+        s.endereco,
+        s.cidade,
+        s.estado,
+        s.mesorregiao,
+        s.telefone,
+        s.instagram,
+        s.site,
+        s.decisor,
+        s.telefone_decisor,
+        s.email,
+        s.datetime,
+        GROUP_CONCAT(m.id) as marcador_ids,
+        GROUP_CONCAT(m.nome) as marcador_nomes,
+        GROUP_CONCAT(m.cor) as marcador_cores
+    FROM stores s
+    LEFT JOIN stores_markers sm ON s.id = sm.loja_id
+    LEFT JOIN markers m ON sm.marcador_id = m.id
+    WHERE s.id = ?
+    GROUP BY s.id
+");
+
     $stmt->execute([$storeId]);
     $store = $stmt->fetch(PDO::FETCH_ASSOC);
 
