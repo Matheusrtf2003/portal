@@ -1,0 +1,76 @@
+ /* Estilos Gerais */
+ body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.btn-info {
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 25px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-info:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container-fluid {
+    padding: 20px;
+}
+
+.row {
+    margin-top: 20px;
+}
+
+canvas {
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.d-flex.flex-wrap {
+    margin-top: 20px;
+}
+
+/* Estilos para o Modal */
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.modal-footer button {
+    border-radius: 25px;
+}
+
+.form-control {
+    border-radius: 25px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo dos gráficos */
+#lineChart, #pieChart {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,63 @@
+pageDashboard
+    - Ver total lojas - OK
+    - Ver total vendedores - Falta
+    - ver total marcadores - OK
+    - Grafico Total Lojas - OK
+    - Gráfico Total Lojas/marcadores - Falta
+    - Gráfico Total Lojas/Vendedores - Falta
+
+pageMaps 
+    - Pesquisar lojas (Nome, Cidade, Estado) - OK
+    - Filtrar / Estado - OK
+    - Filtrar / Status - OK
+    - Filtrar / Data - OK
+    - Mapea - OK
+    - Listar Lojas - OK
+    - Ver dados - OK
+
+pageLojas 
+    - Adicionar Loja - OK
+    - Pesquisar Loja (qualquer dado)
+    - Filtrar (
+        Data, - OK
+        status, - OK
+        marcador, - OK
+        estado, 
+        mesorregião, 
+        hunter, 
+        vendedor,  
+        especialidade, 
+        Possui site?, 
+        possui Instagram?)
+    - Limpar Filtros - OK
+    - Importar Lojas - OK
+    - Download Planilha modelo - OK
+    - Selecionar mais de Uma loja - OK
+    - Excluir mais de uma Loja - OK
+    - atribuir vendedor para a loja - OK
+    - atribuir vendedor para mais de uma loja - 
+    - Listar Lojas - OK
+    - Editar Lojas - OK
+    - Excluir Lojas - OK
+
+pageMarcadores
+    Criar Marcadores - OK
+    Excluir Marcadores - Falta
+    Editar Marcadores - Falta
+    Listar Marcadores - Falta
+    Mostrar Lojas / Marcadores - Falta
+
+pageUsuarios 
+    - Adicionar Usuário - OK
+    - Editar Usuário - OK
+    - Excluir Usuário - OK
+    - Promover Usuário - OK
+    - Desativar Usuário - OK
+    - Listar Usuários - OK
+    - Pesquisar Usuário - Falta
+
+pagePerfil 
+    - Dados Usuário (Nome, email, senha...)
+    - Atualizar Foto de Perfil 
+    - Sair
+    

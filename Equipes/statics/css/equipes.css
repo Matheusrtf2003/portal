@@ -1,0 +1,118 @@
+ /* Estilo para a seção da direita */
+ .container-right {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 20px;
+}
+
+/* Estilo para o botão de voltar */
+.btn-secondary {
+    border-radius: 25px;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* Estilo do botão de criar equipe */
+.button-container {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* Estilo para os cards de equipe */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: calc(50% - 10px);
+    height: 250px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    background-color: #f1f1f1;
+}
+
+.card-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+.card-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #343a40;
+    text-align: center;
+}
+
+.card-text small {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Estilo para o modal de criação de equipe */
+.modal-content {
+    border-radius: 8px;
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.modal-footer {
+    border-top: none;
+    padding-top: 0;
+}
+
+.btn-primary {
+    border-radius: 25px;
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.form-control {
+    border-radius: 25px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste no título da página */
+h1 {
+    font-weight: 700;
+    color: #343a40;
+    margin-bottom: 20px;
+}

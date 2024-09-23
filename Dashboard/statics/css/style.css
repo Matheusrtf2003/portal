@@ -1,0 +1,150 @@
+/* Estilos para o corpo e HTML */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: White;
+}
+
+/* Estilos para o mapa */
+#map {
+    height: 70vh;
+    width: 100%;
+}
+
+/* Estilos para centralizar verticalmente */
+.vertical-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Estilos para o modal */
+.modal-dialog {
+    max-width: 90%;
+}
+
+/* Estilos para a barra lateral */
+.sidebar {
+    background-color: #f8f9fa;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    padding: 20px;
+    z-index: 1000;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Estilos para os botões dentro da barra lateral */
+.sidebar .btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Estilos para a lista de grupos dentro da barra lateral */
+.sidebar .list-group {
+    margin-top: 20px;
+}
+
+/* Estilos para o modal de detalhes da loja */
+#storeDetailModal .modal-dialog {
+    max-width: 80%;
+}
+
+#storeDetailModal .modal-body {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+/* Estilos para indicadores de status */
+.status-indicator {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* Estilos para itens da lista */
+.list-group-item {
+    margin-bottom: 10px; /* Espaçamento entre itens da lista */
+}
+
+/* Estilos para o menu lateral */
+.sidebar-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #343a40;
+    height: 100vh;
+    padding-top: 20px;
+}
+
+.sidebar-menu .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.sidebar-menu .nav-link img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.contato-icon {
+    margin-right: 20px;
+}
+
+.contato-icon {
+    display: inline-block;
+    margin-right: 10px;
+    color: #007bff;
+}
+.detail-column {
+    flex: 1;
+    min-width: 200px;
+    padding: 40px;
+}
+.detail-column h5 {
+    border-top: 2px solid #ddd;
+    padding-top: 10px;
+    margin-top: 20px;
+}
+#miniMap {
+    width: 100%;
+    height: 90vh; /* Ajuste a altura conforme necessário */
+    margin-top: 20px;
+}
+.detail-header {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+.contact-info a {
+    display: block;
+    margin-bottom: 5px;
+}
+#closeStoreDetails {
+    margin-bottom: 10px;
+}
+
+.store-details {
+    display: none;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+.store-details.show {
+    display: block;
+    opacity: 1;
+    max-height: 1000px; /* Um valor grande o suficiente para acomodar o conteúdo */
+}
+
+.modal-dialog.modal-sm {
+    max-width: 300px;
+}
+
+

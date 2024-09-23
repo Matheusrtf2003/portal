@@ -1,0 +1,63 @@
+#map {
+    height: 100vh;  /* Ocupa toda a altura da tela */
+    width: calc(100%);  /* Ocupa a largura restante após a sidebar */
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* Estilo para a sidebar */
+.sidebar {
+    height: 100%;
+    background-color: #f8f9fa; /* Background mais claro */
+    color: #333; /* Texto escuro para contraste */
+    padding: 20px; /* Espaçamento interno */
+    border-right: 1px solid #dee2e6; /* Linha de separação sutil */
+}
+
+/* Estilo para os inputs e botões na sidebar */
+.sidebar input, 
+.sidebar button {
+    margin-bottom: 15px;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilo dos botões na sidebar */
+.sidebar button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff; /* Cor azul padrão */
+    color: #fff;
+    border: none;
+}
+
+.sidebar button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para a lista de lojas */
+.list-group-item {
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: box-shadow 0.3s ease;
+    background-color: #fff; /* Fundo branco para os itens da lista */
+    border: 1px solid #ddd; /* Borda suave */
+    padding: 10px; /* Espaçamento interno */
+    color: #333; /* Texto escuro */
+}
+
+.list-group-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #e9ecef; /* Fundo mais claro ao passar o mouse */
+}
+
+/* Estilo para o contador de resultados */
+#resultCount {
+    font-size: 16px;
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+

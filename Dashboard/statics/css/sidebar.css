@@ -1,0 +1,45 @@
+/* Estilos gerais */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* Estilos da barra lateral */
+.sidebar-menu {
+    background-color: #eeeeee;
+    height: 100vh;
+    width: 120px; /* Ajuste a largura conforme necessário */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.sidebar-menu .nav-link {
+    color: black;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all .1s ease;
+}
+
+
+.sidebar-menu .nav-link:hover {
+    background-color: white;
+}
+
+
+.sidebar-menu .nav-link.active {
+    background-color: white;
+}
+
+
+
