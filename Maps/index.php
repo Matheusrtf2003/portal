@@ -66,99 +66,6 @@ $credits = $user['credits'];
     </div>
     <?php include '../MenuUsuario/user_menu.php'; ?>
 
-    <!-- Modal Selecionar Estado -->
-    <div class="modal fade" id="selectStateModal" tabindex="-1" aria-labelledby="selectStateModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="selectStateModalLabel">Selecionar Estado</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="stateForm">
-                        <div class="form-group">
-                            <label for="stateSelect">Estado:</label>
-                            <select class="form-control" id="stateSelect" name="estado">
-                                <!-- Adicione os estados aqui -->
-                                <option value="SP">São Paulo</option>
-                                <option value="RJ">Rio de Janeiro</option>
-                                <option value="MG">Minas Gerais</option>
-                                <!-- Adicione outros estados conforme necessário -->
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="openMap()">Abrir</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Modal Filtrar Lojas -->
-    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="filterModalLabel">Filtrar Lojas</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="filterForm">
-                        <div class="form-group">
-                            <label for="filterStatus">Status:</label>
-                            <select class="form-control" id="filterStatus" name="status">
-                                <option value="">Todos</option>
-                                <option value="Descoberto">Descoberto</option>
-                                <option value="Coberto">Coberto</option>
-                                <option value="Ativo">Ativo</option>
-                                <option value="Inativo">Inativo</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="filterVendedor">Vendedor:</label>
-                            <select class="form-control" id="filterVendedor" name="vendedor">
-                                <option value="">Todos</option>
-                                <!-- Vendedores serão carregados dinamicamente -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="filterAddress">Palavra-chave do Endereço:</label>
-                            <input type="text" class="form-control" id="filterAddress" name="addressKeyword">
-                        </div>
-                        <div class="form-group">
-                            <label for="filterCity">Cidade:</label>
-                            <input type="text" class="form-control" id="filterCity" name="cidade">
-                        </div>
-                        <div class="form-group">
-                            <label for="filterState">Estado:</label>
-                            <input type="text" class="form-control" id="filterState" name="estado">
-                        </div>
-                        <div class="form-group">
-                            <label for="filterDatetime">Data de Cadastro:</label>
-                            <input type="date" class="form-control" id="filterDatetime" name="datetime">
-                        </div>
-                        <div class="form-group">
-                            <label for="filterMarkers">Marcadores:</label>
-                            <select class="form-control" id="filterMarkers" name="markers[]" multiple>
-                                <!-- Marcadores serão carregados dinamicamente -->
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="applyFilterButton">Aplicar Filtro</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Modal Filtrar por Status -->
     <div class="modal fade" id="filterStatusModal" tabindex="-1" aria-labelledby="filterStatusModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -173,7 +80,7 @@ $credits = $user['credits'];
                     <form id="filterStatusForm">
                         <div class="form-group">
                             <label for="filterStatusSelect">Status:</label>
-                            <select class="form-control" id="filterStatusSelect" name="status">
+                            <select class="form-control p-0" id="filterStatusSelect" name="status">
                                 <option value="">Todos</option>
                                 <option value="Descoberto">Descoberto</option>
                                 <option value="Coberto">Coberto</option>
@@ -204,9 +111,11 @@ $credits = $user['credits'];
             <div class="modal-body">
                 <form id="filterMarkerForm">
                     <div class="form-group">
-                        <label for="filterMarkers">Marcador:</label>
-                        <select class="form-control" id="filterMarkers" name="marker">
-                            <!-- Os marcadores serão carregados dinamicamente -->
+                        <label for="filterMarkerSelect">Marcador:</label>
+                        <select class="form-control p-0" id="filterMarkerSelect" name="marker">
+                            <option value="">Selecione um marker</option>
+                            <option value="Cosméticos Geral">Cosméticos Geral</option>
+                            <option value="ICP">ICP</option>
                         </select>
                     </div>
                 </form>
@@ -230,7 +139,7 @@ $credits = $user['credits'];
                     </button>
                 </div>
                 <div class="modal-body">
-                    <select id="filterStateSelect" class="form-control" onchange="activateMapButton()">
+                    <select id="filterStateSelect" class="form-control p-0" onchange="activateMapButton()">
                         <option value="">Selecione um estado</option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
