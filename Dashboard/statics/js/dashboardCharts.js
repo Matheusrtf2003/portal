@@ -1,7 +1,7 @@
 // dashboardCharts.js
 
 function loadDashboardCharts(user_id) {
-    fetch('../../../functions/Dashboard/getDashboardChartData.php')
+    fetch('../functions/Dashboard/getDashboardChartData.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {

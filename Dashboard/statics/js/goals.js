@@ -4,7 +4,7 @@ function initializeGoalForm() {
     const goalForm = document.getElementById('goalForm');
 
     // Carregar marcadores
-    fetch('functions/getMarkers.php')
+    fetch('../functions/markers/getMarkers.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -24,7 +24,7 @@ function initializeGoalForm() {
         .catch(error => console.error('Erro ao carregar marcadores:', error));
 
     // Carregar usuários
-    fetch('functions/getUsers.php')
+    fetch('../functions/Users/getUsers.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {

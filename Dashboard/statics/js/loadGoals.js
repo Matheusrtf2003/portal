@@ -1,7 +1,7 @@
 // loadGoals.js
 
 function loadGoals(user_id) {
-    fetch('../../../functions/Metas/getGoals.php')
+    fetch('../functions/Metas/getGoals.php')
         .then(response => response.text())
         .then(text => {
             try {

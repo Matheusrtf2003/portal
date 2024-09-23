@@ -1,7 +1,7 @@
 // dashboard.js
 
 function updateDashboard() {
-    fetch('../../../functions/Stores/getDashboardData.php')
+    fetch('../functions/Stores/getDashboardData.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {

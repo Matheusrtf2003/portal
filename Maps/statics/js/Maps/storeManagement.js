@@ -7,9 +7,11 @@ function loadAllStores() {
         .then(data => {
             if (data.success && Array.isArray(data.stores)) {
                 allStores = data.stores;
+                console.log('Todas as lojas:', allStores); // Adicione esta linha
                 displayStores(allStores);
                 updateResultCount(allStores.length);
                 loadMarkers();
+                loadAvailableUsers(); // Carregar os usuários disponíveis
             } else {
                 console.error('Erro ao carregar lojas:', data.message || 'Erro desconhecido');
             }
@@ -19,6 +21,7 @@ function loadAllStores() {
             alert('Erro ao carregar lojas. Verifique o console para mais detalhes.');
         });
 }
+
 
 function displayStores(stores) {
     clearStoreList();

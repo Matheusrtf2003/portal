@@ -17,7 +17,7 @@ include '../functions/config.php';
     <title>Dashboard</title>
     <link rel="icon" href="statics\img\favi-icon.png" type="image/x-icon">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="..statics/css/style.css">
+    <link rel="stylesheet" href="statics/css/style.css">
     <link rel="stylesheet" href="statics/css/dashboard.css">
     <link rel="stylesheet" href="statics/css/sidebar.css">
     
@@ -117,14 +117,14 @@ include '../functions/config.php';
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="statics/js/Dashboard/dashboard.js"></script>
-    <script src="statics/js/Dashboard/init.js"></script>
-    <script src="statics/js/Dashboard/loadLojas.js"></script>
-    <script src="statics/js/Dashboard/charts.js"></script>
-    <script src="statics/js/Dashboard/dashboard.js"></script>
-    <script src="statics/js/Dashboard/goals.js"></script>
-    <script src="statics/js/Dashboard/loadGoals.js"></script>
-    <script src="statics/js/Dashboard/dashboardCharts.js"></script>
+    <script src="statics/js/dashboard.js"></script>
+    <script src="statics/js/init.js"></script>
+    <script src="statics/js/loadLojas.js"></script>
+    <script src="statics/js/charts.js"></script>
+    <script src="statics/js/dashboard.js"></script>
+    <script src="statics/js/goals.js"></script>
+    <script src="statics/js/loadGoals.js"></script>
+    <script src="statics/js/dashboardCharts.js"></script>
 
 </body>
 </html>

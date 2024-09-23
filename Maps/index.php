@@ -13,6 +13,10 @@ $stmt = $pdo->prepare("SELECT credits FROM users WHERE id = ?");
 $stmt->execute([$userId]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 $credits = $user['credits'];
+
+$stmtUsuarios = $pdo->prepare("SELECT id, nome FROM users");
+$stmtUsuarios->execute();
+$usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +46,9 @@ $credits = $user['credits'];
                 <!-- Botão para abrir o modal de filtro por estado -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterStateModal">
                     Filtrar por Estado
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterUsuarioModal">
+                    Filtrar por Usuário
                 </button>
                 <div class="d-flex mb-3">
                     <button type="button" class="btn btn-secondary mr-2" data-toggle="modal" data-target="#filterStatusModal">Filtrar por Status</button>
@@ -177,6 +184,33 @@ $credits = $user['credits'];
             </div>
         </div>
     </div>
+
+    <!-- Modal de filtro por Usuário -->
+    <div class="modal fade" id="filterUsuarioModal" tabindex="-1" role="dialog" aria-labelledby="filterUsuarioModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterUsuarioModalLabel">Filtrar por Usuário</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <select id="filterUsuarioSelect" class="form-control p-0">
+                        <option value="">Selecione um Usuário</option>
+                        <?php foreach ($usuarios as $usuario): ?>
+                            <option value="<?php echo htmlspecialchars($usuario['id']); ?>"><?php echo htmlspecialchars($usuario['nome']); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" onclick="filterByUser()">Aplicar Filtro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- jQuery, Popper.js, Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

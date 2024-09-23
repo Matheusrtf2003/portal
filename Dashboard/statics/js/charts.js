@@ -1,7 +1,7 @@
 // charts.js
 
 function loadCharts() {
-    fetch('../../../functions/Stores/getStores.php')
+    fetch('portal/functions/Stores/getStores.php')
         .then(response => response.json())
         .then(data => {
             const statusCounts = {};

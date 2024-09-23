@@ -1,7 +1,7 @@
 // loadLojas.js
 
 function loadLojasData() {
-    fetch('../../../functions/Stores/getStores.php')
+    fetch('../functions/Stores/getStores.php')
         .then(response => response.json())
         .then(data => {
             const tbody = document.getElementById('lojasTableBody');
