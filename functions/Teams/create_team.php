@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("INSERT INTO teams (name, description, manager_id, created_by) VALUES (?, ?, ?, ?)");
     $stmt->execute([$name, $description, $manager_id, $created_by]);
 
-    header("Location: ../../pageEquipes.php");
+    header("Location: /portal/Equipes/index.php");
     exit;
 }
 ?>

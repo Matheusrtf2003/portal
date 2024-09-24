@@ -1,72 +1,57 @@
- /* Estilo para a seção da direita */
- .container-right {
-    margin-top: 20px;
+.container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container-right {
+    margin-top: 10%;
+    width: 100%;
     padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 20px;
 }
 
-/* Estilo para o botão de voltar */
-.btn-secondary {
-    border-radius: 25px;
-    background-color: #6c757d;
-    border-color: #6c757d;
-    transition: background-color 0.3s ease;
-    margin-bottom: 20px;
-}
-
-.btn-secondary:hover {
-    background-color: #5a6268;
-    border-color: #545b62;
-}
-
-/* Estilo do botão de criar equipe */
 .button-container {
     text-align: left;
     margin-bottom: 20px;
 }
 
-/* Estilo para os cards de equipe */
 .card-container {
+    width: 100%;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .card {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: calc(50% - 10px);
-    height: 250px;
+    width: calc(50% - 10px); /* Dois cards por linha com espaço entre eles */
+    height: 300px;
     margin-bottom: 20px;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
+    text-align: center;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, background-color 0.3s ease;
+    transition: transform 0.2s;
     cursor: pointer;
+    transition: all .3s ease;
 }
 
 .card:hover {
-    transform: scale(1.03);
-    background-color: #f1f1f1;
+    transform: scale(1.01);
+    background-color: #BFBFBF;
 }
 
 .card-icon {
     font-size: 50px;
-    margin-bottom: 20px;
-    color: #007bff;
+    margin-top: 30px;
 }
 
 .card-text {
+    margin-top: 10px;
     font-size: 18px;
     font-weight: bold;
-    color: #343a40;
-    text-align: center;
 }
 
 .card-text small {
@@ -74,45 +59,4 @@
     margin-top: 10px;
     font-size: 14px;
     color: #666;
-}
-
-/* Estilo para o modal de criação de equipe */
-.modal-content {
-    border-radius: 8px;
-}
-
-.modal-header {
-    background-color: #007bff;
-    color: white;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
-
-.modal-footer {
-    border-top: none;
-    padding-top: 0;
-}
-
-.btn-primary {
-    border-radius: 25px;
-    background-color: #007bff;
-    border-color: #007bff;
-    transition: background-color 0.3s ease;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
-}
-
-.form-control {
-    border-radius: 25px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* Ajuste no título da página */
-h1 {
-    font-weight: 700;
-    color: #343a40;
-    margin-bottom: 20px;
 }

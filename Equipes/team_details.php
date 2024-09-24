@@ -9,7 +9,22 @@ include '../functions/config.php';
 
 $user_id = $_SESSION['user_id'];
 $user_tipo = $_SESSION['user_tipo'];
+
+// Verifica se o parâmetro 'id' está presente na URL
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    echo "Erro: ID da equipe não especificado.";
+    exit;
+}
+
 $team_id = $_GET['id'];
+
+// Sanitização do 'id' para evitar SQL Injection
+$team_id = filter_var($team_id, FILTER_VALIDATE_INT);
+
+if (!$team_id) {
+    echo "Erro: ID da equipe inválido.";
+    exit;
+}
 
 // Verifica se o usuário tem permissão para acessar essa equipe
 if ($user_tipo === 'Gerente') {
@@ -17,13 +32,18 @@ if ($user_tipo === 'Gerente') {
     $stmt->execute([$team_id, $user_id]);
     $team = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$team) {
-        header("Location: teams.php");
+        header("Location: index.php"); // Redireciona para a lista de equipes
         exit;
     }
 } else {
     $stmt = $pdo->prepare("SELECT * FROM teams WHERE id = ?");
     $stmt->execute([$team_id]);
     $team = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+if (!$team) {
+    echo "Erro: Equipe não encontrada.";
+    exit;
 }
 
 // Pega os membros da equipe
@@ -36,7 +56,6 @@ $stmt = $pdo->prepare("SELECT id, nome, email FROM users WHERE id NOT IN (SELECT
 $stmt->execute([$team_id]);
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -55,7 +74,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php include '../sidebar/sidebar.php'; ?>
         <div class="container-right">
             <?php include '../MenuUsuario/user_menu.php'; ?>
-            <a href="pageEquipes.php" class="btn btn-secondary mt-4">Voltar</a>
+            <a href="index.php" class="btn btn-secondary mt-4">Voltar</a> <!-- Link corrigido -->
 
             <h1><?php echo htmlspecialchars($team['name']); ?></h1>
             <p><?php echo htmlspecialchars($team['description']); ?></p>
@@ -79,7 +98,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <input type="hidden" name="team_id" value="<?php echo $team_id; ?>">
+                <input type="hidden" name="team_id" value="<?php echo htmlspecialchars($team_id); ?>">
                 <button type="submit" class="btn btn-primary">Adicionar Membro</button>
             </form>
 
@@ -97,7 +116,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div>
                         <a href="view_profile.php?id=<?php echo $member['id']; ?>" class="btn btn-info btn-sm">Ver Perfil</a>
                         <form action="../functions/Teams/remove_member.php" method="POST" style="display:inline;">
-                            <input type="hidden" name="team_id" value="<?php echo $team_id; ?>">
+                            <input type="hidden" name="team_id" value="<?php echo htmlspecialchars($team_id); ?>">
                             <input type="hidden" name="user_id" value="<?php echo $member['id']; ?>">
                             <button type="submit" class="btn btn-danger btn-sm">Remover</button>
                         </form>
@@ -111,7 +130,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- jQuery, Popper.js, Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+
     <!-- Script para Filtrar Usuários -->
     <script>
         $(document).ready(function(){

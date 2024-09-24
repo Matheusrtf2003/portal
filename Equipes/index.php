@@ -155,7 +155,7 @@ if ($user_tipo == 'Administrador') {
                         <?php if ($user_tipo == 'Administrador'): ?>
                         <div class="form-group">
                             <label for="teamManager">Responsável (Gerente)</label>
-                            <select class="form-control" id="teamManager" name="manager_id" required>
+                            <select class="form-control p-0" id="teamManager" name="manager_id" required>
                                 <?php foreach ($managers as $manager): ?>
                                 <option value="<?php echo $manager['id']; ?>"><?php echo htmlspecialchars($manager['nome']); ?></option>
                                 <?php endforeach; ?>

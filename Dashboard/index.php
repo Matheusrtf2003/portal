@@ -17,10 +17,8 @@ include '../functions/config.php';
     <title>Dashboard</title>
     <link rel="icon" href="statics\img\favi-icon.png" type="image/x-icon">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="statics/css/style.css">
     <link rel="stylesheet" href="statics/css/dashboard.css">
-    <link rel="stylesheet" href="statics/css/sidebar.css">
-    
+    <link rel="stylesheet" href="../sidebar/css/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>

@@ -7,12 +7,6 @@ if (!isset($_SESSION['user_id'])) {
 
 include '../functions/config.php';
 
-// Obtendo os créditos do usuário
-$userId = $_SESSION['user_id'];
-$stmt = $pdo->prepare("SELECT credits FROM users WHERE id = ?");
-$stmt->execute([$userId]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
-$credits = $user['credits'];
 
 // Consulta para obter os marcadores e a contagem de lojas associadas
 $query = "

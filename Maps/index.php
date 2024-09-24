@@ -19,9 +19,8 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
     <meta http-equiv="Cache-Control" content="no-cache" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="statics\img\favi-icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="../statics/css/style.css">
-    <link rel="stylesheet" href="../sidebar/css/sidebar.css">
     <link rel="stylesheet" href="statics/css/maps.css">
+    <link rel="stylesheet" href="../sidebar/css/sidebar.css">
     <title>Lojas</title>
     
     <!-- Bootstrap CSS -->
@@ -34,7 +33,7 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="container-fluid d-flex flex-column" style="height: 100vh;">
         <div class="row flex-grow-1" style="margin-left: 100px;">
-            <div class="col-lg-3 sidebar bg-light">
+            <div class="col-lg-3 barra-lateral bg-light">
                 <input type="text" id="searchInput" class="form-control mb-3" placeholder="Pesquisar por Nome, Cidade ou Estado">
                 <!-- Botão para abrir o modal de filtro por estado -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterStateModal">

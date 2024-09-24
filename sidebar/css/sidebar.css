@@ -3,8 +3,6 @@ body, html {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
 }
 
 /* Estilos da barra lateral */
@@ -41,5 +39,13 @@ body, html {
     background-color: white;
 }
 
+.sidebar-menu .nav-link span {
+    font-size: 12px; /* Ajuste o tamanho conforme necessário */
+}
+
+.sidebar-menu .nav-link i {
+    font-size: 24px; /* Tamanho dos ícones */
+    margin-bottom: 5px; /* Espaço entre o ícone e o texto */
+}
 
 
