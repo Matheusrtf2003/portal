@@ -5,26 +5,31 @@ include '../config.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['storeId'] ?? '';
-    $nome = $_POST['nome'] ?? '';
-    $cnpj = $_POST['cnpj'] ?? '';
-    $status = $_POST['status'] ?? '';
-    $endereco = $_POST['endereco'] ?? '';
-    $cidade = $_POST['cidade'] ?? '';
-    $estado = $_POST['estado'] ?? '';
-    $anotacao = $_POST['anotacao'] ?? '';
-    $telefone = $_POST['telefone'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $instagram = $_POST['instagram'] ?? '';
-    $site = $_POST['site'] ?? '';
-    $decisor = $_POST['decisor'] ?? '';
-    $telefone_decisor = $_POST['telefone_decisor'] ?? '';
-    $marcadores = $_POST['marcadores'] ?? [];
+    // Captura os dados do corpo da requisição
+    $data = json_decode(file_get_contents('php://input'), true);
 
-    if (empty($id)) {
+    // Verifique se o storeId foi passado corretamente
+    $id = intval($data['storeId'] ?? 0);
+    if ($id === 0) {
         echo json_encode(['success' => false, 'message' => 'ID da loja é obrigatório.']);
         exit;
     }
+
+    // Captura os outros campos
+    $nome = $data['nome'] ?? '';
+    $cnpj = $data['cnpj'] ?? '';
+    $status = $data['status'] ?? '';
+    $endereco = $data['endereco'] ?? '';
+    $cidade = $data['cidade'] ?? '';
+    $estado = $data['estado'] ?? '';
+    $anotacao = $data['anotacao'] ?? '';
+    $telefone = $data['telefone'] ?? '';
+    $email = $data['email'] ?? '';
+    $instagram = $data['instagram'] ?? '';
+    $site = $data['site'] ?? '';
+    $decisor = $data['decisor'] ?? '';
+    $telefone_decisor = $data['telefone_decisor'] ?? '';
+    $marcadores = $data['marcadores'] ?? [];
 
     try {
         // Atualizando a loja

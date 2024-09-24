@@ -251,44 +251,74 @@ document.getElementById('storeForm').addEventListener('submit', function(event) 
 function editStore(storeId) {
     // Faz uma requisição para buscar os dados da loja com base no storeId
     fetch(`/portal/functions/Stores/getStore.php?id=${storeId}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Popula o formulário com os dados da loja
-                populateStoreForm(data.store);
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Preenche o campo oculto com o ID da loja para edição
+            document.getElementById('storeId').value = storeId; // Certifica-se de que o storeId é atribuído corretamente
 
-                // Ajusta o título do modal para edição
-                const modalTitle = document.getElementById('addStoreModalLabel');
-                if (modalTitle) {
-                    modalTitle.textContent = 'Editar Loja';
-                }
+            // Preenche o formulário com os dados da loja
+            document.getElementById('storeName').value = data.store.nome;
+            document.getElementById('cnpj').value = data.store.cnpj;
+            document.getElementById('storeStatus').value = data.store.status;
+            document.getElementById('storeAddress').value = data.store.endereco;
+            document.getElementById('storeCity').value = data.store.cidade;
+            document.getElementById('storeState').value = data.store.estado;
+            document.getElementById('storeMesorregiao').value = data.store.mesorregiao;
+            document.getElementById('storePhone').value = data.store.telefone;
+            document.getElementById('storeInstagram').value = data.store.instagram;
+            document.getElementById('storeWebsite').value = data.store.site;
+            document.getElementById('storeDecider').value = data.store.decisor;
+            document.getElementById('storeDeciderPhone').value = data.store.telefone_decisor;
+            document.getElementById('storeEmail').value = data.store.email;
 
-                // Abre o modal de edição
-                $('#addStoreModal').modal('show');
-            } else {
-                alert('Erro ao carregar os dados da loja: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao carregar a loja:', error);
-            alert('Erro ao carregar a loja. Verifique o console para mais detalhes.');
-        });
+            // Se houver marcadores, marque as checkboxes correspondentes
+            const markers = data.store.marcadores || [];
+            document.querySelectorAll('input[name="marcadores[]"]').forEach(checkbox => {
+                checkbox.checked = markers.includes(checkbox.value);
+            });
+
+            // Ajusta o título do modal para edição
+            const modalTitle = document.getElementById('addStoreModalLabel');
+            modalTitle.textContent = 'Editar Loja';
+
+            // Abre o modal de edição
+            $('#addStoreModal').modal('show');
+        } else {
+            alert('Erro ao carregar os dados da loja: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao carregar a loja:', error);
+        alert('Erro ao carregar a loja. Verifique o console para mais detalhes.');
+    });
 }
 
 
-function openAddStoreModal() {
-    // Limpa o formulário para evitar dados residuais de edições anteriores
+
+// Função para limpar os campos do modal
+function clearStoreForm() {
+    // Limpar todos os campos de texto
     document.getElementById('storeForm').reset();
-    
-    // Reseta o valor do campo storeId para garantir que não haja ID residual
+
+    // Remover o valor do campo hidden storeId
     document.getElementById('storeId').value = '';
 
-    // Ajusta o título do modal para "Adicionar Loja"
-    document.getElementById('modalTitle').textContent = 'Adicionar Loja';
+    // Desmarcar todas as checkboxes de marcadores
+    document.querySelectorAll('input[name="marcadores[]"]').forEach(checkbox => {
+        checkbox.checked = false;
+    });
 
-    // Abre o modal de adição
-    $('#addStoreModal').modal('show');
+    // Redefinir o título do modal para "Adicionar Loja"
+    const modalTitle = document.getElementById('addStoreModalLabel');
+    modalTitle.textContent = 'Adicionar Loja';
 }
+
+// Evento que será chamado sempre que o modal for fechado
+$('#addStoreModal').on('hidden.bs.modal', function () {
+    clearStoreForm();
+});
+
 
 console.log('Store ID:', storeId);  // Adicione este log antes do envio da requisição
 
