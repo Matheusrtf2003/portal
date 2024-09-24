@@ -5,7 +5,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-include 'functions/config.php';
+include '../functions/config.php';
 
 $user_id = $_GET['id'];
 
@@ -62,13 +62,19 @@ foreach ($performanceData as $data) {
     <title>Perfil de <?php echo htmlspecialchars($user['nome']); ?></title>
     <link rel="icon" href="statics\img\favi-icon.png" type="image/x-icon">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="statics/css/style.css">
-    <link rel="stylesheet" href="statics/css/view_profile.css">
-    <link rel="stylesheet" href="statics/css/sidebar.css">
+    <link rel="stylesheet" href="../Dashboard/statics/css/style.css">
+    <link rel="stylesheet" href="../Perfil/statics/css/view_profile.css">
+    <link rel="stylesheet" href="../Dashboard/statics/css/sidebar.css">
     <style>
         body {
             background-color: #f8f9fa;
         }
+
+        .container-right {
+            margin-bottom: 0;
+            padding-bottom: 20px; /* Adicionar padding em vez de margin no final */
+        }
+
         .profile-container {
             max-width: 900px;
             margin: 30px auto;
@@ -132,21 +138,21 @@ foreach ($performanceData as $data) {
         }
     </style>
 </head>
-<body>
-    <div class="container profile-container">
-        <?php include 'sidebar.php'; ?>
+<body class="py-4">
+    <div class="container profile-container mt-0">
+        <?php include '../sidebar/sidebar.php'; ?>
         <div class="container-right">
-            <?php include 'user_menu.php'; ?>
-            <a href="javascript:history.back()" class="btn btn-secondary mt-4">Voltar</a>
+            <?php include '../MenuUsuario/user_menu.php'; ?>
+            <a href="javascript:history.back()" class="btn btn-secondary ">Voltar</a>
 
             <div class="profile-header">
                 <!-- Exibição da imagem do usuário -->
                 <div>
-                    <?php if (!empty($user['img_name'])): ?>
-                        <img src="uploads/<?php echo htmlspecialchars($user['img_name']); ?>" alt="Foto de <?php echo htmlspecialchars($user['nome']); ?>" class="profile-image">
-                    <?php else: ?>
-                        <img src="uploads/default.png" alt="Foto padrão" class="profile-image">
-                    <?php endif; ?>
+                <?php if (!empty($user['img_name'])): ?>
+                    <img src="../uploads/<?php echo htmlspecialchars($user['img_name']); ?>" alt="Foto de <?php echo htmlspecialchars($user['nome']); ?>" class="profile-image">
+                <?php else: ?>
+                    <img src="../uploads/default.png" alt="Foto padrão" class="profile-image">
+                <?php endif; ?>
                 </div>
                 <div class="info">
                     <h1>Perfil de <?php echo htmlspecialchars($user['nome']); ?></h1>
@@ -197,7 +203,7 @@ foreach ($performanceData as $data) {
                 <h2>Desempenho nos Últimos 30 Dias</h2>
                 <canvas id="performanceChart"></canvas>
             </div>
-        </div>
+        </div> 
     </div>
     <!-- jQuery, Popper.js, Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -205,6 +211,8 @@ foreach ($performanceData as $data) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Adicionar o adaptador de datas para Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3"></script>
     <script>
         const ctx = document.getElementById('performanceChart').getContext('2d');
         const performanceChart = new Chart(ctx, {
