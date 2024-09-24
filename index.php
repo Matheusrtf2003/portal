@@ -2,41 +2,30 @@
 session_start();
 include 'functions/config.php';
 
-$error_message = '';
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Sanitização dos inputs
-    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+    $email = $_POST['email'];
     $senha = $_POST['senha'];
 
-    // Preparando a consulta para buscar o usuário
-    $stmt = $pdo->prepare("SELECT id, senha, nome, tipo, function FROM users WHERE email = ? AND status = 'Ativo'");
-    if (!$stmt) {
-        die("Erro na preparação do statement: ");
-    }
-
+    // Consulta para buscar o usuário
+    $stmt = $pdo->prepare("SELECT id, senha, nome, tipo, function FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user) {
-        // Verificação da senha (ajuste para hash se necessário)
-        if ($senha === $user['senha']) {
-            // Armazenando informações do usuário na sessão
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_nome'] = $user['nome'];
-            $_SESSION['user_tipo'] = $user['tipo'];
-            $_SESSION['user_function'] = $user['function']; // Armazenando a função do usuário na sessão
-
-            header("Location: Dashboard/index.php");
-            exit;
-        } else {
-            $error_message = "Senha incorreta.";
-        }
+    // Verifica se o usuário existe e compara a senha sem hash
+    if ($user && $senha === $user['senha']) {
+        // Salva as informações do usuário na sessão
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_nome'] = $user['nome'];
+        $_SESSION['user_tipo'] = $user['tipo']; // Captura o tipo do usuário
+        $_SESSION['user_function'] = $user['function']; // Captura a função do usuário
+        
+        header('Location: Dashboard/index.php'); // Redireciona para o dashboard
     } else {
-        $error_message = "Usuário não encontrado ou inativo.";
+        echo "Credenciais inválidas.";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">

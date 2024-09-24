@@ -13,6 +13,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lojas</title>
     <link rel="icon" href="/portal/statics/img/favi-icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../statics/css/style.css">
     <link rel="stylesheet" href="statics/css/lojas.css">
@@ -97,7 +98,7 @@ if (!isset($_SESSION['user_id'])) {
                         <!-- Campo de seleção para Vendedores -->
                         <div class="form-group">
                             <label for="vendedor">Vendedor:</label>
-                            <select class="form-control" id="vendedor" name="vendedor">
+                            <select class="form-control p-0" id="vendedor" name="vendedor">
                                 <option value="" disabled selected>Selecione um vendedor</option>
                                 <?php
                                 // Pegar os vendedores da tabela users
@@ -159,7 +160,7 @@ if (!isset($_SESSION['user_id'])) {
                         <!-- Mesorregião -->
                         <div class="form-group">
                             <label for="storeMesorregiao">Mesorregião:</label>
-                            <select class="form-control" id="storeMesorregiao" name="mesorregiao">
+                            <select class="form-control p-0" id="storeMesorregiao" name="mesorregiao">
                                 <option value="" disabled selected>Selecione uma mesorregião</option>
                             </select>
                         </div>

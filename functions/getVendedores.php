@@ -2,7 +2,8 @@
 include '../config.php';
 
 try {
-    $stmt = $pdo->prepare("SELECT id, nome FROM users WHERE function = 'Vendedor'");
+    // Corrigido o uso do operador OR
+    $stmt = $pdo->prepare("SELECT id, nome FROM users WHERE function = 'Representante' OR function = 'Vendedor'");
     $stmt->execute();
     $vendedores = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

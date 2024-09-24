@@ -7,54 +7,65 @@ $userTipo = $_SESSION['user_tipo'];
 
 try {
     if ($userTipo === 'Administrador') {
+        // If the user is an Administrator, fetch all stores
         $stmt = $pdo->prepare("
             SELECT s.*, 
-                   GROUP_CONCAT(m.id) as marcador_ids, 
-                   GROUP_CONCAT(m.nome) as marcador_nomes, 
-                   GROUP_CONCAT(m.cor) as marcador_cores,
-                   GROUP_CONCAT(u.id) as usuario_ids,  /* IDs dos usuários */
-                   GROUP_CONCAT(u.nome) as usuarios,
-                   vs.nome as vendedor_nome, /* Nome do vendedor */
-                   vs.id as vendedor_id      /* ID do vendedor */
+                   e.sigla AS estado_sigla,          
+                   meso.nome AS mesorregiao_nome,    
+                   GROUP_CONCAT(DISTINCT mr.id) AS marcador_ids, 
+                   GROUP_CONCAT(DISTINCT mr.nome) AS marcador_nomes, 
+                   GROUP_CONCAT(DISTINCT mr.cor) AS marcador_cores,
+                   GROUP_CONCAT(DISTINCT u.id) AS usuario_ids,  
+                   GROUP_CONCAT(DISTINCT u.nome) AS usuarios,
+                   vs.nome AS vendedor_nome, 
+                   vs.id AS vendedor_id      
             FROM stores s 
+            LEFT JOIN estados e ON s.estado = e.id
+            LEFT JOIN mesorregioes meso ON s.mesorregiao = meso.id
             LEFT JOIN stores_markers sm ON s.id = sm.loja_id 
-            LEFT JOIN markers m ON sm.marcador_id = m.id 
+            LEFT JOIN markers mr ON sm.marcador_id = mr.id 
             LEFT JOIN stores_users su ON s.id = su.store_id 
             LEFT JOIN users u ON su.user_id = u.id
             LEFT JOIN stores_seller ss ON s.id = ss.store_id
-            LEFT JOIN users vs ON ss.vendedor_id = vs.id  /* Join para o vendedor */
+            LEFT JOIN users vs ON ss.vendedor_id = vs.id  
             GROUP BY s.id
-            ORDER BY s.datetime DESC  /* Ordenar por data de registro */
+            ORDER BY s.datetime DESC
         ");
         $stmt->execute();
     } else {
+        // For non-administrator users, fetch stores associated via stores_users or stores_seller
         $stmt = $pdo->prepare("
             SELECT s.*, 
-                   GROUP_CONCAT(m.id) as marcador_ids, 
-                   GROUP_CONCAT(m.nome) as marcador_nomes, 
-                   GROUP_CONCAT(m.cor) as marcador_cores,
-                   GROUP_CONCAT(u.id) as usuario_ids,  /* IDs dos usuários */
-                   GROUP_CONCAT(u.nome) as usuarios,
-                   vs.nome as vendedor_nome, /* Nome do vendedor */
-                   vs.id as vendedor_id      /* ID do vendedor */
+                   e.sigla AS estado_sigla,          
+                   meso.nome AS mesorregiao_nome,    
+                   GROUP_CONCAT(DISTINCT mr.id) AS marcador_ids, 
+                   GROUP_CONCAT(DISTINCT mr.nome) AS marcador_nomes, 
+                   GROUP_CONCAT(DISTINCT mr.cor) AS marcador_cores,
+                   GROUP_CONCAT(DISTINCT u.id) AS usuario_ids,  
+                   GROUP_CONCAT(DISTINCT u.nome) AS usuarios,
+                   vs.nome AS vendedor_nome, 
+                   vs.id AS vendedor_id 
             FROM stores s 
+            LEFT JOIN estados e ON s.estado = e.id
+            LEFT JOIN mesorregioes meso ON s.mesorregiao = meso.id
             LEFT JOIN stores_markers sm ON s.id = sm.loja_id 
-            LEFT JOIN markers m ON sm.marcador_id = m.id 
-            INNER JOIN stores_users su ON s.id = su.store_id 
+            LEFT JOIN markers mr ON sm.marcador_id = mr.id 
+            LEFT JOIN stores_users su ON s.id = su.store_id 
             LEFT JOIN users u ON su.user_id = u.id
             LEFT JOIN stores_seller ss ON s.id = ss.store_id
-            LEFT JOIN users vs ON ss.vendedor_id = vs.id  /* Join para o vendedor */
-            WHERE su.user_id = ? 
+            LEFT JOIN users vs ON ss.vendedor_id = vs.id  
+            WHERE su.user_id = :userId OR ss.vendedor_id = :userId
             GROUP BY s.id
-            ORDER BY s.datetime DESC  /* Ordenar por data de registro */
+            ORDER BY s.datetime DESC
         ");
-        $stmt->execute([$userId]);
+        $stmt->execute(['userId' => $userId]);
     }
 
     $stores = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Processar os marcadores e usuários para garantir que sejam arrays
+    // Process the fetched data to convert markers and users into arrays
     foreach ($stores as &$store) {
+        // Process markers
         $marcador_ids = isset($store['marcador_ids']) ? explode(',', $store['marcador_ids']) : [];
         $marcador_nomes = isset($store['marcador_nomes']) ? explode(',', $store['marcador_nomes']) : [];
         $marcador_cores = isset($store['marcador_cores']) ? explode(',', $store['marcador_cores']) : [];
@@ -70,7 +81,7 @@ try {
         $store['marcadores'] = $marcadores;
         unset($store['marcador_ids'], $store['marcador_nomes'], $store['marcador_cores']);
 
-        // Processar usuários
+        // Process users
         $usuario_ids = isset($store['usuario_ids']) ? explode(',', $store['usuario_ids']) : [];
         $usuarios = isset($store['usuarios']) ? explode(',', $store['usuarios']) : [];
 
@@ -84,17 +95,16 @@ try {
         $store['usuarios_data'] = $usuarios_data;
         unset($store['usuario_ids'], $store['usuarios']);
 
-        // Adicionar o vendedor à loja
-        $store['vendedor'] = [
+        // Add the seller to the store
+        $store['Vendedor'] = [
             'id' => $store['vendedor_id'],
             'nome' => $store['vendedor_nome']
         ];
-        unset($store['vendedor_id'], $store['vendedor_nome']); // Limpa os dados não processados
+        unset($store['vendedor_id'], $store['vendedor_nome']); // Clean up raw data
     }
 
     echo json_encode(['success' => true, 'stores' => $stores]);
 } catch (Exception $e) {
     echo json_encode(['success' => false, 'message' => 'Erro ao carregar lojas: ' . $e->getMessage()]);
 }
-
 ?>
