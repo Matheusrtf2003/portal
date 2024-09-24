@@ -101,6 +101,7 @@ try {
             'nome' => $store['vendedor_nome']
         ];
         unset($store['vendedor_id'], $store['vendedor_nome']); // Clean up raw data
+        
     }
 
     echo json_encode(['success' => true, 'stores' => $stores]);

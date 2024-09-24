@@ -77,14 +77,13 @@ function createStoreRow(store) {
 
     const statusBadge = `<span style="background-color: ${statusColor}; color: white; padding: 6px; border-radius: 8px;">${store.status}</span>`;
 
-    // Definindo o nome do vendedor ou um texto padrão caso não haja
-    const vendedorNome = store.vendedor && store.vendedor.nome ? store.vendedor.nome : null; 
+    const vendedorNome = store.Vendedor && store.Vendedor.nome ? store.Vendedor.nome : null;
 
     // Se não houver vendedor, exibe o botão "Atribuir Vendedor"
-    const vendedorCell = vendedorNome 
-        ? vendedorNome 
-        : `<button class="btn btn-primary btn-sm" onclick="openAssignVendedorModal(${store.id})">Atribuir Vendedor</button>`;
-
+    const vendedorCell = vendedorNome
+        ? vendedorNome
+        : `<button class="btn btn-primary btn-sm" onclick="openAssignVendedorModal(${store.id})">Atribuir Vendedor</button>`;    
+        
     // Criando a linha da tabela
     const row = document.createElement('tr');
     row.innerHTML = `
@@ -113,7 +112,6 @@ function createStoreRow(store) {
             <button class="btn btn-danger btn-sm" onclick="deleteStore(${store.id})">Excluir</button>
         </td>
     `;
-
     return row;
 }
 
