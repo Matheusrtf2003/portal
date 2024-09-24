@@ -96,22 +96,6 @@ if (!isset($_SESSION['user_id'])) {
                     <input type="hidden" id="storeId" name="storeId">
 
                         <!-- Campo de seleção para Vendedores -->
-                        <div class="form-group">
-                            <label for="vendedor">Vendedor:</label>
-                            <select class="form-control p-0" id="vendedor" name="vendedor">
-                                <option value="" disabled selected>Selecione um vendedor</option>
-                                <?php
-                                // Pegar os vendedores da tabela users
-                                $stmt = $pdo->prepare("SELECT id, nome FROM users WHERE function = 'Vendedor' OR function = 'Representante'");
-                                $stmt->execute();
-                                $vendedores = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                                foreach ($vendedores as $vendedor) {
-                                    echo '<option value="' . $vendedor['id'] . '">' . $vendedor['nome'] . '</option>';
-                                }
-                                ?>
-                            </select>
-                        </div>
 
                         <!-- Nome -->
                         <div class="form-group">
