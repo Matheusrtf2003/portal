@@ -122,7 +122,6 @@ include '../functions/config.php';
     <script src="statics/js/loadLojas.js"></script>
     <script src="statics/js/charts.js"></script>
     <script src="statics/js/dashboard.js"></script>
-    <script src="statics/js/goals.js"></script>
     <script src="statics/js/loadGoals.js"></script>
     <script src="statics/js/dashboardCharts.js"></script>
 

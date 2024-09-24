@@ -7,13 +7,6 @@ if (!isset($_SESSION['user_id'])) {
 
 include '../functions/config.php';
 
-// Obtendo os créditos do usuário
-$userId = $_SESSION['user_id'];
-$stmt = $pdo->prepare("SELECT credits FROM users WHERE id = ?");
-$stmt->execute([$userId]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
-$credits = $user['credits'];
-
 $stmtUsuarios = $pdo->prepare("SELECT id, nome FROM users");
 $stmtUsuarios->execute();
 $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
