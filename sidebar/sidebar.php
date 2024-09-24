@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_tipo = $_SESSION['user_tipo'];
 $user_function = isset($_SESSION['user_function']) ? $_SESSION['user_function'] : '';
 ?>
-<link rel="stylesheet" href="css/sidebar.css">
+<link rel="stylesheet" href="../Perfil/statics/css/view_profile.css">
 <nav class="sidebar-menu">
     <ul class="nav flex-column">
         <!-- Dashboard -->

@@ -73,7 +73,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <form action="functions/Teams/add_member.php" method="POST">
                 <div class="form-group">
                     <label for="userSelect">Selecionar Usuário</label>
-                    <select class="form-control" id="userSelect" name="user_id" required>
+                    <select class="form-control p-0" id="userSelect" name="user_id" required>
                         <?php foreach ($users as $user): ?>
                         <option value="<?php echo $user['id']; ?>"><?php echo htmlspecialchars($user['nome']); ?> (<?php echo htmlspecialchars($user['email']); ?>)</option>
                         <?php endforeach; ?>
