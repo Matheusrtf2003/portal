@@ -244,7 +244,7 @@ if (!isset($_SESSION['user_id'])) {
                     <!-- Filtro de Status -->
                     <div class="form-group">
                         <label for="filterStatus">Status:</label>
-                        <select class="form-control" id="filterStatus" name="status">
+                        <select class="form-control p-0" id="filterStatus" name="status">
                             <option value="">Todos</option>
                             <option value="Descoberto">Descoberto</option>
                             <option value="Coberto">Coberto</option>
@@ -363,7 +363,7 @@ if (!isset($_SESSION['user_id'])) {
       </div>
       <div class="modal-body">
         <label for="vendedorSelect">Selecione um Vendedor</label>
-        <select class="form-control" id="vendedorSelect">
+        <select class="form-control p-0" id="vendedorSelect">
           <option value="" disabled selected>Selecione um vendedor</option>
         </select>
 
@@ -392,7 +392,6 @@ if (!isset($_SESSION['user_id'])) {
     <script src="statics/js/vendorAssignment.js"></script>
     <script src="statics/js/estadoMeso.js"></script>
     <script src="statics/js/deleteStore.js"></script>
-
     <script src="statics/js/deleteSelectedStores.js"></script>
     <script src="statics/js/atribuirVendedorSelecionadas.js"></script>
     <script src="statics/js/selecionarLojas.js"></script>
