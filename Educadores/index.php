@@ -17,31 +17,14 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="statics/css/educadoras.css">
     <link rel="stylesheet" href="../sidebar/css/sidebar.css">
     <style>
-        .table-responsive {
-            overflow-x: auto;
-        }
-        .table th, .table td {
-            white-space: nowrap;
-        }
-        .content {
-            margin-left: 300px; /* Distância para a sidebar, reduzido para 300px */
-            padding: 20px;
-        }
-        table {
-            font-size: 0.8rem; /* Letras menores */
-            width: 100%; /* Alterado para ocupar 100% da largura */
-        }
-        .col-11 {
-            margin-left: 5%; /* Ajuste da margem para melhor alinhamento */
-        }
+        
     </style>
 </head>
 <body>
     <?php include '../sidebar/sidebar.php'; ?>
-
     <div class="container-fluid">
         <div class="row">
-            <div class="col-11">
+            <div class="col-md-10 offset-md-1">
                 <?php include '../MenuUsuario/user_menu.php'; ?>
                 <h1 style="margin-top: 20px; max-width: 100%;">Educadoras</h1>
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addEducatorModal">Adicionar Educadora</button>
@@ -296,6 +279,7 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- jQuery, Popper.js, Bootstrap JS -->
