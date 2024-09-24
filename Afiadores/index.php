@@ -8,7 +8,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../statics/css/style.css">
     <link rel="stylesheet" href="statics/css/afiadores.css">
-    <link rel="stylesheet" href="/portal/sidebar/css/sidebar.css">
+    <link rel="stylesheet" href="../sidebar/css/sidebar.css">
 </head>
 <body>
     <?php include '../sidebar/sidebar.php'; ?>

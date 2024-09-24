@@ -16,9 +16,7 @@ if (!isset($_SESSION['user_id'])) {
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="statics/css/educadoras.css">
     <link rel="stylesheet" href="../sidebar/css/sidebar.css">
-    <style>
-        
-    </style>
+
 </head>
 <body>
     <?php include '../sidebar/sidebar.php'; ?>

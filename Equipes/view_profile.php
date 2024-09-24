@@ -64,7 +64,7 @@ foreach ($performanceData as $data) {
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Dashboard/statics/css/style.css">
     <link rel="stylesheet" href="../Perfil/statics/css/view_profile.css">
-    <link rel="stylesheet" href="../Dashboard/statics/css/sidebar.css">
+    <link rel="stylesheet" href="../sidebar/css/sidebar.css">
     <style>
         body {
             background-color: #f8f9fa;
