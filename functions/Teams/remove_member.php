@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$team_id, $user_id]);
 
     // Redireciona de volta para a página de detalhes da equipe
-    header("Location: ../../team_details.php?id=$team_id");
+    header("Location: ../../Equipes/team_details.php?id=$team_id");
     exit;
 }
 ?>

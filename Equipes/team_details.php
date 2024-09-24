@@ -51,7 +51,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-4">
         <?php include '../sidebar/sidebar.php'; ?>
         <div class="container-right">
             <?php include '../MenuUsuario/user_menu.php'; ?>
@@ -70,7 +70,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <input type="text" id="userSearch" class="form-control" placeholder="Pesquisar usuário por nome...">
             </div>
 
-            <form action="functions/Teams/add_member.php" method="POST">
+            <form action="../functions/Teams/add_member.php" method="POST">
                 <div class="form-group">
                     <label for="userSelect">Selecionar Usuário</label>
                     <select class="form-control p-0" id="userSelect" name="user_id" required>
@@ -96,7 +96,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <div>
                         <a href="view_profile.php?id=<?php echo $member['id']; ?>" class="btn btn-info btn-sm">Ver Perfil</a>
-                        <form action="functions/Teams/remove_member.php" method="POST" style="display:inline;">
+                        <form action="../functions/Teams/remove_member.php" method="POST" style="display:inline;">
                             <input type="hidden" name="team_id" value="<?php echo $team_id; ?>">
                             <input type="hidden" name="user_id" value="<?php echo $member['id']; ?>">
                             <button type="submit" class="btn btn-danger btn-sm">Remover</button>
