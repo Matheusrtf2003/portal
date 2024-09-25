@@ -96,7 +96,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <td><?php echo htmlspecialchars($user['status']); ?></td>
                                         <td><?php echo htmlentities($user['function']); ?></td> <!-- Exiba a função -->
                                         <td>
-                                            <button class="btn btn-warning btn-sm" onclick="editUser(<?php echo $user['id']; ?>)">Editar</button>
+                                            <button class="btn btn-warning btn-sm edit-btn" onclick="editUser(<?php echo $user['id']; ?>)">Editar</button>
                                             <button class="btn btn-danger btn-sm" onclick="deleteUser(<?php echo $user['id']; ?>)">Excluir</button>
                                         </td>
                                     </tr>
