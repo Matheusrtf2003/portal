@@ -4,7 +4,7 @@ include '../config.php'; // Certifique-se de que o caminho para config.php está
 header('Content-Type: application/json');
 
 try {
-    $stmt = $pdo->query("SELECT id, nome, email, tipo, status, function FROM users");
+    $stmt = $pdo->query("SELECT id, nome, email, senha, tipo, status, function FROM users");
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode(['success' => true, 'users' => $users]);
