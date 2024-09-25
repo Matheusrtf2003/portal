@@ -136,7 +136,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="form-group">
                             <label for="userTipoInput">Tipo:</label>
-                            <select class="form-control" id="userTipoInput" name="tipo" required>
+                            <select class="form-control py-0" id="userTipoInput" name="tipo" required>
                                 <option value="Padrão">Padrão</option>
                                 <option value="Gerente">Gerente</option>
                                 <option value="Administrador">Administrador</option>
@@ -144,14 +144,14 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="form-group">
                             <label for="userStatusInput">Status:</label>
-                            <select class="form-control" id="userStatusInput" name="status" required>
+                            <select class="form-control py-0" id="userStatusInput" name="status" required>
                                 <option value="Ativo">Ativo</option>
                                 <option value="Inativo">Inativo</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="userFunctionInput">Função:</label>
-                            <select class="form-control" id="userFunctionInput" name="function" required>
+                            <select class="form-control py-0" id="userFunctionInput" name="function" required>
                                 <option value="Hunter">Hunter</option>
                                 <option value="Vendedor">Vendedor</option>
                                 <option value="Representantes">Representante</option>
