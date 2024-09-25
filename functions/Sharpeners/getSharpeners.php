@@ -21,19 +21,21 @@ try {
     if ($userTipo === 'Administrador' || ($userTipo === "Gerente")) {
         // Consulta para Administradores e Gerentes
         $stmt = $pdo->prepare("SELECT s.*, GROUP_CONCAT(sm.marcador_id) as marcadores 
-                               FROM sharpeners s 
-                               LEFT JOIN sharpeners_markers sm ON s.id = sm.sharpener_id 
-                               GROUP BY s.id");
+                       FROM sharpeners s 
+                       LEFT JOIN sharpeners_markers sm ON s.id = sm.sharpener_id 
+                       GROUP BY s.id
+                       ORDER BY s.id DESC");
         error_log("Executando consulta para Administrador/Gerente");
         $stmt->execute();
     } elseif ($userTipo === "Padrão" && $userFunction === "Suporte Afiadores"){
         // Consulta para usuários comuns que só podem ver seus próprios afiadores
         $stmt = $pdo->prepare("SELECT s.*, GROUP_CONCAT(sm.marcador_id) as marcadores 
-                               FROM sharpeners s 
-                               LEFT JOIN sharpeners_markers sm ON s.id = sm.sharpener_id 
-                               INNER JOIN sharpeners_users su ON s.id = su.sharpener_id 
-                               WHERE su.user_id = ? 
-                               GROUP BY s.id");
+                       FROM sharpeners s 
+                       LEFT JOIN sharpeners_markers sm ON s.id = sm.sharpener_id 
+                       INNER JOIN sharpeners_users su ON s.id = su.sharpener_id 
+                       WHERE su.user_id = ? 
+                       GROUP BY s.id
+                       ORDER BY s.id DESC");
         error_log("Executando consulta para usuário ID: $userId");
         $stmt->execute([$userId]);
     }

@@ -34,3 +34,12 @@ function displaySharpeners(sharpeners) {
     document.getElementById('prevPage').disabled = currentPage === 1;
     document.getElementById('nextPage').disabled = end >= sharpeners.length;
 }
+
+// Selecionar ou desmarcar todos os checkboxes
+document.getElementById('selectAll').addEventListener('change', function() {
+    const checkboxes = document.querySelectorAll('.select-sharpener');
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = this.checked;
+    });
+});
+
