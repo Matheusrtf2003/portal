@@ -126,6 +126,7 @@ if ($user_tipo == 'Administrador') {
                         <?php echo $team['total_members']; ?> Membro(s)
                         <small>Responsável: <?php echo htmlspecialchars($team['manager_name']); ?></small>
                     </div>
+                    <button class="btn btn-danger btn-md mt-3" onclick="deleteTeam(<?php echo $team['id']; ?>)">Excluir</button>
                 </div>
                 <?php endforeach; ?>
             </div>
@@ -177,5 +178,6 @@ if ($user_tipo == 'Administrador') {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Biblioteca para os ícones -->
+    <script src="statics/js/deleteTeam.js"></script>
 </body>
 </html>
