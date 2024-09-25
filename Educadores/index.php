@@ -70,7 +70,7 @@ if (!isset($_SESSION['user_id'])) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="educatorForm">
+                    <form id="addEducatorForm">
                         <input type="hidden" id="educatorId" name="id">
                         <div class="form-group">
                             <label for="educatorName">Nome:</label>
@@ -147,7 +147,7 @@ if (!isset($_SESSION['user_id'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" form="educatorForm">Salvar</button>
+                    <button type="submit" class="btn btn-primary" form="addEducatorForm">Salvar</button>
                 </div>
             </div>
         </div>
@@ -292,6 +292,7 @@ if (!isset($_SESSION['user_id'])) {
     <script src="statics/js/Educadores/viewEducator.js"></script>
     <script src="statics/js/Educadores/deleteEducator.js"></script>
     <script src="statics/js/Educadores/deleteSelectedEducators.js"></script>
+    <script src="statics/js/Educadores/addEducator.js"></script>
 
 </body>
 </html>

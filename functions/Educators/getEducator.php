@@ -1,20 +1,19 @@
 <?php
 include '../config.php';
 
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-
 try {
-    $stmt = $pdo->prepare("SELECT * FROM educators WHERE id = :id");
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    // Ordenar por 'id' em ordem decrescente para mostrar os mais recentes primeiro
+    $stmt = $pdo->prepare("SELECT * FROM educators ORDER BY id DESC");
     $stmt->execute();
     
+    $educators = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
     if ($stmt->rowCount() > 0) {
-        $educator = $stmt->fetch(PDO::FETCH_ASSOC);
-        echo json_encode(['success' => true, 'educator' => $educator]);
+        echo json_encode(['success' => true, 'educators' => $educators]);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Educadora não encontrada']);
+        echo json_encode(['success' => false, 'message' => 'Nenhuma educadora encontrada']);
     }
 } catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'Erro ao buscar educadora: ' . $e->getMessage()]);
+    echo json_encode(['success' => false, 'message' => 'Erro ao buscar educadoras: ' . $e->getMessage()]);
 }
 ?>

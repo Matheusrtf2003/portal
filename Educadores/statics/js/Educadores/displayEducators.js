@@ -1,17 +1,16 @@
-// displayEducators.js
+let currentPage = 1;  // Defina a página atual globalmente para que ela possa ser alterada
+const itemsPerPage = 20;  // Defina o número de itens por página
 
 function displayEducators(educators) {
     const tbody = document.querySelector('#educatorsTable tbody');
     tbody.innerHTML = '';
 
-    let currentPage = 1;  // Declare and initialize currentPage globally
-const itemsPerPage = 20;  // Also make sure this is defined
-
-
+    // Calcular o índice de início e fim com base na página atual
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const paginatedEducators = educators.slice(start, end);
 
+    // Exibir os educadores paginados
     paginatedEducators.forEach(educator => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -29,6 +28,7 @@ const itemsPerPage = 20;  // Also make sure this is defined
         tbody.appendChild(row);
     });
 
+    // Controle dos botões de navegação
     document.getElementById('prevPage').disabled = currentPage === 1;
     document.getElementById('nextPage').disabled = end >= educators.length;
 
@@ -36,3 +36,24 @@ const itemsPerPage = 20;  // Also make sure this is defined
     const educatorCount = document.getElementById('educatorCount');
     educatorCount.textContent = `Total de Educadoras: ${educators.length}`;
 }
+
+// Funções de paginação
+function changePage(direction) {
+    currentPage += direction;
+    if (currentPage < 1) {
+        currentPage = 1;
+    }
+    if (currentPage > Math.ceil(allEducators.length / itemsPerPage)) {
+        currentPage = Math.ceil(allEducators.length / itemsPerPage);
+    }
+    applyFilters();  // Isso recarrega a tabela para refletir a nova página
+}
+
+// Controle de eventos de navegação
+document.getElementById('prevPage').addEventListener('click', function() {
+    changePage(-1);
+});
+
+document.getElementById('nextPage').addEventListener('click', function() {
+    changePage(1);
+});

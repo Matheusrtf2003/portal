@@ -4,7 +4,7 @@ include '../config.php'; // Inclua seu arquivo de configuração para conexão c
 $response = array('success' => false);
 
 try {
-    $stmt = $pdo->query("SELECT * FROM educators");
+    $stmt = $pdo->query("SELECT * FROM educators ORDER BY id DESC");
     $educators = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if ($educators) {
