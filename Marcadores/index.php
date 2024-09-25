@@ -29,7 +29,6 @@ $markers = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Marcadores</title>
     <link rel="icon" href="statics\img\favi-icon.png" type="image/x-icon">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../statics/css/style.css">
     <link rel="stylesheet" href="statics/css/marcadores.css">
     <link rel="stylesheet" href="../sidebar/css/sidebar.css">
 </head>

@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_id'])) {
         <div class="row">
             <div class="col-md-10 offset-md-1">
                 <?php include '../MenuUsuario/user_menu.php'; ?>
-                <h1 style="margin-top: 20px; max-width: 100%;">Educadoras</h1>
+                <h1 class="title">Educadoras</h1>
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addEducatorModal">Adicionar Educadora</button>
                 <input style="max-width: 100%;" type="text" id="searchInput" class="form-control mt-3 mb-3" placeholder="Pesquisar por ID, Nome ou CPF">
                 <button type="button" class="btn btn-secondary mt-3 mb-3" data-toggle="modal" data-target="#filterStatusModal">Filtrar</button>

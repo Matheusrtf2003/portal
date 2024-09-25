@@ -6,7 +6,6 @@
     <title>Afiadores</title>
     <link rel="icon" href="statics\img\favi-icon.png" type="image/x-icon">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../statics/css/style.css">
     <link rel="stylesheet" href="statics/css/afiadores.css">
     <link rel="stylesheet" href="../sidebar/css/sidebar.css">
 </head>
@@ -17,7 +16,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-9 offset-md-2">
-                <h1 style="margin-top: 20px;">Afiadores</h1>
+                <h1 class="title">Afiadores</h1>
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addSharpenerModal">Adicionar Afiador</button>
                 <input type="text" id="searchInput" class="form-control mt-3 mb-3" placeholder="Pesquisar por ID, Nome ou CPF">
                 <button type="button" class="btn btn-secondary mt-3 mb-3" data-toggle="modal" data-target="#filterModal">Filtrar</button>

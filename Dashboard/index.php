@@ -30,7 +30,7 @@ include '../functions/config.php';
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-7 offset-md-2">
-                <h1 style="margin-top: 20px;">Dashboard</h1>
+                <h1 class='title'>Dashboard</h1>
 
                 <!-- Exibir botão "Criar Meta" apenas para Administradores e Gerentes -->
                 <?php if ($_SESSION['user_tipo'] === 'Administrador' || $_SESSION['user_tipo'] === 'Gerente'): ?>

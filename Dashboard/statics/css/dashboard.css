@@ -3,12 +3,12 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    color: #343a40;
     background-color: #f8f9fa; /* Cor de fundo ajustada */
-    font-family: Arial, sans-serif;
-    font-size: 14px;
 }
 
+.title {
+    margin-top: 20px;
+}
 h1 {
     font-size: 3rem;
     font-weight: bold;

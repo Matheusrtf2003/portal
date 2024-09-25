@@ -36,73 +36,9 @@ if ($user_tipo == 'Administrador') {
     <title>Equipes</title>
     <link rel="icon" href="../statics/img/favi-icon.png" type="image/x-icon">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../statics/css/style.css">
+
     <link rel="stylesheet" href="statics/css/equipes.css">
     <link rel="stylesheet" href="../sidebar/css/sidebar.css">
-    <style>
-        .container {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .container-right {
-            margin-top: 10%;
-            width: 100%;
-            padding: 20px;
-        }
-
-        .button-container {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-
-        .card-container {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .card {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: calc(50% - 10px); /* Dois cards por linha com espaço entre eles */
-            height: 300px;
-            margin-bottom: 20px;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
-            cursor: pointer;
-            transition: all .3s ease;
-        }
-
-        .card:hover {
-            transform: scale(1.01);
-            background-color: #BFBFBF;
-        }
-
-        .card-icon {
-            font-size: 50px;
-            margin-top: 30px;
-        }
-
-        .card-text {
-            margin-top: 10px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .card-text small {
-            display: block;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #666;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
