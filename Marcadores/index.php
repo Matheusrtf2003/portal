@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 include '../functions/config.php';
 
 
+
 // Consulta para obter os marcadores e a contagem de lojas associadas
 $query = "
     SELECT markers.id, markers.nome, markers.cor, COUNT(stores_markers.loja_id) AS loja_count

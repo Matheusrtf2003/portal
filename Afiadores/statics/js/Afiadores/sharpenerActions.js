@@ -29,9 +29,11 @@ function editSharpener(id) {
 
 function deleteSharpener(id) {
     if (confirm('Tem certeza que deseja excluir este afiador?')) {
-        fetch(`/portal/functions/Sharpeners/deleteSharpener.php?id=${id}`, { 
-            method: 'DELETE' 
-        })
+        fetch(`/portal/functions/Sharpeners/deleteSharpener.php`, { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `id=${id}`
+        })                
         .then(response => response.json())
         .then(data => {
             if (data.success) {
