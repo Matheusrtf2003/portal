@@ -161,9 +161,9 @@ $markers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 .then(response => response.json())
                 .then(result => {
                     if (result.success) {
-                        alert('Marcador criado com sucesso!');
                         $('#addMarkerModal').modal('hide');
-                        loadMarkers(); // Atualize a lista de marcadores
+                        alert('Marcador criado com sucesso!');
+                        location.reload()
                     } else {
                         alert('Erro ao criar marcador: ' + result.message);
                     }
@@ -172,16 +172,20 @@ $markers = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }, { once: true }); // Adicionar { once: true } para garantir que o evento seja vinculado apenas uma vez
         }
 
-        // Função para carregar marcadores
         function loadMarkers() {
+            console.log('Iniciando carregamento de marcadores...');
             fetch('/portal/functions/Markers/getMarkers.php')
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Data received from getMarkers.php:', data); // Logging the received data for debugging
+                    console.log('Resposta do servidor:', data); // Verificar se os dados estão corretos
+                    const markerList = document.getElementById('markerList');
+                    
+                    // Limpar a lista atual de marcadores
+                    markerList.innerHTML = '';
+
                     if (data.success && Array.isArray(data.markers)) {
-                        const markerList = document.getElementById('markerList');
-                        markerList.innerHTML = '';
                         data.markers.forEach(marker => {
+                            console.log('Adicionando marcador:', marker); // Verificando cada marcador
                             const row = document.createElement('tr');
                             row.innerHTML = `
                                 <td>${marker.id}</td>
@@ -191,16 +195,19 @@ $markers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" onclick="openEditModal(${marker.id}, '${marker.nome}', '${marker.cor}')">Editar</button>
-                                                                        <button class="btn btn-danger btn-sm" onclick="deleteMarker(${marker.id})">Excluir</button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteMarker(${marker.id})">Excluir</button>
                                 </td>
                             `;
                             markerList.appendChild(row);
                         });
                     } else {
-                        alert('Erro ao carregar marcadores: ' + data.message);
+                        console.log('Erro ao carregar marcadores ou lista vazia:', data.message);
+                        markerList.innerHTML = '<tr><td colspan="4">Nenhum marcador encontrado</td></tr>';
                     }
                 })
-                .catch(error => console.error('Erro ao carregar marcadores:', error));
+                .catch(error => {
+                    console.error('Erro ao carregar marcadores:', error);
+                });
         }
 
         // Função para abrir o modal de edição com dados do marcador
@@ -220,7 +227,7 @@ $markers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        loadMarkers();
+                        location.reload()
                     } else {
                         alert('Erro ao excluir marcador.');
                     }
@@ -243,7 +250,7 @@ $markers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 .then(data => {
                     if (data.success) {
                         $('#editMarkerModal').modal('hide');
-                        loadMarkers();
+                        location.reload()
                     } else {
                         alert('Erro ao atualizar marcador.');
                     }
