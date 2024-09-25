@@ -40,6 +40,7 @@ function loadGoals(user_id) {
                                 </div>
                             </div>
                         `;
+                        console.log('user_id:', user_id, 'goal.created_by:', goal.created_by);
                         if (goal.created_by == user_id) {
                             goalsContainerAdmin.appendChild(goalDiv);
                         } else if (goal.users.some(                            user => user.id == user_id)) {

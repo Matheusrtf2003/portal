@@ -48,7 +48,7 @@ function initializeGoalForm() {
 
         const formData = new FormData(goalForm);
 
-        fetch('../../../functions/Metas/createGoal.php', {
+        fetch('/portal/functions/Metas/createGoal.php', {
             method: 'POST',
             body: formData
         })
@@ -57,7 +57,7 @@ function initializeGoalForm() {
             if (data.success) {
                 alert('Meta criada com sucesso!');
                 $('#createGoalModal').modal('hide');
-                loadGoals();
+                loadGoals()
             } else {
                 alert('Erro ao criar meta: ' + data.message);
             }
@@ -67,6 +67,4 @@ function initializeGoalForm() {
             alert('Erro ao criar meta. Verifique o console para mais detalhes.');
         });
     });
-
-    loadGoals();
 }
