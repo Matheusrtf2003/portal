@@ -2,6 +2,8 @@
 session_start();
 include 'functions/config.php';
 
+$error_message = '';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $senha = $_POST['senha'];
@@ -21,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         header('Location: Dashboard/index.php'); // Redireciona para o dashboard
     } else {
-        echo "Credenciais inválidas.";
+        $error_message = "Credenciais inválidas.";
     }
 }
 ?>
@@ -124,6 +126,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="login-container">
         <img src="statics/img/favi-icon.png" alt="Logotipo">
         <h1 class="text-center">Login</h1>
+        <?php if (!empty($error_message)): ?>
+            <h2 class="text-center text-danger"><?php echo htmlspecialchars($error_message); ?></h2>
+        <?php endif; ?>
         <form method="post" action="">
             <div class="form-group">
                 <label for="email">Email:</label>
@@ -139,12 +144,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <!-- Link para solicitar acesso -->
         <a class="solicitar-acesso" data-toggle="modal" data-target="#requestAccessModal">Solicitar Acesso</a>
-
-        <?php
-        if (!empty($error_message)) {
-            echo '<p class="text-danger text-center mt-3">' . htmlspecialchars($error_message) . '</p>';
-        }
-        ?>
     </div>
 
     <!-- Modal Solicitar Acesso -->
