@@ -37,6 +37,9 @@ if (!isset($_SESSION['user_id'])) {
                 <button type="button" class="btn btn-danger mt-3 mb-3 ml-3" onclick="deleteSelectedStores()">Excluir Selecionadas</button>
                 <button type="button" class="btn btn-primary mt-3 mb-3" onclick="openAssignVendedorModalMultiple()">Atribuir Vendedor às Selecionadas</button>
 
+                <?php if ($user && $user['tipo'] === 'Administrador'): ?>
+                    <button onclick="exportAllDataToExcel()" class="btn btn-primary mt-3 mb-3">Exportar para Excel</button>
+                <?php endif; ?>
                 <div id="storeCount" class="mt-3 mb-3"></div> <!-- Elemento para mostrar a contagem de lojas -->
                 <div class="table-responsive">
                     <table class="table table-bordered" id="storesTable">
@@ -166,6 +169,20 @@ if (!isset($_SESSION['user_id'])) {
                             ?>
                         </div>
 
+                        <div class="form-group">
+                            <label for="storeAnotacao">Especialidade:</label>
+                            <select class="form-control" id="storeAnotacao" name="anotacao">
+                                <option value="Geral">Geral</option>
+                                <option value="Unhas">Unhas</option>
+                                <option value="Cílios">Cílios</option>
+                                <option value="Sobrancelha">Sobrancelha</option>
+                                <option value="Unhas/Cílios">Unhas/Cílios</option>
+                                <option value="Unhas/Sobrancelha">Unhas/Sobrancelha</option>
+                                <option value="Cílios/Sobrancelha">Cílios/Sobrancelha</option>
+                                <option value="Trio">Trio</option>
+                            </select>
+                        </div>
+
                         <!-- Telefone -->
                         <div class="form-group">
                             <label for="storePhone">Telefone:</label>
@@ -240,8 +257,25 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="form-group">
                         <label for="filterMarker">Marcador:</label>
                         <select class="form-control" id="filterMarker">
-                            <option value="">Selecionar Marcador</option>
-                            <!-- Opções serão carregadas dinamicamente -->
+                            <!-- <option value="">Todos</option>
+                            <?php foreach ($marcadores as $marcador) {
+                                echo '<option value="' . $marcador['id'] . '">' . $marcador['nome'] . '</option>';
+                            }
+                            ?> -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="filterAnotacao">Especialidade:</label>
+                        <select class="form-control" id="filterAnotacao" name="filterAnotacao">
+                            <option value="Geral">Geral</option>
+                            <option value="Unhas">Unhas</option>
+                            <option value="Cílios">Cílios</option>
+                            <option value="Sobrancelha">Sobrancelha</option>
+                            <option value="Unhas/Cílios">Unhas/Cílios</option>
+                            <option value="Unhas/Sobrancelha">Unhas/Sobrancelha</option>
+                            <option value="Cílios/Sobrancelha">Cílios/Sobrancelha</option>
+                            <option value="Trio">Trio</option>
                         </select>
                     </div>
 
@@ -378,6 +412,58 @@ if (!isset($_SESSION['user_id'])) {
     <script src="statics/js/deleteSelectedStores.js"></script>
     <script src="statics/js/atribuirVendedorSelecionadas.js"></script>
     <script src="statics/js/selecionarLojas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script>
+        // Função para buscar todos os dados e exportar para Excel
+        function exportAllDataToExcel() {
+            // Faz a requisição para obter todos os dados
+            fetch('http://localhost/portal/functions/getStores2.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.stores.length > 0) {
+                        // Cria a planilha com todos os dados
+                        let stores = data.stores;
+                        let workbook = XLSX.utils.book_new();
+                        let worksheetData = [];
+
+                        // Cabeçalhos da tabela
+                        worksheetData.push([
+                            'Nome', 'CNPJ', 'Status', 'Endereço', 'Cidade', 'Estado', 'Telefone', 'Instagram', 'Site', 'Decisor', 'Telefone Decisor', 'Email'
+                        ]);
+
+                        // Preenche os dados
+                        stores.forEach(store => {
+                            worksheetData.push([
+                                store.nome,
+                                store.cnpj,
+                                store.status,
+                                store.endereco,
+                                store.cidade,
+                                store.estado_sigla,
+                                store.telefone,
+                                store.instagram,
+                                store.site,
+                                store.decisor,
+                                store.telefone_decisor,
+                                store.email
+                            ]);
+                        });
+
+                        // Converte os dados para uma planilha
+                        let worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
+                        XLSX.utils.book_append_sheet(workbook, worksheet, 'Lojas');
+
+                        // Exporta para Excel
+                        XLSX.writeFile(workbook, 'tabela-completa.xlsx');
+                    } else {
+                        console.error('Nenhum dado disponível para exportar.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar os dados:', error);
+                });
+        }
+    </script>
 
 </body>
 </html>

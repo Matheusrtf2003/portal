@@ -142,6 +142,12 @@ function populateStoreForm(store) {
         console.error('Elemento storeStatus não encontrado no DOM');
     }
 
+    if (document.getElementById('storeAnotacao')) {
+        document.getElementById('storeAnotacao').value = store.anotacao;
+    } else {
+        console.error('Elemento storeAnotacao não encontrado no DOM');
+    }
+
     if (document.getElementById('storeAddress')) {
         document.getElementById('storeAddress').value = store.endereco;
     } else {
@@ -154,6 +160,10 @@ function populateStoreForm(store) {
 
     if (document.getElementById('storeState')) {
         document.getElementById('storeState').value = store.estado;
+    }
+
+    if (document.getElementById('storeAnotacao')) {
+        document.getElementById('storeAnotacao').value = store.anotacao;
     }
 
     if (document.getElementById('storeMesorregiao')) {
@@ -192,41 +202,35 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById('storeForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const storeId = document.getElementById('storeId').value;  // Ensure this is set
-
     const storeData = {
-        storeId: storeId,  // Ensure the storeId is included in the submission
-        nome: document.getElementById('storeName').value,
-        cnpj: document.getElementById('cnpj').value,
+        storeId: document.getElementById('storeId').value,
+        nome: document.getElementById('storeName').value.trim(),
+        cnpj: document.getElementById('cnpj').value.trim(),
         status: document.getElementById('storeStatus').value,
-        endereco: document.getElementById('storeAddress').value,
-        cidade: document.getElementById('storeCity').value,
+        anotacao: document.getElementById('storeAnotacao').value,
+        endereco: document.getElementById('storeAddress').value.trim(),
+        cidade: document.getElementById('storeCity').value.trim(),
         estado: document.getElementById('storeState').value,
         mesorregiao: document.getElementById('storeMesorregiao').value,
-        telefone: document.getElementById('storePhone').value,
-        instagram: document.getElementById('storeInstagram').value,
-        site: document.getElementById('storeWebsite').value,
-        decisor: document.getElementById('storeDecider').value,
-        telefone_decisor: document.getElementById('storeDeciderPhone').value,
-        email: document.getElementById('storeEmail').value
+        telefone: document.getElementById('storePhone').value.trim(),
+        instagram: document.getElementById('storeInstagram').value.trim(),
+        site: document.getElementById('storeWebsite').value.trim(),
+        decisor: document.getElementById('storeDecider').value.trim(),
+        telefone_decisor: document.getElementById('storeDeciderPhone').value.trim(),
+        email: document.getElementById('storeEmail').value.trim()
     };
 
-    // Ensure required fields are validated
+    // Validação de campos obrigatórios
     if (!storeData.nome || !storeData.cnpj || !storeData.status || !storeData.endereco) {
         alert("Os campos 'Nome', 'CNPJ', 'Status' e 'Endereço' são obrigatórios.");
         return;
     }
 
-    let url = '/portal/functions/Stores/addStore.php';
-    let method = 'POST';
-
-    if (storeId) {
-        url = `/portal/functions/Stores/updateStore.php`;
-        method = 'POST';
-    }
-
+    // Verifique se a URL e o método estão corretos
+    let url = storeData.storeId ? `/portal/functions/Stores/updateStore.php` : `/portal/functions/Stores/addStore.php`;
+    
     fetch(url, {
-        method: method,
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(storeData)
     })
@@ -235,7 +239,7 @@ document.getElementById('storeForm').addEventListener('submit', function(event) 
         if (data.success) {
             alert(data.message);
             $('#addStoreModal').modal('hide');
-            loadAllStores();  // Reload stores after update
+            loadAllStores();  // Recarrega as lojas após adicionar ou atualizar
         } else {
             alert('Erro ao salvar a loja: ' + data.message);
         }
@@ -259,6 +263,7 @@ function editStore(storeId) {
             document.getElementById('storeName').value = data.store.nome;
             document.getElementById('cnpj').value = data.store.cnpj;
             document.getElementById('storeStatus').value = data.store.status;
+            document.getElementById('storeAnotacao').value = data.store.anotacao;
             document.getElementById('storeAddress').value = data.store.endereco;
             document.getElementById('storeCity').value = data.store.cidade;
             document.getElementById('storeState').value = data.store.estado;
