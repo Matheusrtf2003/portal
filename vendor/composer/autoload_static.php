@@ -28,6 +28,10 @@ class ComposerStaticInitd139a23245315d728f3f275a14cabe11
         array (
             'Matrix\\' => 7,
         ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'C' => 
         array (
             'Complex\\' => 8,
@@ -49,8 +53,8 @@ class ComposerStaticInitd139a23245315d728f3f275a14cabe11
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -71,6 +75,10 @@ class ComposerStaticInitd139a23245315d728f3f275a14cabe11
         'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'Complex\\' => 
         array (

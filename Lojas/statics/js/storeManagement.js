@@ -95,7 +95,7 @@ function createStoreRow(store) {
         <td>${store.endereco.toUpperCase()}</td>
         <td>${store.cidade.toUpperCase()}</td>
         <td>${store.estado_sigla}</td>
-        <td>${store.mesorregiao}</td>
+        <td>${store.mesorregiao_nome}</td>
         <td>${store.anotacao.toUpperCase()}</td>
         <td>${store.telefone}</td>
         <td>${instagramIcon}</td>

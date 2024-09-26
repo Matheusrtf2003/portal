@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadAllSharpeners() {
-    fetch('/portal/functions/Sharpeners/getSharpeners.php')
+    fetch('/functions/Sharpeners/getSharpeners.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {

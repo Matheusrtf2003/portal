@@ -5,7 +5,7 @@ document.getElementById('userForm').addEventListener('submit', function (event) 
 
     const formData = new FormData(this);
     const userId = document.getElementById('userId').value;
-    const url = userId ? 'functions/updateUser.php' : 'functions/addUser.php';
+    const url = userId ? '/portal/functions/updateUser.php' : 'functions/addUser.php';
 
     fetch(url, {
         method: 'POST',

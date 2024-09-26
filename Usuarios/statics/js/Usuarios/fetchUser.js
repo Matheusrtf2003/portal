@@ -1,7 +1,7 @@
 // fetchUser.js
 
 function fetchUser(id) {
-    fetch(`functions/getUser.php?id=${id}`)
+    fetch(`/portal/functions/getUser.php?id=${id}`)
         .then(response => response.json())
         .then(data => {
             document.getElementById('userId').value = data.id;

@@ -3,7 +3,7 @@
 function updateUserStatus(userId, status) {
     $.ajax({
         type: 'POST',
-        url: 'functions/update_user_status.php',
+        url: '/portal/functions/update_user_status.php',
         data: { id: userId, status: status },
         dataType: 'json',
         success: function (response) {

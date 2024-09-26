@@ -4,7 +4,7 @@ function deleteUser(userId) {
     if (confirm('Tem certeza que deseja excluir este usuário?')) {
         $.ajax({
             type: 'POST',
-            url: '/portal/functions/Users/deleteUser.php', // Adjusted path
+            url: '/functions/Users/deleteUser.php', // Adjusted path
             data: { id: userId },
             dataType: 'json',
             success: function (response) {
