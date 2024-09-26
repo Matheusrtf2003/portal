@@ -257,11 +257,11 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="form-group">
                         <label for="filterMarker">Marcador:</label>
                         <select class="form-control" id="filterMarker">
-                            <!-- <option value="">Todos</option>
+                            <option value="">Todos</option>
                             <?php foreach ($marcadores as $marcador) {
                                 echo '<option value="' . $marcador['id'] . '">' . $marcador['nome'] . '</option>';
                             }
-                            ?> -->
+                            ?>
                         </select>
                     </div>
 
