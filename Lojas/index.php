@@ -406,6 +406,7 @@ if (!isset($_SESSION['user_id'])) {
     <script src="statics/js/storeFilters.js"></script>
     <script src="statics/js/storeManagement.js"></script>
     <script src="statics/js/utils.js"></script>
+    <script src="statics/js/checkAllCNPJs.js"></script>
     <script src="statics/js/vendorAssignment.js"></script>
     <script src="statics/js/estadoMeso.js"></script>
     <script src="statics/js/deleteStore.js"></script>

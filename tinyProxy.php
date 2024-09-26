@@ -1,5 +1,6 @@
 <?php
 if (!isset($_GET['cnpj'])) {
+    header('Content-Type: application/json');
     echo json_encode(['success' => false, 'message' => 'CNPJ não fornecido']);
     exit;
 }
@@ -20,8 +21,9 @@ function callTinyAPI($url) {
     }
 
     curl_close($ch);
-    $decodedResponse = json_decode($response, true);
 
+    // Tenta decodificar o JSON da resposta
+    $decodedResponse = json_decode($response, true);
     if (json_last_error() !== JSON_ERROR_NONE) {
         return ['success' => false, 'message' => 'Erro na decodificação JSON: ' . json_last_error_msg()];
     }
@@ -33,16 +35,32 @@ function callTinyAPI($url) {
 $clientUrl = "https://api.tiny.com.br/api2/contatos.pesquisa.php?token=$token&cpf_cnpj=$cnpj&formato=json";
 $clientData = callTinyAPI($clientUrl);
 
+// Verifica se houve erro na chamada da API para o cliente
+if (!$clientData || (isset($clientData['retorno']['status']) && $clientData['retorno']['status'] != 'OK')) {
+    header('Content-Type: application/json');
+    echo json_encode(['success' => false, 'message' => 'Erro ao buscar dados do cliente no Tiny.']);
+    exit;
+}
+
 // Chamada para buscar os pedidos do cliente
 $orderUrl = "https://api.tiny.com.br/api2/pedidos.pesquisa.php?token=$token&cpf_cnpj=$cnpj&formato=json";
 $orderData = callTinyAPI($orderUrl);
 
-// Combinar as duas respostas em um único JSON
+// Verifica se houve erro na chamada da API para os pedidos
+if (!$orderData || (isset($orderData['retorno']['status']) && $orderData['retorno']['status'] != 'OK')) {
+    header('Content-Type: application/json');
+    echo json_encode(['success' => false, 'message' => 'Erro ao buscar dados de pedidos no Tiny.']);
+    exit;
+}
+
+// Combina as duas respostas em um único JSON
 $response = [
     'cliente' => $clientData,
-    'pedidos' => $orderData
+    'pedidos' => $orderData,
+    'success' => true // Adiciona um campo de sucesso na resposta final
 ];
 
+// Define o cabeçalho como JSON e envia a resposta
 header('Content-Type: application/json');
 echo json_encode($response);
 ?>
