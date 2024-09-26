@@ -151,22 +151,20 @@ if (!isset($_SESSION['user_id'])) {
                             </select>
                         </div>
 
-                        <!-- Marcadores (checkboxes) -->
                         <div class="form-group">
-                            <label for="marcadores">Marcadores:</label><br>
-                            <?php
-                            // Pegar os marcadores da tabela markers
-                            $stmt = $pdo->prepare("SELECT id, nome FROM markers");
-                            $stmt->execute();
-                            $marcadores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            <label for="storeMarker">Marcadores:</label>
+                            <select class="form-control" id="storeMarker" name="marker">
+                                <?php
+                                // Pegar os marcadores da tabela markers
+                                $stmt = $pdo->prepare("SELECT id, nome FROM markers");
+                                $stmt->execute();
+                                $marcadores = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                            foreach ($marcadores as $marcador) {
-                                echo '<div class="form-check">';
-                                echo '<input class="form-check-input" type="checkbox" name="marcadores[]" value="' . $marcador['id'] . '" id="marcador' . $marcador['id'] . '">';
-                                echo '<label class="form-check-label" for="marcador' . $marcador['id'] . '">' . $marcador['nome'] . '</label>';
-                                echo '</div>';
-                            }
-                            ?>
+                                foreach ($marcadores as $marcador) {
+                                    echo '<option value="'.$marcador['id'].'">' . $marcador['nome'] . '</option>';
+                                }
+                                ?>
+                            </select>
                         </div>
 
                         <div class="form-group">

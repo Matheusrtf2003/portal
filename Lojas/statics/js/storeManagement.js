@@ -207,6 +207,7 @@ document.getElementById('storeForm').addEventListener('submit', function(event) 
         nome: document.getElementById('storeName').value.trim(),
         cnpj: document.getElementById('cnpj').value.trim(),
         status: document.getElementById('storeStatus').value,
+        marker: document.getElementById('storeMarker').value,
         anotacao: document.getElementById('storeAnotacao').value,
         endereco: document.getElementById('storeAddress').value.trim(),
         cidade: document.getElementById('storeCity').value.trim(),
@@ -263,6 +264,7 @@ function editStore(storeId) {
             document.getElementById('storeName').value = data.store.nome;
             document.getElementById('cnpj').value = data.store.cnpj;
             document.getElementById('storeStatus').value = data.store.status;
+            document.getElementById('storeMarker').value = data.store.marker;
             document.getElementById('storeAnotacao').value = data.store.anotacao;
             document.getElementById('storeAddress').value = data.store.endereco;
             document.getElementById('storeCity').value = data.store.cidade;

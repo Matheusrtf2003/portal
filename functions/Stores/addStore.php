@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = trim($data['nome'] ?? '');
     $cnpj = trim($data['cnpj'] ?? '');
     $status = trim($data['status'] ?? '');
+    $marker = trim($data['marker'] ?? '');
     $anotacao = trim($data['anotacao'] ?? '');
     $endereco = trim($data['endereco'] ?? '');
     $cidade = trim($data['cidade'] ?? '');
@@ -34,33 +35,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Se storeId existir, faz uma atualização, caso contrário, faz uma inserção
         if ($storeId) {
+            // Atualizar loja
             $stmt = $pdo->prepare("
                 UPDATE stores 
-                SET nome = ?, cnpj = ?, status = ?, anotacao = ?, endereco = ?, cidade = ?, estado = ?, mesorregiao = ?, telefone = ?, instagram = ?, site = ?, decisor = ?, telefone_decisor = ?, email = ?
+                SET nome = ?, cnpj = ?, status = ?, endereco = ?, cidade = ?, estado = ?, telefone = ?, instagram = ?, site = ?, decisor = ?, telefone_decisor = ?, email = ?
                 WHERE id = ?
             ");
-            $stmt->execute([$nome, $cnpj, $status, $anotacao, $endereco, $cidade, $estado, $mesorregiao, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email, $storeId]);
+            $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email, $storeId]);
 
             $message = 'Loja atualizada com sucesso!';
         } else {
+            // Inserir nova loja
             $stmt = $pdo->prepare("
                 INSERT INTO stores 
-                    (nome, cnpj, status, anotacao, endereco, cidade, estado, mesorregiao, telefone, instagram, site, decisor, telefone_decisor, email) 
+                    (nome, cnpj, status, endereco, cidade, estado, telefone, instagram, site, decisor, telefone_decisor, email) 
                 VALUES 
-                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ");
-            $stmt->execute([$nome, $cnpj, $status, $anotacao, $endereco, $cidade, $estado, $mesorregiao, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email]);
+            $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email]);
             $storeId = $pdo->lastInsertId();
-
-            // Inserir na tabela stores_users
-            $stmt = $pdo->prepare("INSERT INTO stores_users (store_id, user_id) VALUES (?, ?)");
-            $stmt->execute([$storeId, $userId]);
 
             $message = 'Loja adicionada com sucesso!';
         }
 
+        // Atualizar marcadores
+        // Primeiro, remove todos os marcadores existentes para essa loja
+        $stmt = $pdo->prepare("DELETE FROM stores_markers WHERE loja_id = ?");
+        $stmt->execute([$storeId]);
+
+        // Em seguida, insira os novos marcadores selecionados
+        if (!empty($marker)) {
+            $stmt = $pdo->prepare("INSERT INTO stores_markers (loja_id, marcador_id) VALUES (?, ?)");
+            if ($marker) {
+                $stmt->execute([$storeId, $marker]);
+            }
+        }
+
         $pdo->commit();
         echo json_encode(['success' => true, 'message' => $message]);
+
     } catch (Exception $e) {
         $pdo->rollBack();
         echo json_encode(['success' => false, 'message' => 'Erro ao salvar loja: ' . $e->getMessage()]);
