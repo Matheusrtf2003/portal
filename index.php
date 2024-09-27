@@ -237,6 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $('#requestMessage').text('As senhas não coincidem.').addClass('text-danger').removeClass('text-success');
                     return;
                 }
+                location.reload()
                 $.ajax({
                     type: 'POST',
                     url: 'functions/request_access.php',
