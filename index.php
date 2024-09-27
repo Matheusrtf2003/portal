@@ -1,29 +1,33 @@
 <?php
 session_start();
+$_SESSION['_csrf'] = $_SESSION['_csrf'] ?? hash('sha256', random_bytes(32));
 include 'functions/config.php';
 
 $error_message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
-
-    // Consulta para buscar o usuário
-    $stmt = $pdo->prepare("SELECT id, senha, nome, tipo, function FROM users WHERE email = ?");
-    $stmt->execute([$email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Verifica se o usuário existe e compara a senha sem hash
-    if ($user && $senha === $user['senha']) {
-        // Salva as informações do usuário na sessão
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_nome'] = $user['nome'];
-        $_SESSION['user_tipo'] = $user['tipo']; // Captura o tipo do usuário
-        $_SESSION['user_function'] = $user['function']; // Captura a função do usuário
-        
-        header('Location: Dashboard/index.php'); // Redireciona para o dashboard
+    if (!isset($_POST['_csrf']) || $_POST['_csrf'] !== $_SESSION['_csrf']) {
+        $error_message = "CSRF token inválido.";
     } else {
-        $error_message = "Credenciais inválidas.";
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+
+        // Consulta para buscar o usuário
+        $stmt = $pdo->prepare("SELECT id, senha, nome, tipo, function FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Verifica se o usuário existe e compara a senha sem hash
+        if ($user && $senha === $user['senha']) {
+            // Salva as informações do usuário na sessão
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_nome'] = $user['nome'];
+            $_SESSION['user_tipo'] = $user['tipo']; // Captura o tipo do usuário
+            $_SESSION['user_function'] = $user['function']; // Captura a função do usuário
+            header('Location: Dashboard/index.php'); // Redireciona para o dashboard
+        } else {
+            $error_message = "Credenciais inválidas.";
+        }
     }
 }
 ?>
@@ -139,6 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="password" class="form-control" id="senha" name="senha" placeholder="Informe a sua senha" required>
                 <i class="bi bi-eye-slash" id="togglePassword"></i> <!-- Ícone para exibir/ocultar senha -->
             </div>
+            <input type="hidden" name="_csrf" value="<?php echo $_SESSION['_csrf']; ?>">
             <button type="submit" class="btn btn-success btn-block">Entrar</button>
         </form>
 
