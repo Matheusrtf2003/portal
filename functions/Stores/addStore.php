@@ -38,21 +38,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Atualizar loja
             $stmt = $pdo->prepare("
                 UPDATE stores 
-                SET nome = ?, cnpj = ?, status = ?, endereco = ?, cidade = ?, estado = ?, telefone = ?, instagram = ?, site = ?, decisor = ?, telefone_decisor = ?, email = ?
+                SET nome = ?, cnpj = ?, status = ?, endereco = ?, cidade = ?, estado = ?, mesorregiao = ?, telefone = ?, instagram = ?, site = ?, decisor = ?, telefone_decisor = ?, email = ?
                 WHERE id = ?
             ");
-            $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email, $storeId]);
+            $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $mesorregiao, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email, $storeId]);
 
             $message = 'Loja atualizada com sucesso!';
         } else {
             // Inserir nova loja
             $stmt = $pdo->prepare("
                 INSERT INTO stores 
-                    (nome, cnpj, status, endereco, cidade, estado, telefone, instagram, site, decisor, telefone_decisor, email) 
+                    (nome, cnpj, status, endereco, cidade, estado, mesorregiao, telefone, instagram, site, decisor, telefone_decisor, email) 
                 VALUES 
-                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ");
-            $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email]);
+            $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $mesorregiao, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email]);
             $storeId = $pdo->lastInsertId();
 
             $message = 'Loja adicionada com sucesso!';
