@@ -5,7 +5,8 @@ if (!isset($_GET['cnpj'])) {
     exit;
 }
 
-$cnpj = urlencode($_GET['cnpj']);
+$cnpjNaoFormatado = urlencode($_GET['cnpj']);
+$cnpj = preg_replace('/[^\d]/', '', $cnpjNaoFormatado);
 $token = 'c854f3ce8979089e9b0e6b758697b6ce48a9bceaf7506983d25bc9fc73a510e1';  // Substitua pelo seu token real
 
 // Função para fazer uma chamada à API do Tiny
