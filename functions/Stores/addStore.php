@@ -71,6 +71,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
+        // Vincular a loja ao usuário na tabela stores_users (se ainda não estiver vinculada)
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM stores_users WHERE store_id = ? AND user_id = ?");
+        $stmt->execute([$storeId, $userId]);
+        $count = $stmt->fetchColumn();
+
+        if ($count == 0) {
+            $stmt = $pdo->prepare("INSERT INTO stores_users (store_id, user_id) VALUES (?, ?)");
+            $stmt->execute([$storeId, $userId]);
+        }
+
         $pdo->commit();
         echo json_encode(['success' => true, 'message' => $message]);
 

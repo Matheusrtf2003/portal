@@ -6,7 +6,7 @@ $userId = $_SESSION['user_id'];
 $userTipo = $_SESSION['user_tipo'];
 
 try {
-    if ($userId) {
+    if ($userTipo === 'Administrador') {
         // If the user is an Administrator, fetch all stores
         $stmt = $pdo->prepare("
             SELECT s.*, 
