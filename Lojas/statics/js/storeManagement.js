@@ -147,6 +147,12 @@ function populateStoreForm(store) {
     } else {
         console.error('Elemento storeAnotacao não encontrado no DOM');
     }
+    
+    if (document.getElementById('storeMarker')) {
+        document.getElementById('storeMarker').value = store.marker;
+    } else {
+        console.error('Elemento storeMarker não encontrado no DOM');
+    }
 
     if (document.getElementById('storeAddress')) {
         document.getElementById('storeAddress').value = store.endereco;
@@ -260,11 +266,21 @@ function editStore(storeId) {
             // Preenche o campo oculto com o ID da loja para edição
             document.getElementById('storeId').value = storeId; // Certifica-se de que o storeId é atribuído corretamente
 
+            console.log('Dados retornados da API:', data);
+            console.log('Marcadores:', data.store.marker);
+            console.log('Especialidade:', data.store.anotacao);
+
             // Preenche o formulário com os dados da loja
             document.getElementById('storeName').value = data.store.nome;
             document.getElementById('cnpj').value = data.store.cnpj;
             document.getElementById('storeStatus').value = data.store.status;
-            document.getElementById('storeMarker').value = data.store.marker;
+            
+            // Preenche o marcador no select
+            const marcadorId = data.store.marcadores.length > 0 ? data.store.marcadores[0].id : null;
+            if (marcadorId) {
+                document.getElementById('storeMarker').value = marcadorId;
+            }
+
             document.getElementById('storeAnotacao').value = data.store.anotacao;
             document.getElementById('storeAddress').value = data.store.endereco;
             document.getElementById('storeCity').value = data.store.cidade;
@@ -278,10 +294,10 @@ function editStore(storeId) {
             document.getElementById('storeEmail').value = data.store.email;
 
             // Se houver marcadores, marque as checkboxes correspondentes
-            const markers = data.store.marcadores || [];
-            document.querySelectorAll('input[name="marcadores[]"]').forEach(checkbox => {
-                checkbox.checked = markers.includes(checkbox.value);
-            });
+            // const markers = data.store.marcadores || [];
+            // document.querySelectorAll('input[name="marcadores[]"]').forEach(checkbox => {
+            //     checkbox.checked = markers.includes(checkbox.value);
+            // });
 
             // Ajusta o título do modal para edição
             const modalTitle = document.getElementById('addStoreModalLabel');

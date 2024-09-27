@@ -9,8 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
     // Verifique se o storeId foi passado corretamente
-    $id = intval($data['storeId'] ?? 0);
-    if ($id === 0) {
+    $storeId = intval($data['storeId'] ?? 0);
+    if ($storeId === 0) {
         echo json_encode(['success' => false, 'message' => 'ID da loja é obrigatório.']);
         exit;
     }
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome = $data['nome'] ?? '';
     $cnpj = $data['cnpj'] ?? '';
     $status = $data['status'] ?? '';
-    $marker = $data['marker'] ?? '';
+    $markerId = intval($data['marker'] ?? 0); // ID do marcador
     $endereco = $data['endereco'] ?? '';
     $cidade = $data['cidade'] ?? '';
     $estado = $data['estado'] ?? '';
@@ -30,16 +30,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $site = $data['site'] ?? '';
     $decisor = $data['decisor'] ?? '';
     $telefone_decisor = $data['telefone_decisor'] ?? '';
-    $marcadores = $data['marcadores'] ?? [];
 
     try {
-        // Atualizando a loja
-        $stmt = $pdo->prepare("UPDATE stores SET nome = ?, cnpj = ?, status = ?, marker =?, endereco = ?, cidade = ?, estado = ?, anotacao = ?, telefone = ?, email = ?, instagram = ?, site = ?, decisor = ?, telefone_decisor = ? WHERE id = ?");
-        $stmt->execute([$nome, $cnpj, $status, $marker, $endereco, $cidade, $estado, $anotacao, $telefone, $email, $instagram, $site, $decisor, $telefone_decisor, $id]);
+        // Inicia uma transação
+        $pdo->beginTransaction();
 
-        // Sucesso ao atualizar
-        echo json_encode(['success' => true, 'message' => 'Loja atualizada com sucesso!']);
+        // Atualiza as informações da loja
+        $stmt = $pdo->prepare("UPDATE stores SET nome = ?, cnpj = ?, status = ?, endereco = ?, cidade = ?, estado = ?, anotacao = ?, telefone = ?, email = ?, instagram = ?, site = ?, decisor = ?, telefone_decisor = ? WHERE id = ?");
+        $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $anotacao, $telefone, $email, $instagram, $site, $decisor, $telefone_decisor, $storeId]);
+
+        // Atualiza o marcador associado à loja
+        // Primeiro, remove o marcador anterior
+        $stmt = $pdo->prepare("DELETE FROM stores_markers WHERE loja_id = ?");  // Atualize 'loja_id' conforme necessário
+        $stmt->execute([$storeId]);
+
+        // Em seguida, insere o novo marcador (se houver)
+        if ($markerId > 0) {
+            $stmt = $pdo->prepare("INSERT INTO stores_markers (loja_id, marcador_id) VALUES (?, ?)");  // Atualize 'loja_id' conforme necessário
+            $stmt->execute([$storeId, $markerId]);
+        }
+
+        // Confirma a transação
+        $pdo->commit();
+        echo json_encode(['success' => true, 'message' => 'Loja e marcador atualizados com sucesso!']);
+
     } catch (Exception $e) {
+        // Se a transação foi iniciada, faz o rollback
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
         echo json_encode(['success' => false, 'message' => 'Erro ao atualizar a loja: ' . $e->getMessage()]);
     }
 } else {

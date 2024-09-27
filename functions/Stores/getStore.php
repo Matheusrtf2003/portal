@@ -25,6 +25,7 @@ try {
         s.nome,
         s.cnpj,
         s.status,
+        s.anotacao,
         s.endereco,
         s.cidade,
         s.estado,
