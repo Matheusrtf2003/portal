@@ -12,24 +12,38 @@ function exportAllDataToExcel() {
 
                 // Cabeçalhos da tabela
                 worksheetData.push([
-                    'Nome', 'CNPJ', 'Status', 'Endereço', 'Cidade', 'Estado', 'Telefone', 'Instagram', 'Site', 'Decisor', 'Telefone Decisor', 'Email'
+                    'Nome', 'CNPJ', 'Status', 'Endereço', 'Cidade', 'Estado', 'Mesorregião','Especialidade','Telefone', 'Instagram', 'Site', 'Decisor', 'Telefone Decisor', 'Email', 'Marcadores', 'Data de registro'
                 ]);
 
                 // Preenche os dados
                 stores.forEach(store => {
+                    let marcadores = '';
+                    if (Array.isArray(store.marcadores) && store.marcadores.length > 0) {
+                        marcadores = store.marcadores.map(marcador => {
+                            return `${marcador.nome}`; // Retorna apenas o nome
+                        }).join(', '); // Usa join para separar os marcadores por vírgula
+                    } else {
+                        marcadores = 'Sem marcadores'; // Caso não haja marcadores
+                    }
+
                     worksheetData.push([
                         store.nome,
                         store.cnpj,
                         store.status,
                         store.endereco,
                         store.cidade,
-                        store.estado_sigla,
+                        store.estado,
+                        store.mesorregiao,
+                        store.anotacao,
                         store.telefone,
                         store.instagram,
                         store.site,
                         store.decisor,
                         store.telefone_decisor,
-                        store.email
+                        store.email,
+                        marcadores,
+                        new Date(store.datetime).toLocaleString(),
+                        // store.hunter
                     ]);
                 });
 
