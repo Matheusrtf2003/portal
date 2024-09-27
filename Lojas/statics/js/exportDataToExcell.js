@@ -23,7 +23,7 @@ function exportAllDataToExcel() {
                             return `${marcador.nome}`; // Retorna apenas o nome
                         }).join(', '); // Usa join para separar os marcadores por vírgula
                     } else {
-                        marcadores = 'Sem marcadores'; // Caso não haja marcadores
+                        marcadores = 'Não preenchido'; // Caso não haja marcadores
                     }
 
                     worksheetData.push([
@@ -34,7 +34,7 @@ function exportAllDataToExcel() {
                         store.cidade,
                         store.estado,
                         store.mesorregiao,
-                        store.anotacao,
+                        store.anotacao || 'Não preenchido',
                         store.telefone,
                         store.instagram,
                         store.site,
