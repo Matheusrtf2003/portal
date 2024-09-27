@@ -3,7 +3,7 @@
 function importCSV() {
     const formData = new FormData(document.getElementById('importCSVForm'));
 
-    fetch('/portal/functions/Sharpeners/importCSV.php', {
+    fetch('../functions/Sharpeners/importCSV.php', {
         method: 'POST',
         body: formData
     })

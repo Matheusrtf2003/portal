@@ -12,7 +12,7 @@ function deleteSelectedEducators() {
     }
 
     if (confirm('Tem certeza que deseja excluir as educadoras selecionadas?')) {
-        fetch('/portal/functions/Educators/deleteSelectedEducators.php', {
+        fetch('../functions/Educators/deleteSelectedEducators.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

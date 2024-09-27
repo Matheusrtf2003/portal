@@ -1,7 +1,7 @@
 // Função para deletar uma loja
 function deleteStore(id) {
     if (confirm('Tem certeza que deseja excluir esta loja?')) {
-        fetch(`/portal/functions/Stores/deleteStore.php?id=${id}`, { 
+        fetch(`../functions/Stores/deleteStore.php?id=${id}`, { 
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'

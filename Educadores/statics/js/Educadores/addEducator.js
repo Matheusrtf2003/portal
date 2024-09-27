@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Enviando os dados via fetch
-        fetch('/portal/functions/Educators/addEducator.php', {
+        fetch('../functions/Educators/addEducator.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

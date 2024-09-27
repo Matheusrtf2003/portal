@@ -5,7 +5,7 @@ function updateUserStatus(userId, status) {
     }
 
     // Enviar a requisição POST com os parâmetros id e status
-    fetch('/portal/functions/Users/update_user_status.php', {
+    fetch('../functions/Users/update_user_status.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

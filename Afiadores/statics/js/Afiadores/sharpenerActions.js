@@ -1,7 +1,7 @@
 // sharpenerActions.js
 function editSharpener(id) {
     console.log('Editing sharpener with ID:', id);
-    fetch(`/portal/functions/Sharpeners/getSharpener.php?id=${id}`)
+    fetch(`../functions/Sharpeners/getSharpener.php?id=${id}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -31,7 +31,7 @@ document.getElementById('sharpenerForm').addEventListener('submit', function(eve
 
     const formData = new FormData(this);
 
-    fetch('/portal/functions/Sharpeners/addSharpener.php', {
+    fetch('../functions/Sharpeners/addSharpener.php', {
         method: 'POST',
         body: formData
     })
@@ -54,7 +54,7 @@ document.getElementById('sharpenerForm').addEventListener('submit', function(eve
 
 function deleteSharpener(id) {
     if (confirm('Tem certeza que deseja excluir este afiador?')) {
-        fetch(`/portal/functions/Sharpeners/deleteSharpener.php`, { 
+        fetch(`../functions/Sharpeners/deleteSharpener.php`, { 
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: `id=${id}`
@@ -89,7 +89,7 @@ function deleteSelectedSharpeners() {
     // Confirmação do usuário
     if (confirm('Tem certeza que deseja excluir os afiadores selecionados?')) {
         // Enviar a requisição para o servidor
-        fetch('/portal/functions/Sharpeners/deleteSelectedSharpeners.php', {
+        fetch('../functions/Sharpeners/deleteSelectedSharpeners.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -4,7 +4,7 @@ function deleteTeam(teamId) {
     if (confirm('Tem certeza que deseja excluir esta equipe?')) {
         $.ajax({
             type: 'POST',
-            url: '/portal/functions/Teams/deleteTeam.php',
+            url: '../functions/Teams/deleteTeam.php',
             data: { id: teamId },
             dataType: 'json',
             success: function (response) {

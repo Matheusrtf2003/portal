@@ -31,7 +31,7 @@ if (editTeamForm) {
         const formData = new FormData(this); // Coleta os dados do formulário
 
         // Envia os dados para atualizar a equipe no servidor
-        fetch('/portal/functions/Teams/updateTeam.php', {
+        fetch('../functions/Teams/updateTeam.php', {
             method: 'POST',
             body: formData
         })

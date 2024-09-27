@@ -1,7 +1,7 @@
 // loadEducators.js
 
 function loadEducators() {
-    fetch('/portal/functions/Educators/getEducators.php')
+    fetch('../functions/Educators/getEducators.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {

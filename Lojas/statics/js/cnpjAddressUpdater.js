@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function updateMissingAddresses() {
-    fetch('/portal/functions/FaltaEndereco/getStoresWithMissingAddress.php')
+    fetch('../functions/FaltaEndereco/getStoresWithMissingAddress.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -50,7 +50,7 @@ function updateMissingAddresses() {
 }
 
 function updateStoreAddress(addressData) {
-    fetch('/portal/functions/FaltaEndereco/updateStoreAddress.php', {
+    fetch('../functions/FaltaEndereco/updateStoreAddress.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

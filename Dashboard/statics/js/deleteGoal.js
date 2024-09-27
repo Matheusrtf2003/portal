@@ -1,6 +1,6 @@
 window.deleteGoal = function(id) {
     if (confirm('Tem certeza que deseja excluir esta meta?')) {
-        fetch(`/portal/functions/Metas/deleteGoal.php?id=${id}`, {
+        fetch(`../functions/Metas/deleteGoal.php?id=${id}`, {
             method: 'GET'
         })
         .then(response => response.json())

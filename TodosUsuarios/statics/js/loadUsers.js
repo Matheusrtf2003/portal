@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Mantemos o loadUsers igual
 function loadUsers() {
-    fetch('/portal/functions/Users/getUsers.php')
+    fetch('../functions/Users/getUsers.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {

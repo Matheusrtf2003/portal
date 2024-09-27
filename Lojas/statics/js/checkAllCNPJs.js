@@ -1,6 +1,6 @@
 // Checka o TINY para atualizar Status da loja
 function checkAllCNPJs() {
-    fetch('/portal/functions/getAllCNPJs.php')
+    fetch('../functions/getAllCNPJs.php')
         .then(response => response.json()) // Já espera o JSON diretamente
         .then(data => {
             console.log('Resposta bruta do servidor:', data);
@@ -29,7 +29,7 @@ function checkAllCNPJs() {
 }
 
 function fetchTinyAPI(cnpj) {
-    const url = `/portal/tinyProxy.php?cnpj=${encodeURIComponent(cnpj)}`;
+    const url = `../tinyProxy.php?cnpj=${encodeURIComponent(cnpj)}`;
     return fetch(url)
         .then(response => response.json())
         .then(data => {

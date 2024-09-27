@@ -1,5 +1,5 @@
 function geocodeAddress(address, callback) {
-    fetch('/portal/functions/Geocoding/geocodeAddress.php?address=' + encodeURIComponent(address))
+    fetch('../functions/Geocoding/geocodeAddress.php?address=' + encodeURIComponent(address))
         .then(response => response.json())
         .then(data => {
             if (data.success) {

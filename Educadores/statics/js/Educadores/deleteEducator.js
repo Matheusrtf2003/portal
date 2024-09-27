@@ -2,7 +2,7 @@
 
 function deleteEducator(id) {
     if (confirm('Tem certeza que deseja excluir esta educadora?')) {
-        fetch(`/portal/functions/Educators/deleteEducator.php?id=${id}`, { method: 'DELETE' })
+        fetch(`../functions/Educators/deleteEducator.php?id=${id}`, { method: 'DELETE' })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {

@@ -2,7 +2,7 @@ let allStores = [];
 let filteredStores = [];
 
 function loadAllStores() {
-    fetch('/portal/functions/getStores.php')
+    fetch('../functions/getStores.php')
         .then(response => response.json())
         .then(data => {
             if (data.success && Array.isArray(data.stores)) {
