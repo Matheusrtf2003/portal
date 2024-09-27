@@ -15,7 +15,7 @@ $user_function = isset($_SESSION['user_function']) ? $_SESSION['user_function'] 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="css/sidebar.css">
 <nav class="sidebar-menu">
-    <ul class="nav flex-column">
+    <ul class="nav flex-column mb-5">
         <!-- Dashboard -->
         <li class="nav-item">
             <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == '../Dashboard/index.php'){echo 'active';} ?>" href="../Dashboard/index.php">
@@ -92,4 +92,6 @@ $user_function = isset($_SESSION['user_function']) ? $_SESSION['user_function'] 
         </li>
         <?php endif; ?>
     </ul>
+    <p class="text-primary badge p-2 bg-white">Versão 0.1</p>
+
 </nav>
