@@ -20,6 +20,7 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="statics\img\favi-icon.png" type="image/x-icon">
     <link rel="stylesheet" href="statics/css/maps.css">
+    <link rel="stylesheet" href="statics/css/legenda.css">
     <link rel="stylesheet" href="../sidebar/css/sidebar.css">
     <title>Lojas</title>
     
@@ -59,6 +60,15 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
             <div class="col-lg-9">
+            <div class="map-legend">
+            <h5>Legenda do Mapa</h5>
+            <ul>
+                <li><span class="status-descoberto"></span> Descoberto</li>
+                <li><span class="status-coberto"></span> Coberto</li>
+                <li><span class="status-ativo"></span> Ativo</li>
+                <li><span class="status-inativo"></span> Inativo</li>
+            </ul>
+            </div>
                 <div id="map"></div>
             </div>
         </div>
@@ -202,7 +212,6 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
     </div>
-
 
     <!-- jQuery, Popper.js, Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
