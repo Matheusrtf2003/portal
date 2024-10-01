@@ -203,7 +203,13 @@ function populateStoreForm(store) {
 
 document.addEventListener('DOMContentLoaded', function () {
     loadAllStores();
+
+    // Escuta o evento de digitação no campo de pesquisa
+    document.getElementById('searchInput').addEventListener('input', function() {
+        applySearchFilter();
+    });
 });
+
 
 document.getElementById('storeForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -342,5 +348,45 @@ $('#addStoreModal').on('hidden.bs.modal', function () {
 
 
 console.log('Store ID:', storeId);  // Adicione este log antes do envio da requisição
+
+
+function applySearchFilter() {
+    const query = document.getElementById('searchInput').value.trim().toLowerCase();
+
+    // Filtra as lojas por qualquer coluna
+    const filteredStores = allStores.filter(store => {
+        return store.nome.toLowerCase().includes(query) ||
+               store.cnpj.toLowerCase().includes(query) ||
+               store.endereco.toLowerCase().includes(query) ||
+               store.cidade.toLowerCase().includes(query) ||
+               (store.estado_sigla && store.estado_sigla.toLowerCase().includes(query)) || // Verifica se não é null
+               (store.mesorregiao_nome && store.mesorregiao_nome.toLowerCase().includes(query)) || // Verifica se não é null
+               store.telefone.toLowerCase().includes(query) ||
+               (store.instagram && store.instagram.toLowerCase().includes(query)) || // Verifica se não é null
+               (store.site && store.site.toLowerCase().includes(query)) || // Verifica se não é null
+               store.decisor.toLowerCase().includes(query) ||
+               store.telefone_decisor.toLowerCase().includes(query) ||
+               store.email.toLowerCase().includes(query) ||
+               store.status.toLowerCase().includes(query);
+    });
+
+    // Exibe as lojas filtradas
+    displayStores(filteredStores);
+}
+
+function resetFilters() {
+    // Limpa os campos de filtro
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterStatus').value = '';
+    document.getElementById('filterAnotacao').value = '';
+    document.getElementById('filterMarker').value = '';
+    document.getElementById('filterDateStart').value = '';
+    document.getElementById('filterDateEnd').value = '';
+    document.getElementById('filterVendedor').value = '';
+    document.getElementById('hunter').value = '';
+
+    // Recarrega todas as lojas sem filtros
+    applyFilters();
+}
 
 
