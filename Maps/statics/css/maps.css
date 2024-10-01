@@ -1,9 +1,11 @@
 #map {
-    height: 100vh;  /* Ocupa toda a altura da tela */
+    height: 97vh;  /* Ocupa toda a altura da tela */
     width: calc(100%);  /* Ocupa a largura restante após a barra-lateral */
     position: absolute;
     top: 0;
     right: 0;
+    margin: 0;
+    padding: 0;
 }
 
 /* Estilo para a barra-lateral */

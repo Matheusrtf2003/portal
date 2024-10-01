@@ -13,7 +13,7 @@ function openAssignVendedorModalMultiple() {
   vendedorSelect.innerHTML = '<option value="" disabled selected>Selecione um vendedor</option>';
 
   // Fetch vendedores
-  fetch('../functions/Sellers/getVendedores.php')
+  fetch('/portal/functions/Sellers/getVendedores.php')
       .then(response => response.json())
       .then(data => {
           if (data.success) {
@@ -42,7 +42,7 @@ function assignVendedorMultiple() {
       return;
   }
 
-  fetch('../functions/Sellers/assignVendedorMultiple.php', {
+  fetch('/portal/functions/Sellers/assignVendedorMultiple.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ store_ids: storeIds, vendedor_id: vendedorId })

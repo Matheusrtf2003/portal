@@ -2,7 +2,7 @@ let allStores = [];
 let filteredStores = [];
 
 function loadAllStores() {
-    fetch('../functions/getStores.php')
+    fetch('/portal/functions/getStores.php')
         .then(response => response.json())
         .then(data => {
             if (data.success && Array.isArray(data.stores)) {
@@ -12,6 +12,8 @@ function loadAllStores() {
                 updateResultCount(allStores.length);
                 loadMarkers();
                 loadAvailableUsers(); // Carregar os usuários disponíveis
+                loadAvailableCities(); // Carregar cidades disponíveis
+                loadAvailableMesorregioes(); // Carregar mesorregiões disponíveis
             } else {
                 console.error('Erro ao carregar lojas:', data.message || 'Erro desconhecido');
             }

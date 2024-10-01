@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Função para carregar os estados
 function loadEstados() {
-    fetch('../functions/FaltaEndereco/getEstados.php')
+    fetch('/portal/functions/FaltaEndereco/getEstados.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -33,7 +33,7 @@ function loadMesorregioes(estadoId) {
     const mesorregiaoSelect = document.getElementById('storeMesorregiao');
     mesorregiaoSelect.innerHTML = ''; // Limpa as opções anteriores
 
-    fetch(`../functions/FaltaEndereco/getMesorregioes.php?estado_id=${estadoId}`)
+    fetch(`/portal/functions/FaltaEndereco/getMesorregioes.php?estado_id=${estadoId}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {

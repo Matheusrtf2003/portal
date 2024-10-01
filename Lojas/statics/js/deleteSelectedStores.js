@@ -8,7 +8,7 @@ function deleteSelectedStores() {
     }
 
     if (confirm('Tem certeza que deseja excluir as lojas selecionadas?')) {
-        fetch('../functions/Stores/deleteMultipleStores.php', {
+        fetch('/portal/functions/Stores/deleteMultipleStores.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -1,7 +1,7 @@
 // Função para carregar vendedores no select
 function loadVendedoresIntoSelect(vendedorSelect) {
     vendedorSelect.innerHTML = '<option value="" disabled selected>Selecione um vendedor</option>';
-    fetch('../functions/Sellers/getVendedores.php')
+    fetch('/portal/functions/Sellers/getVendedores.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -61,7 +61,7 @@ function assignVendedor() {
         return;
     }
 
-    const endpoint = storeId ? '../functions/Sellers/assignVendedor.php' : '../functions/Sellers/assignVendedorMultiple.php';
+    const endpoint = storeId ? '/portal/functions/Sellers/assignVendedor.php' : '/portal/functions/Sellers/assignVendedorMultiple.php';
     const payload = storeId ? 
         { store_id: storeId, vendedor_id: vendedorId } : 
         { store_ids: JSON.parse(storeIds), vendedor_id: vendedorId };

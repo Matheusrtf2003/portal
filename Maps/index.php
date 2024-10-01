@@ -37,16 +37,10 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
             <div class="col-lg-3 barra-lateral bg-light">
                 <input type="text" id="searchInput" class="form-control mb-3" placeholder="Pesquisar por Nome, Cidade ou Estado">
                 <!-- Botão para abrir o modal de filtro por estado -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterStateModal">
-                    Filtrar por Estado
+                    <!-- Botão para abrir o modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">
+                Filtrar Por
                 </button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterUsuarioModal">
-                    Filtrar por Usuário
-                </button>
-                <div class="d-flex mb-3">
-                    <button type="button" class="btn btn-secondary mr-2" data-toggle="modal" data-target="#filterStatusModal">Filtrar por Status</button>
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#filterMarkerModal">Filtrar por Marcador</button>
-                </div>
                 <!-- Botão Mapear 
                 <button type="button" class="btn btn-success" id="mapButton" disabled onclick="mapSelectedState()">
                     Mapear
@@ -75,82 +69,42 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <?php include '../MenuUsuario/user_menu.php'; ?>
 
-    <!-- Modal Filtrar por Status -->
-    <div class="modal fade" id="filterStatusModal" tabindex="-1" aria-labelledby="filterStatusModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="filterStatusModalLabel">Filtrar por Status</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="filterStatusForm">
-                        <div class="form-group">
-                            <label for="filterStatusSelect">Status:</label>
-                            <select class="form-control p-0" id="filterStatusSelect" name="status">
-                                <option value="">Todos</option>
-                                <option value="Descoberto">Descoberto</option>
-                                <option value="Coberto">Coberto</option>
-                                <option value="Ativo">Ativo</option>
-                                <option value="Inativo">Inativo</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="filterByStatus()">Filtrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Filtrar por Marcador -->
-<div class="modal fade" id="filterMarkerModal" tabindex="-1" aria-labelledby="filterMarkerModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="filterMarkerModalLabel">Filtrar por Marcador</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="filterMarkerForm">
-                    <div class="form-group">
-                        <label for="filterMarkerSelect">Marcador:</label>
-                        <select class="form-control p-0" id="filterMarkerSelect" name="marker">
-                            <option value="">Selecione um marker</option>
-                            <option value="Cosméticos Geral">Cosméticos Geral</option>
-                            <option value="ICP">ICP</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="filterByMarker()">Filtrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <!-- Modal de filtro por estado -->
-    <div class="modal fade" id="filterStateModal" tabindex="-1" role="dialog" aria-labelledby="filterStateModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="filterStateModalLabel">Filtrar por Estado</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <select id="filterStateSelect" class="form-control p-0" onchange="activateMapButton()">
-                        <option value="">Selecione um estado</option>
-                        <option value="AC">Acre</option>
+<!-- Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filterModalLabel">Filtros</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Campos de filtro -->
+        <form id="filterForm">
+          <div class="form-group">
+            <label for="filterStatus">Status</label>
+            <select class="form-control p-0" id="filterStatusSelect">
+              <option value="">Todos</option>
+              <option value="Ativo">Ativo</option>
+              <option value="Inativo">Inativo</option>
+              <option value="Coberto">Coberto</option>
+              <option value="Descoberto">Descoberto</option>
+              <!-- Adicione mais opções conforme necessário -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterUsuario">Usuário</label>
+            <select class="form-control p-0" id="filterUsuarioSelect">
+              <!-- Carregar opções dinamicamente no JavaScript -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterState">Estado</label>
+            <select class="form-control p-0" id="filterStateSelect">
+              <!-- Adicione estados aqui -->
+              <option value="">Todos</option>
+              <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
                         <option value="AP">Amapá</option>
                         <option value="AM">Amazonas</option>
@@ -177,41 +131,42 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
                         <option value="SP">São Paulo</option>
                         <option value="SE">Sergipe</option>
                         <option value="TO">Tocantins</option>
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" onclick="filterByState()">Aplicar Filtro</button>
-                </div>
-            </div>
-        </div>
-    </div>
+              <!-- Mais estados... -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterMarker">Marcador</label>
+            <select class="form-control" id="filterMarkerSelect">
+              <!-- Carregar opções dinamicamente no JavaScript -->
+            </select>
+          </div>
 
-    <!-- Modal de filtro por Usuário -->
-    <div class="modal fade" id="filterUsuarioModal" tabindex="-1" role="dialog" aria-labelledby="filterUsuarioModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="filterUsuarioModalLabel">Filtrar por Usuário</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <select id="filterUsuarioSelect" class="form-control p-0">
-                        <option value="">Selecione um Usuário</option>
-                        <?php foreach ($usuarios as $usuario): ?>
-                            <option value="<?php echo htmlspecialchars($usuario['id']); ?>"><?php echo htmlspecialchars($usuario['nome']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" onclick="filterByUser()">Aplicar Filtro</button>
-                </div>
-            </div>
-        </div>
+          <!-- Filtro de Cidade -->
+          <div class="form-group">
+            <label for="filterCity">Cidade</label>
+            <select class="form-control" id="filterCitySelect">
+              <!-- Carregar opções dinamicamente -->
+            </select>
+          </div>
+
+          <!-- Filtro de Mesorregião -->
+          <div class="form-group">
+            <label for="filterMesorregiao">Mesorregião</label>
+            <select class="form-control" id="filterMesorregiaoSelect">
+              <!-- Carregar opções dinamicamente -->
+            </select>
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" id="applyFilterButton">Aplicar Filtros</button>
+      </div>
     </div>
+  </div>
+</div>
+
 
     <!-- jQuery, Popper.js, Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

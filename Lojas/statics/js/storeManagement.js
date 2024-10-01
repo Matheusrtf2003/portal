@@ -1,6 +1,6 @@
 // Carrega todas as lojas
 function loadAllStores() {
-    fetch('../functions/getStores2.php')
+    fetch('/portal/functions/getStores2.php')
         .then(response => response.json())
         .then(data => {
             console.log('Dados retornados:', data); // Exibir dados no console
@@ -240,7 +240,7 @@ document.getElementById('storeForm').addEventListener('submit', function(event) 
     }
 
     // Verifique se a URL e o método estão corretos
-    let url = storeData.storeId ? `../functions/Stores/updateStore.php` : `../functions/Stores/addStore.php`;
+    let url = storeData.storeId ? `/portal/functions/Stores/updateStore.php` : `/portal/functions/Stores/addStore.php`;
     
     fetch(url, {
         method: 'POST',
@@ -265,7 +265,7 @@ document.getElementById('storeForm').addEventListener('submit', function(event) 
 // Função para carregar os dados da loja e preencher o formulário de edição
 function editStore(storeId) {
     // Faz uma requisição para buscar os dados da loja com base no storeId
-    fetch(`../functions/Stores/getStore.php?id=${storeId}`)
+    fetch(`/portal/functions/Stores/getStore.php?id=${storeId}`)
     .then(response => response.json())
     .then(data => {
         if (data.success) {

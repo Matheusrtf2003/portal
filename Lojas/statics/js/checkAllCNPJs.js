@@ -1,6 +1,6 @@
 // Checka o TINY para atualizar Status da loja
 function checkAllCNPJs() {
-    fetch('../functions/getAllCNPJs.php')
+    fetch('/portal/functions/getAllCNPJs.php')
         .then(response => response.json()) // Já espera o JSON diretamente
         .then(data => {
             console.log('Resposta bruta do servidor:', data);

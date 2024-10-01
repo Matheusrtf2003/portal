@@ -16,7 +16,7 @@ async function checkCNPJInTiny(cnpj) {
 }
 
 async function updateStoreStatus(storeId) {
-    await fetch('../functions/Stores/updateStoreStatus.php', {
+    await fetch('/portal/functions/Stores/updateStoreStatus.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

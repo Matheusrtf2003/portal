@@ -1,7 +1,7 @@
 // Função para buscar todos os dados e exportar para Excel
 function exportAllDataToExcel() {
     // Faz a requisição para obter todos os dados
-    fetch('../functions/getStores.php')
+    fetch('/portal/functions/getStores.php')
         .then(response => response.json())
         .then(data => {
             if (data.success && data.stores.length > 0) {

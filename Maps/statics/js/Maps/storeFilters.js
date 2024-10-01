@@ -4,6 +4,8 @@ function applyFilters() {
     const state = document.getElementById('filterStateSelect').value.toLowerCase();
     const marker = document.getElementById('filterMarkerSelect').value.toLowerCase();
     const usuario = document.getElementById('filterUsuarioSelect').value; // Não converter para lowerCase pois é um ID numérico
+    const city = document.getElementById('filterCitySelect').value.toLowerCase(); // Filtro de cidade
+    const mesorregiao = document.getElementById('filterMesorregiaoSelect').value.toLowerCase(); // Filtro de mesorregião
 
     // Usar 'allStores' como a base para o filtro
     filteredStores = allStores.filter(store => {
@@ -12,9 +14,11 @@ function applyFilters() {
         const matchState = !state || store.estado.toLowerCase() === state;
         const matchMarker = !marker || (store.marcadores && store.marcadores.some(m => m.nome.toLowerCase() === marker));
         const matchUsuario = !usuario || store.usuario_id == usuario;
+        const matchCity = !city || store.cidade.toLowerCase() === city; // Novo filtro de cidade
+        const matchMesorregiao = !mesorregiao || store.mesorregiao.toLowerCase() === mesorregiao; // Novo filtro de mesorregião
 
         // Retorna apenas se todos os filtros forem satisfeitos
-        return matchQuery && matchStatus && matchUsuario && matchState && matchMarker;
+        return matchQuery && matchStatus && matchUsuario && matchState && matchMarker && matchCity && matchMesorregiao;
     });
 
     displayStores(filteredStores);
@@ -104,6 +108,50 @@ function loadAvailableUsers() {
     if (previousSelectedUser) {
         userSelect.value = previousSelectedUser;
     }
+}
+
+function loadAvailableCities() {
+    const citySelect = document.getElementById('filterCitySelect');
+    const uniqueCities = new Set();
+
+    // Extraindo cidades únicas de todas as lojas
+    allStores.forEach(store => {
+        uniqueCities.add(store.cidade.toLowerCase());
+    });
+
+    // Limpar opções existentes
+    citySelect.innerHTML = '<option value="">Todas</option>';
+
+    // Adicionar cidades únicas à lista de seleção
+    uniqueCities.forEach(city => {
+        const option = document.createElement('option');
+        option.value = city;
+        option.textContent = city.charAt(0).toUpperCase() + city.slice(1); // Capitaliza a primeira letra
+        citySelect.appendChild(option);
+    });
+}
+
+function loadAvailableMesorregioes() {
+    const mesorregiaoSelect = document.getElementById('filterMesorregiaoSelect');
+    const uniqueMesorregioes = new Set();
+
+    // Extraindo mesorregiões únicas de todas as lojas
+    allStores.forEach(store => {
+        if (store.mesorregiao) {
+            uniqueMesorregioes.add(store.mesorregiao.toLowerCase());
+        }
+    });
+
+    // Limpar opções existentes
+    mesorregiaoSelect.innerHTML = '<option value="">Todas</option>';
+
+    // Adicionar mesorregiões únicas à lista de seleção
+    uniqueMesorregioes.forEach(mesorregiao => {
+        const option = document.createElement('option');
+        option.value = mesorregiao;
+        option.textContent = mesorregiao.charAt(0).toUpperCase() + mesorregiao.slice(1); // Capitaliza a primeira letra
+        mesorregiaoSelect.appendChild(option);
+    });
 }
 
 
