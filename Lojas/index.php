@@ -29,7 +29,7 @@ if (!isset($_SESSION['user_id'])) {
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addStoreModal">Adicionar Loja</button>
                 <button type="button" class="btn btn-primary" onclick="checkAllCNPJs()">Verificar CNPJs no Tiny</button>
                 <button id="updateMissingAddresses" class="btn btn-primary">Atualizar Endereços Faltantes</button>
-                <input type="text" id="searchInput" class="form-control mt-3 mb-3" placeholder="Pesquisar por algo...">
+                <input type="text" id="searchInput" class="form-control p-1 mt-3 mb-3" placeholder="Pesquisar por algo...">
                 <button type="button" class="btn btn-secondary mt-3 mb-3" data-toggle="modal" data-target="#filterModal">Filtrar</button>
                 <button type="button" class="btn btn-danger mt-3 mb-3" onclick="resetFilters()">Limpar Filtros</button>
                 <button type="button" class="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#importCSVModal">Importar CSV</button>
@@ -102,19 +102,19 @@ if (!isset($_SESSION['user_id'])) {
                         <!-- Nome -->
                         <div class="form-group">
                             <label for="storeName">Nome:</label>
-                            <input type="text" class="form-control" id="storeName" autocomplete="name" name="nome">
+                            <input type="text" class="form-control p-1" id="storeName" autocomplete="name" name="nome">
                         </div>
 
                         <!-- CNPJ -->
                         <div class="form-group">
                             <label for="cnpj">CNPJ:</label>
-                            <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="Digite o CNPJ" maxlength="18">
+                            <input type="text" class="form-control p-1" id="cnpj" name="cnpj" placeholder="Digite o CNPJ" maxlength="18">
                         </div>
 
                         <!-- Status -->
                         <div class="form-group">
                             <label for="storeStatus">Status:</label>
-                            <select class="form-control" id="storeStatus" name="status">
+                            <select class="form-control p-1" id="storeStatus" name="status">
                                 <option value="Descoberto">Descoberto</option>
                                 <option value="Coberto">Coberto</option>
                                 <option value="Ativo">Ativo</option>
@@ -125,20 +125,20 @@ if (!isset($_SESSION['user_id'])) {
                         <!-- Endereço -->
                         <div class="form-group">
                             <label for="storeAddress">Endereço:</label>
-                            <input type="text" class="form-control" id="storeAddress" name="endereco">
+                            <input type="text" class="form-control p-1" id="storeAddress" name="endereco">
                             <button type="button" class="btn btn-primary" id="pesquisar-cnpj" style="margin-top: 20px;">Pesquisar Endereço na Receita</button>
                         </div>
 
                         <!-- Cidade -->
                         <div class="form-group">
                             <label for="storeCity">Cidade:</label>
-                            <input type="text" class="form-control" id="storeCity" name="cidade">
+                            <input type="text" class="form-control p-1" id="storeCity" name="cidade">
                         </div>
 
                         <!-- Estado -->
                         <div class="form-group">
                             <label for="storeState">Estado (UF):</label>
-                            <select class="form-control" id="storeState" name="estado">
+                            <select class="form-control p-1" id="storeState" name="estado">
                                 <option value="" disabled selected>Selecione um estado</option>
                             </select>
                         </div>
@@ -146,14 +146,14 @@ if (!isset($_SESSION['user_id'])) {
                         <!-- Mesorregião -->
                         <div class="form-group">
                             <label for="storeMesorregiao">Mesorregião:</label>
-                            <select class="form-control p-0" id="storeMesorregiao" name="mesorregiao">
+                            <select class="form-control p-1" id="storeMesorregiao" name="mesorregiao">
                                 <option value="" disabled selected>Selecione uma mesorregião</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="storeMarker">Marcadores:</label>
-                            <select class="form-control" id="storeMarker" name="marker">
+                            <select class="form-control p-1" id="storeMarker" name="marker">
                                 <?php
                                 // Pegar os marcadores da tabela markers
                                 $stmt = $pdo->prepare("SELECT id, nome FROM markers");
@@ -169,7 +169,7 @@ if (!isset($_SESSION['user_id'])) {
 
                         <div class="form-group">
                             <label for="storeAnotacao">Especialidade:</label>
-                            <select class="form-control" id="storeAnotacao" name="anotacao">
+                            <select class="form-control p-1" id="storeAnotacao" name="anotacao">
                                 <option value="Geral">Geral</option>
                                 <option value="Unhas">Unhas</option>
                                 <option value="Cílios">Cílios</option>
@@ -184,37 +184,37 @@ if (!isset($_SESSION['user_id'])) {
                         <!-- Telefone -->
                         <div class="form-group">
                             <label for="storePhone">Telefone:</label>
-                            <input type="text" class="form-control" id="storePhone" name="telefone">
+                            <input type="text" class="form-control p-1" id="storePhone" name="telefone">
                         </div>
 
                         <!-- Instagram -->
                         <div class="form-group">
                             <label for="storeInstagram">Instagram:</label>
-                            <input type="text" class="form-control" id="storeInstagram" name="instagram">
+                            <input type="text" class="form-control p-1" id="storeInstagram" name="instagram">
                         </div>
 
                         <!-- Site -->
                         <div class="form-group">
                             <label for="storeWebsite">Site:</label>
-                            <input type="text" class="form-control" id="storeWebsite" name="site">
+                            <input type="text" class="form-control p-1" id="storeWebsite" name="site">
                         </div>
 
                         <!-- Nome Decisor -->
                         <div class="form-group">
                             <label for="storeDecider">Nome Decisor:</label>
-                            <input type="text" class="form-control" id="storeDecider" name="decisor">
+                            <input type="text" class="form-control p-1" id="storeDecider" name="decisor">
                         </div>
 
                         <!-- Telefone Decisor -->
                         <div class="form-group">
                             <label for="storeDeciderPhone">Telefone Decisor:</label>
-                            <input type="text" class="form-control" id="storeDeciderPhone" name="telefone_decisor">
+                            <input type="text" class="form-control p-1" id="storeDeciderPhone" name="telefone_decisor">
                         </div>
 
                         <!-- E-mail -->
                         <div class="form-group">
                             <label for="storeEmail">E-mail:</label>
-                            <input type="email" class="form-control" id="storeEmail" name="email">
+                            <input type="email" class="form-control p-1" id="storeEmail" name="email">
                         </div>
 
                         <div class="modal-footer">
@@ -242,7 +242,7 @@ if (!isset($_SESSION['user_id'])) {
                     <!-- Filtro de Status -->
                     <div class="form-group">
                         <label for="filterStatus">Status:</label>
-                        <select class="form-control p-0" id="filterStatus" name="status">
+                        <select class="form-control p-1" id="filterStatus" name="status">
                             <option value="">Todos</option>
                             <option value="Descoberto">Descoberto</option>
                             <option value="Coberto">Coberto</option>
@@ -254,7 +254,7 @@ if (!isset($_SESSION['user_id'])) {
                     <!-- Filtro de Marcador -->
                     <div class="form-group">
                         <label for="filterMarker">Marcador:</label>
-                        <select class="form-control" id="filterMarker">
+                        <select class="form-control p-1" id="filterMarker">
                             <option value="">Todos</option>
                             <?php foreach ($marcadores as $marcador) {
                                 echo '<option value="' . $marcador['id'] . '">' . $marcador['nome'] . '</option>';
@@ -265,7 +265,7 @@ if (!isset($_SESSION['user_id'])) {
 
                     <div class="form-group">
                         <label for="filterAnotacao">Especialidade:</label>
-                        <select class="form-control" id="filterAnotacao" name="filterAnotacao">
+                        <select class="form-control p-1" id="filterAnotacao" name="filterAnotacao">
                             <option value="Geral">Geral</option>
                             <option value="Unhas">Unhas</option>
                             <option value="Cílios">Cílios</option>
@@ -280,19 +280,19 @@ if (!isset($_SESSION['user_id'])) {
                     <!-- Filtro de Data Início -->
                     <div class="form-group">
                         <label for="filterDateStart">Data Início:</label>
-                        <input type="date" class="form-control" id="filterDateStart" name="date_start">
+                        <input type="date" class="form-control p-1" id="filterDateStart" name="date_start">
                     </div>
 
                     <!-- Filtro de Data Fim -->
                     <div class="form-group">
                         <label for="filterDateEnd">Data Fim:</label>
-                        <input type="date" class="form-control" id="filterDateEnd" name="date_end">
+                        <input type="date" class="form-control p-1" id="filterDateEnd" name="date_end">
                     </div>
 
                     <!-- Filtro de Hunter -->
                     <div class="form-group">
                         <label for="hunter">Hunter:</label>
-                        <select class="form-control" id="hunter" name="hunter">
+                        <select class="form-control p-1" id="hunter" name="hunter">
                             <option value="">Todos</option>
                             <?php
                             // Consultar hunters no banco de dados
@@ -310,7 +310,7 @@ if (!isset($_SESSION['user_id'])) {
 
                     <div class="form-group">
                         <label for="filterVendedor">Vendedor:</label>
-                        <select class="form-control" id="filterVendedor">
+                        <select class="form-control p-1" id="filterVendedor">
                             <option value="" disabled selected>Selecione um vendedor</option>
                             <?php
                             // Consultar a lista de vendedores no banco de dados
@@ -354,7 +354,7 @@ if (!isset($_SESSION['user_id'])) {
                     <form id="importCSVForm" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="csvFile">Arquivo CSV:</label>
-                            <input type="file" class="form-control" id="csvFile" name="file" accept=".csv" required>
+                            <input type="file" class="form-control p-1" id="csvFile" name="file" accept=".csv" required>
                         </div>
                     </form>
                     <div id="importMessage" class="mt-3"></div> <!-- Adiciona a mensagem de sucesso -->
@@ -366,6 +366,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
     </div>
+
 <!-- Modal Atribuir Vendedor às Lojas Selecionadas -->
 <div class="modal fade" id="assignVendedorModal" tabindex="-1" role="dialog" aria-labelledby="assignVendedorModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -378,7 +379,7 @@ if (!isset($_SESSION['user_id'])) {
       </div>
       <div class="modal-body">
         <label for="vendedorSelect">Selecione um Vendedor</label>
-        <select class="form-control p-0" id="vendedorSelect">
+        <select class="form-control p-1" id="vendedorSelect">
           <option value="" disabled selected>Selecione um vendedor</option>
         </select>
 

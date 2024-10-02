@@ -35,7 +35,7 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
     <div class="container-fluid d-flex flex-column" style="height: 100vh;">
         <div class="row flex-grow-1" style="margin-left: 100px;">
             <div class="col-lg-3 barra-lateral bg-light">
-                <input type="text" id="searchInput" class="form-control mb-3" placeholder="Pesquisar por Nome, Cidade ou Estado">
+                <input type="text" id="searchInput" class="form-control p-1 mb-3" placeholder="Pesquisar por Nome, Cidade ou Estado">
                 <!-- Botão para abrir o modal de filtro por estado -->
                     <!-- Botão para abrir o modal -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">
@@ -84,7 +84,7 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
         <form id="filterForm">
           <div class="form-group">
             <label for="filterStatus">Status</label>
-            <select class="form-control p-0" id="filterStatusSelect">
+            <select class="form-control p-1" id="filterStatusSelect">
               <option value="">Todos</option>
               <option value="Ativo">Ativo</option>
               <option value="Inativo">Inativo</option>
@@ -95,13 +95,13 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label for="filterUsuario">Usuário</label>
-            <select class="form-control p-0" id="filterUsuarioSelect">
+            <select class="form-control p-1" id="filterUsuarioSelect">
               <!-- Carregar opções dinamicamente no JavaScript -->
             </select>
           </div>
           <div class="form-group">
             <label for="filterState">Estado</label>
-            <select class="form-control p-0" id="filterStateSelect">
+            <select class="form-control p-1" id="filterStateSelect">
               <!-- Adicione estados aqui -->
               <option value="">Todos</option>
               <option value="AC">Acre</option>
@@ -136,7 +136,7 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label for="filterMarker">Marcador</label>
-            <select class="form-control p-0" id="filterMarkerSelect">
+            <select class="form-control p-1" id="filterMarkerSelect">
               <!-- Carregar opções dinamicamente no JavaScript -->
             </select>
           </div>
@@ -144,7 +144,7 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
           <!-- Filtro de Cidade -->
           <div class="form-group">
             <label for="filterCity">Cidade</label>
-            <select class="form-control p-0" id="filterCitySelect">
+            <select class="form-control p-1" id="filterCitySelect">
               <!-- Carregar opções dinamicamente -->
             </select>
           </div>
@@ -152,7 +152,7 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
           <!-- Filtro de Mesorregião -->
           <div class="form-group">
             <label for="filterMesorregiao">Mesorregião</label>
-            <select class="form-control p-0" id="filterMesorregiaoSelect">
+            <select class="form-control p-1" id="filterMesorregiaoSelect">
               <!-- Carregar opções dinamicamente -->
             </select>
           </div>
