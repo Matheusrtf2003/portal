@@ -60,3 +60,51 @@
     margin-bottom: 15px;
 }
 
+/* Estilos gerais do card */
+.store-item {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.store-item:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Botão de "Ver Detalhes" */
+.ver-detalhes {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.ver-detalhes:hover {
+    background-color: #0056b3;
+}
+
+/* Detalhes da loja - animação */
+.detail-column {
+    opacity: 0;
+    max-height: 0;
+    transition: all 0.5s ease;
+    overflow: hidden;
+}
+
+.detail-column.show {
+    opacity: 1;
+    max-height: 1000px;
+}
+
+/* Botão de fechar */
+.close-details {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.close-details:hover {
+    background-color: #c82333;
+}
+

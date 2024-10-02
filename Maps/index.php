@@ -136,7 +136,7 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
           </div>
           <div class="form-group">
             <label for="filterMarker">Marcador</label>
-            <select class="form-control" id="filterMarkerSelect">
+            <select class="form-control p-0" id="filterMarkerSelect">
               <!-- Carregar opções dinamicamente no JavaScript -->
             </select>
           </div>
@@ -144,7 +144,7 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
           <!-- Filtro de Cidade -->
           <div class="form-group">
             <label for="filterCity">Cidade</label>
-            <select class="form-control" id="filterCitySelect">
+            <select class="form-control p-0" id="filterCitySelect">
               <!-- Carregar opções dinamicamente -->
             </select>
           </div>
@@ -152,7 +152,7 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
           <!-- Filtro de Mesorregião -->
           <div class="form-group">
             <label for="filterMesorregiao">Mesorregião</label>
-            <select class="form-control" id="filterMesorregiaoSelect">
+            <select class="form-control p-0" id="filterMesorregiaoSelect">
               <!-- Carregar opções dinamicamente -->
             </select>
           </div>

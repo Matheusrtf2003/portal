@@ -23,14 +23,14 @@ function loadAllStores() {
         });
 }
 
-// Exibe as lojas com paginação
+// Função para exibir as lojas com paginação
 function displayStores(stores) {
     const tbody = document.querySelector('#storesTable tbody');
-    tbody.innerHTML = ''; // Limpa tabela antes de exibir lojas
+    tbody.innerHTML = ''; // Limpa a tabela antes de exibir as lojas
 
-    const start = (currentPage - 1) * itemsPerPage; // Calcula o início da paginação
-    const end = start + itemsPerPage;  // Calcula o fim da paginação
-    const paginatedStores = stores.slice(start, end);  // Pega as lojas paginadas
+    const start = (currentPage - 1) * itemsPerPage; // Calcula o índice inicial com base na página atual
+    const end = start + itemsPerPage;  // Calcula o índice final com base na página atual
+    const paginatedStores = stores.slice(start, end);  // Divide as lojas com base na paginação
 
     if (paginatedStores.length === 0) {
         console.log('Nenhuma loja a exibir.');
@@ -51,6 +51,7 @@ function displayStores(stores) {
     const storeCount = document.getElementById('storeCount');
     storeCount.textContent = `Total de Lojas: ${stores.length}`;
 }
+
 
 // Cria uma linha da tabela para uma loja
 function createStoreRow(store) {

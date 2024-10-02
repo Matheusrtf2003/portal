@@ -1,31 +1,33 @@
 let currentPage = 1;
-const itemsPerPage = 20;
+const itemsPerPage = 20; // Quantidade de itens por página
 
-// Troca a página atual
+// Função para trocar de página
 function changePage(direction) {
     currentPage += direction;
 
-    // Verifica se não estamos fora do intervalo de páginas
+    // Verifica o total de páginas baseado nos itens filtrados
     const totalPages = Math.ceil(filteredStores.length / itemsPerPage);
+    
     if (currentPage < 1) {
         currentPage = 1;
     } else if (currentPage > totalPages) {
         currentPage = totalPages;
     }
 
+    // Aplicar os filtros e atualizar a exibição de lojas
     applyFilters();
     updatePageNumberDisplay();
 }
 
-// Atualiza o número da página exibido
+// Função para atualizar o número da página exibida
 function updatePageNumberDisplay() {
     const totalPages = Math.ceil(filteredStores.length / itemsPerPage);
     document.getElementById('currentPageDisplay').textContent = `Página ${currentPage} de ${totalPages}`;
 }
 
-// Aplique a função de página quando carregar as lojas
+// Função para aplicar os filtros e exibir a página correta
 function applyFilters() {
-    // Lógica de filtros aqui
+    // Certifica-se de aplicar os filtros corretamente
     displayStores(filteredStores);
     updatePageNumberDisplay();
 }

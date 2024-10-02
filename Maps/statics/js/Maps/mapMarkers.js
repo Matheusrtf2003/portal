@@ -125,8 +125,6 @@ function getStatusClass(status) {
     }
 }
 
-
-
 function clearMapMarkers() {
     markers.forEach(marker => marker.setMap(null));
     markers = [];

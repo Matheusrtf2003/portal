@@ -7,13 +7,13 @@ function loadAllStores() {
         .then(data => {
             if (data.success && Array.isArray(data.stores)) {
                 allStores = data.stores;
-                console.log('Todas as lojas:', allStores); // Adicione esta linha
                 displayStores(allStores);
                 updateResultCount(allStores.length);
                 loadMarkers();
                 loadAvailableUsers(); // Carregar os usuários disponíveis
                 loadAvailableCities(); // Carregar cidades disponíveis
                 loadAvailableMesorregioes(); // Carregar mesorregiões disponíveis
+                loadAvailableMarkers(); // Carregar os marcadores disponíveis
             } else {
                 console.error('Erro ao carregar lojas:', data.message || 'Erro desconhecido');
             }
@@ -66,13 +66,13 @@ function addStoreToList(loja) {
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <div>
                         <h6 class="card-title mb-1" style="font-size: 16px;">${loja.nome}</h6>
-                        <p class="text-muted mb-0" style="font-size: 11px;">${loja.estado} - ${loja.cidade}</p>
+                        <p class="text-muted mb-0" style="font-size: 11px;"><i class="bi bi-geo-alt-fill"></i> ${loja.estado} - ${loja.cidade}</p>
                     </div>
                     <div>
                         <small class="badge badge-pill ${statusClass}">${loja.status}</small>
                     </div>
                 </div>
-                <p class="mb-1" style="font-size: 13px;"><strong>Marcadores:</strong> ${markersHtml}</p>
+                <p class="mb-1" style="font-size: 13px;"><i class="bi bi-bookmark-star-fill"></i> ${markersHtml}</p>
                 <div class="d-flex justify-content-between align-items-center-c">
                     <input type="checkbox" class="store-checkbox" data-id="${loja.id}" checked />
                     <button class="btn btn-primary btn-sm" style="border-radius: 20px; padding: 2px 8px; font-size: 11px;">Ver Detalhes</button>
@@ -102,7 +102,6 @@ function addStoreToList(loja) {
         }
     });
 }
-
 
 function toggleStoreDetails(loja) {
     let detailElement = document.getElementById(`storeDetails-${loja.id}`);

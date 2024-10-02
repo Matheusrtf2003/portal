@@ -207,3 +207,68 @@ canvas {
     font-size: 16px;
     color: #6c757d;
 }
+
+
+/*Card metas*/
+
+/* Design mais plano e minimalista para os cards */
+.card {
+    border-radius: 8px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+/* Títulos com cor azul consistente com o sistema */
+.card-title {
+    font-size: 1.1rem;
+    color: #007bff;
+}
+
+/* Progresso com bordas arredondadas e altura reduzida */
+.progress {
+    height: 15px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+}
+
+.progress-bar {
+    transition: width 0.4s ease;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+/* Botão de menu com ícone de opções */
+.dropdown-toggle::after {
+    display: none;
+}
+
+.btn-link {
+    padding: 0;
+}
+
+/* Cores dos botões de ação */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Botão de ação minimalista */
+.btn-link {
+    padding: 0;
+    color: #343a40;
+}
+
+/* Cor dos itens de status */
+.text-primary {
+    color: #007bff !important;
+}
