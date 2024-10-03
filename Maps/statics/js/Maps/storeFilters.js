@@ -137,8 +137,8 @@ function loadAvailableMesorregioes() {
 
     // Extraindo mesorregiões únicas de todas as lojas
     allStores.forEach(store => {
-        if (store.mesorregiao) {
-            uniqueMesorregioes.add(store.mesorregiao.toLowerCase());
+        if (store.mesorregiao_nome) {  // Verifique se 'mesorregiao_nome' é o campo correto no seu banco de dados
+            uniqueMesorregioes.add(store.mesorregiao_nome.toLowerCase());
         }
     });
 
@@ -153,6 +153,7 @@ function loadAvailableMesorregioes() {
         mesorregiaoSelect.appendChild(option);
     });
 }
+
 
 
 
