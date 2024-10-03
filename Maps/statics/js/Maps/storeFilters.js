@@ -155,5 +155,51 @@ function loadAvailableMesorregioes() {
 }
 
 
+//limpar filtros
 
+function clearFilters() {
+    // Limpar o campo de busca
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.value = '';
+    }
 
+    // Redefinir o select de status
+    const statusSelect = document.getElementById('filterStatusSelect');
+    if (statusSelect) {
+        statusSelect.selectedIndex = 0;
+    }
+
+    // Redefinir o select de estado
+    const stateSelect = document.getElementById('filterStateSelect');
+    if (stateSelect) {
+        stateSelect.selectedIndex = 0;
+    }
+
+    // Redefinir o select de marcadores
+    const markerSelect = document.getElementById('filterMarkerSelect');
+    if (markerSelect) {
+        markerSelect.selectedIndex = 0;
+    }
+
+    // Redefinir o select de usuários
+    const userSelect = document.getElementById('filterUsuarioSelect');
+    if (userSelect) {
+        userSelect.selectedIndex = 0;
+    }
+
+    // Redefinir o select de cidade
+    const citySelect = document.getElementById('filterCitySelect');
+    if (citySelect) {
+        citySelect.selectedIndex = 0;
+    }
+
+    // Redefinir o select de mesorregião
+    const mesorregiaoSelect = document.getElementById('filterMesorregiaoSelect');
+    if (mesorregiaoSelect) {
+        mesorregiaoSelect.selectedIndex = 0;
+    }
+
+    // Limpar a lista de lojas exibidas
+    displayStores([]); // Passar uma lista vazia para esconder todas as lojas
+}

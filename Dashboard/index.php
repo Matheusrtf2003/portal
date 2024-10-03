@@ -10,6 +10,7 @@ include '../functions/config.php';
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,7 +61,7 @@ include '../functions/config.php';
                         <!-- Aqui vai o conteúdo das metas do usuário -->
                     <?php endif; ?>
                 </div>
-                
+
                 <input type="hidden" id="userId" value="<?php echo $_SESSION['user_id']; ?>">
             </div>
         </div>
@@ -80,29 +81,29 @@ include '../functions/config.php';
                     <form id="goalForm">
                         <div class="form-group">
                             <label for="goalName">Nome da Meta:</label>
-                            <input type="text" class="form-control" id="goalName" name="goal_name" required>
+                            <input type="text" class="form-control p-0" id="goalName" name="goal_name" required>
                         </div>
                         <div class="form-group">
                             <label for="startDate">Data de Início:</label>
-                            <input type="datetime-local" class="form-control" id="startDate" name="start_date" required>
+                            <input type="datetime-local" class="form-control p-0" id="startDate" name="start_date" required>
                         </div>
                         <div class="form-group">
                             <label for="endDate">Data de Fim:</label>
-                            <input type="datetime-local" class="form-control" id="endDate" name="end_date" required>
+                            <input type="datetime-local" class="form-control p-0" id="endDate" name="end_date" required>
                         </div>
                         <div class="form-group">
                             <label for="target">Quantidade de Lojas:</label>
-                            <input type="number" class="form-control" id="target" name="target" required>
+                            <input type="number" class="form-control p-0" id="target" name="target" required>
                         </div>
                         <div class="form-group">
                             <label for="goalMarker">Marcador:</label>
-                            <select class="form-control" id="goalMarker" name="goal_marker" required>
+                            <select class="form-control p-0" id="goalMarker" name="goal_marker" required>
                                 <!-- Marcadores serão carregados via JS -->
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="goalUsers">Usuário:</label>
-                            <select class="form-control" id="goalUsers" name="goal_user" required>
+                            <select class="form-control p-0" id="goalUsers" name="goal_user" required>
                                 <!-- Usuários serão carregados via JS -->
                             </select>
                         </div>
@@ -126,4 +127,5 @@ include '../functions/config.php';
     <script src="statics/js/dashboardCharts.js"></script>
 
 </body>
+
 </html>

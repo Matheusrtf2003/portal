@@ -23,6 +23,7 @@ $markers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,17 +33,18 @@ $markers = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="statics/css/marcadores.css">
     <link rel="stylesheet" href="../sidebar/css/sidebar.css">
 </head>
+
 <body>
     <?php include '../sidebar/sidebar.php'; ?>
     <?php include '../MenuUsuario/user_menu.php'; ?>
-    
+
     <!-- Lista de Marcadores -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8" style="margin-left: 300px;">
                 <h1>Marcadores</h1>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addMarkerModal">Criar Marcador</button>
-                
+
                 <div class="row mt-3">
                     <?php foreach ($markers as $marker): ?>
                         <div class="col-md-4">
@@ -127,66 +129,68 @@ $markers = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-    // Adiciona a classe 'active' ao link do menu lateral correspondente à página atual
-    const currentPath = window.location.pathname.split('/').pop();
-    document.querySelectorAll('.sidebar-menu .nav-link').forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
-            link.classList.add('active');
-        }
-    });
+        // Adiciona a classe 'active' ao link do menu lateral correspondente à página atual
+        const currentPath = window.location.pathname.split('/').pop();
+        document.querySelectorAll('.sidebar-menu .nav-link').forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            }
+        });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const markerForm = document.getElementById('markerForm');
-        const editMarkerForm = document.getElementById('editMarkerForm');
+        document.addEventListener('DOMContentLoaded', function() {
+            const markerForm = document.getElementById('markerForm');
+            const editMarkerForm = document.getElementById('editMarkerForm');
 
-        // Enviar formulário de criar marcador
-        if (markerForm) {
-            markerForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const formData = new FormData(this);
-                const data = {
-                    nome: formData.get('nome'),
-                    cor: formData.get('cor')
-                };
+            // Enviar formulário de criar marcador
+            if (markerForm) {
+                markerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
 
-                fetch('/portal/functions/Markers/addMarker.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(result => {
-                    if (result.success) {
-                        $('#addMarkerModal').modal('hide');
-                        alert('Marcador criado com sucesso!');
-                        location.reload()
-                    } else {
-                        alert('Erro ao criar marcador: ' + result.message);
-                    }
-                })
-                .catch(error => console.error('Erro:', error));
-            }, { once: true }); // Adicionar { once: true } para garantir que o evento seja vinculado apenas uma vez
-        }
+                    const formData = new FormData(this);
+                    const data = {
+                        nome: formData.get('nome'),
+                        cor: formData.get('cor')
+                    };
 
-        function loadMarkers() {
-            console.log('Iniciando carregamento de marcadores...');
-            fetch('/portal/functions/Markers/getMarkers.php')
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Resposta do servidor:', data); // Verificar se os dados estão corretos
-                    const markerList = document.getElementById('markerList');
-                    
-                    // Limpar a lista atual de marcadores
-                    markerList.innerHTML = '';
+                    fetch('/portal/functions/Markers/addMarker.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.success) {
+                                $('#addMarkerModal').modal('hide');
+                                alert('Marcador criado com sucesso!');
+                                location.reload()
+                            } else {
+                                alert('Erro ao criar marcador: ' + result.message);
+                            }
+                        })
+                        .catch(error => console.error('Erro:', error));
+                }, {
+                    once: true
+                }); // Adicionar { once: true } para garantir que o evento seja vinculado apenas uma vez
+            }
 
-                    if (data.success && Array.isArray(data.markers)) {
-                        data.markers.forEach(marker => {
-                            console.log('Adicionando marcador:', marker); // Verificando cada marcador
-                            const row = document.createElement('tr');
-                            row.innerHTML = `
+            function loadMarkers() {
+                console.log('Iniciando carregamento de marcadores...');
+                fetch('/portal/functions/Markers/getMarkers.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Resposta do servidor:', data); // Verificar se os dados estão corretos
+                        const markerList = document.getElementById('markerList');
+
+                        // Limpar a lista atual de marcadores
+                        markerList.innerHTML = '';
+
+                        if (data.success && Array.isArray(data.markers)) {
+                            data.markers.forEach(marker => {
+                                console.log('Adicionando marcador:', marker); // Verificando cada marcador
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
                                 <td>${marker.id}</td>
                                 <td>${marker.nome}</td>
                                 <td>
@@ -197,72 +201,73 @@ $markers = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <button class="btn btn-danger btn-sm" onclick="deleteMarker(${marker.id})">Excluir</button>
                                 </td>
                             `;
-                            markerList.appendChild(row);
-                        });
-                    } else {
-                        console.log('Erro ao carregar marcadores ou lista vazia:', data.message);
-                        markerList.innerHTML = '<tr><td colspan="4">Nenhum marcador encontrado</td></tr>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao carregar marcadores:', error);
-                });
-        }
-
-        // Função para abrir o modal de edição com dados do marcador
-        window.openEditModal = function(id, nome, cor) {
-            document.getElementById('editMarkerId').value = id;
-            document.getElementById('editMarkerName').value = nome;
-            document.getElementById('editMarkerColor').value = cor;
-            $('#editMarkerModal').modal('show');
-        }
-
-        // Função para excluir um marcador
-        window.deleteMarker = function(id) {
-            if (confirm('Tem certeza que deseja excluir este marcador?')) {
-                fetch(`/portal/functions/Markers/deleteMarker.php?id=${id}`, {
-                    method: 'GET'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload()
-                    } else {
-                        alert('Erro ao excluir marcador.');
-                    }
-                })
-                .catch(error => console.error('Erro ao excluir marcador:', error));
+                                markerList.appendChild(row);
+                            });
+                        } else {
+                            console.log('Erro ao carregar marcadores ou lista vazia:', data.message);
+                            markerList.innerHTML = '<tr><td colspan="4">Nenhum marcador encontrado</td></tr>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao carregar marcadores:', error);
+                    });
             }
-        }
 
-        // Enviar formulário de editar marcador
-        if (editMarkerForm) {
-            editMarkerForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(this);
+            // Função para abrir o modal de edição com dados do marcador
+            window.openEditModal = function(id, nome, cor) {
+                document.getElementById('editMarkerId').value = id;
+                document.getElementById('editMarkerName').value = nome;
+                document.getElementById('editMarkerColor').value = cor;
+                $('#editMarkerModal').modal('show');
+            }
 
-                fetch('/portal/functions/Markers/updateMarker.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        $('#editMarkerModal').modal('hide');
-                        location.reload()
-                    } else {
-                        alert('Erro ao atualizar marcador.');
-                    }
-                })
-                .catch(error => console.error('Erro ao atualizar marcador:', error));
-            }, { once: true }); // Adicionar { once: true } para garantir que o evento seja vinculado apenas uma vez
-        }
+            // Função para excluir um marcador
+            window.deleteMarker = function(id) {
+                if (confirm('Tem certeza que deseja excluir este marcador?')) {
+                    fetch(`/portal/functions/Markers/deleteMarker.php?id=${id}`, {
+                            method: 'GET'
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                location.reload()
+                            } else {
+                                alert('Erro ao excluir marcador.');
+                            }
+                        })
+                        .catch(error => console.error('Erro ao excluir marcador:', error));
+                }
+            }
 
-        // Carregar os marcadores ao carregar a página
-        loadMarkers();
-    });
+            // Enviar formulário de editar marcador
+            if (editMarkerForm) {
+                editMarkerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(this);
 
+                    fetch('/portal/functions/Markers/updateMarker.php', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                $('#editMarkerModal').modal('hide');
+                                location.reload()
+                            } else {
+                                alert('Erro ao atualizar marcador.');
+                            }
+                        })
+                        .catch(error => console.error('Erro ao atualizar marcador:', error));
+                }, {
+                    once: true
+                }); // Adicionar { once: true } para garantir que o evento seja vinculado apenas uma vez
+            }
+
+            // Carregar os marcadores ao carregar a página
+            loadMarkers();
+        });
     </script>
 </body>
-</html>
 
+</html>

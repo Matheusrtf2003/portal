@@ -26,16 +26,18 @@ function loadAllStores() {
 
 
 function displayStores(stores) {
-    clearStoreList();
+    clearStoreList();  // Limpa a lista antes de exibir as novas lojas
     stores.forEach(loja => {
-        addStoreToList(loja);
+        addStoreToList(loja);  // Adiciona cada loja da lista ao DOM
     });
+
+    // Definir altura e overflow para a lista de lojas
     document.getElementById('storeList').style.height = 'calc(100vh - 300px)';
     document.getElementById('storeList').style.overflowY = 'auto';
 }
 
 function clearStoreList() {
-    document.getElementById('storeList').innerHTML = '';
+    document.getElementById('storeList').innerHTML = ''; // Limpa a lista de lojas
 }
 
 function getStatusClass(status) {
@@ -56,8 +58,8 @@ function getStatusClass(status) {
 function addStoreToList(loja) {
     let statusClass = getStatusClass(loja.status);
 
-    let markersHtml = loja.marcadores && loja.marcadores.length > 0 
-        ? loja.marcadores.map(marker => `<span class="badge" style="background-color: ${marker.cor}; color: white;">${marker.nome}</span>`).join(' ') 
+    let markersHtml = loja.marcadores && loja.marcadores.length > 0
+        ? loja.marcadores.map(marker => `<span class="badge" style="background-color: ${marker.cor}; color: white;">${marker.nome}</span>`).join(' ')
         : '<span class="badge badge-secondary">Sem marcadores</span>';
 
     let storeItem = `
@@ -75,7 +77,7 @@ function addStoreToList(loja) {
                 <p class="mb-1" style="font-size: 13px;"><i class="bi bi-bookmark-star-fill"></i> ${markersHtml}</p>
                 <div class="d-flex justify-content-between align-items-center-c">
                     <input type="checkbox" class="store-checkbox" data-id="${loja.id}" checked />
-                    <button class="btn btn-primary btn-sm" style="border-radius: 20px; padding: 2px 8px; font-size: 11px;">Ver Detalhes</button>
+                    <button class="btn btn-primary btn-sm toggle-details" style="border-radius: 20px; padding: 2px 8px; font-size: 11px;">Ver Detalhes</button>
                 </div>
                 <div class="store-details" id="storeDetails-${loja.id}" style="margin-top: 10px;"></div>
             </div>
@@ -85,29 +87,25 @@ function addStoreToList(loja) {
     document.getElementById('storeList').insertAdjacentHTML('beforeend', storeItem);
 
     const storeElement = document.querySelector(`.store-item[data-id="${loja.id}"]`);
+    const detailsButton = storeElement.querySelector('.toggle-details');
 
     // Listener para o checkbox
     storeElement.querySelector('.store-checkbox').addEventListener('change', function (event) {
         toggleMarkerVisibility(loja.id, event.target.checked);
     });
 
-    // Listener para o botão de detalhes
-    storeElement.querySelector('button').addEventListener('click', function(event) {
+    // Listener para o botão de "Ver Detalhes"
+    detailsButton.addEventListener('click', function (event) {
         event.preventDefault();
-        toggleStoreDetails(loja);
-        clearMapMarkers();
-        const marker = markers.find(m => m.id === loja.id);
-        if (marker) {
-            marker.setMap(map);
-        }
+        toggleStoreDetails(loja, detailsButton);
     });
 }
 
-function toggleStoreDetails(loja) {
+function toggleStoreDetails(loja, button) {
     let detailElement = document.getElementById(`storeDetails-${loja.id}`);
 
     if (!detailElement.classList.contains('show')) {
-        // Removendo caracteres especiais do telefone para o link do WhatsApp
+        // Exibir os detalhes da loja
         let telefoneWhatsApp = loja.telefone ? loja.telefone.replace(/\D/g, '') : null;
         let whatsappLink = telefoneWhatsApp ? `https://wa.me/55${telefoneWhatsApp}` : null;
 
@@ -116,7 +114,6 @@ function toggleStoreDetails(loja) {
             <div class="card mb-4 shadow-sm border-0 detail-column" style="border-radius: 10px;">
                 <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
                     <h4 class="card-title mb-0">${loja.nome}</h4>
-                    <button class="btn btn-light btn-sm close-details" style="border-radius: 20px;">Fechar</button>
                 </div>
                 <div class="card-body">
                     <h5>Status: <span class="badge badge-pill ${getStatusBadge(loja.status)}">${loja.status}</span></h5>
@@ -150,23 +147,42 @@ function toggleStoreDetails(loja) {
 
         detailElement.innerHTML = detailContent;
         setTimeout(() => {
-            detailElement.querySelector('.detail-column').classList.add('show'); // Adiciona a classe show com atraso
+            detailElement.querySelector('.detail-column').classList.add('show');
         }, 10);
 
-        detailElement.querySelector('.close-details').addEventListener('click', function() {
-            detailElement.querySelector('.detail-column').classList.remove('show'); // Remove a classe show para ocultar
+        // Atualizar o botão principal (na parte inferior) para "Fechar"
+        button.textContent = 'Fechar';
+        button.classList.remove('btn-primary');
+        button.classList.add('btn-danger');
+
+        // Listener para o botão de "Fechar" na parte inferior
+        button.addEventListener('click', function () {
+            // Ocultar os detalhes da loja
+            detailElement.querySelector('.detail-column').classList.remove('show');
             setTimeout(() => {
-                detailElement.innerHTML = ''; // Limpa o conteúdo após a animação
-            }, 500); // Aguarda a animação terminar antes de remover o conteúdo
+                detailElement.innerHTML = ''; // Limpa o conteúdo após o fechamento
+            }, 500);
+
+            // Atualizar o botão de volta para "Ver Detalhes"
+            button.textContent = 'Ver Detalhes';
+            button.classList.remove('btn-danger');
+            button.classList.add('btn-primary');
         });
 
     } else {
-        detailElement.querySelector('.detail-column').classList.remove('show'); // Remove a classe show para ocultar
+        // Ocultar os detalhes da loja (caso já estejam abertos)
+        detailElement.querySelector('.detail-column').classList.remove('show');
         setTimeout(() => {
-            detailElement.innerHTML = ''; // Limpa o conteúdo após a animação
-        }, 500); // Aguarda a animação terminar antes de remover o conteúdo
+            detailElement.innerHTML = ''; // Limpa o conteúdo após o fechamento
+        }, 500);
+
+        // Atualizar o botão de volta para "Ver Detalhes"
+        button.textContent = 'Ver Detalhes';
+        button.classList.remove('btn-danger');
+        button.classList.add('btn-primary');
     }
 }
+
 
 function getStatusBadge(status) {
     switch (status.toLowerCase()) {
@@ -178,15 +194,12 @@ function getStatusBadge(status) {
     }
 }
 
-
-let markersHtml = loja.marcadores && loja.marcadores.length > 0 
+let markersHtml = loja.marcadores && loja.marcadores.length > 0
     ? loja.marcadores.map(marker => `
         <div style="background-color: ${marker.cor}; color: black; border-radius: 5px; padding: 5px; display: inline-block;">
             ${marker.nome}
-        </div>`).join(', ') 
+        </div>`).join(', ')
     : 'Sem marcadores';
-
-
 
 function toggleMarkerVisibility(storeId, isVisible) {
     const marker = markers.find(m => m.id === storeId);
@@ -202,7 +215,7 @@ function clearMapMarkers() {
 function loadMarkers() {
     clearMapMarkers();
     filteredStores.forEach(loja => {
-        geocodeAddress(loja.endereco, function(location) {
+        geocodeAddress(loja.endereco, function (location) {
             const marker = addMarkerToMap(location, loja);
             const checkbox = document.querySelector(`.store-checkbox[data-id="${loja.id}"]`);
             marker.setMap(checkbox.checked ? map : null);

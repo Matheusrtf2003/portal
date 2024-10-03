@@ -92,6 +92,6 @@ $user_function = isset($_SESSION['user_function']) ? $_SESSION['user_function'] 
         </li>
         <?php endif; ?>
     </ul>
-    <p class="text-primary badge p-2 bg-white">Versão 0.1</p>
+    <p class="text-primary badge p-2 bg-white">Versão 0.2</p>
 
 </nav>
