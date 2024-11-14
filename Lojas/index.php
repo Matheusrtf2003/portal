@@ -32,13 +32,21 @@ if (!isset($_SESSION['user_id'])) {
                 <input type="text" id="searchInput" class="form-control p-1 mt-3 mb-3" placeholder="Pesquisar por algo...">
                 <button type="button" class="btn btn-secondary mt-3 mb-3" data-toggle="modal" data-target="#filterModal">Filtrar</button>
                 <button type="button" class="btn btn-danger mt-3 mb-3" onclick="resetFilters()">Limpar Filtros</button>
-                <button type="button" class="btn btn-primary mt-3 mb-3" data-toggle="modal" data-target="#importCSVModal">Importar CSV</button>
+
+                <!-- Botão para abrir o modal de importação -->
+                <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#importLojasModal">
+                    Importar Lojas
+                </button>
+
+                <!-- Exibir mensagem de status -->
+                <div id="importStatus" class="mt-3"></div>
+                
                 <a href="archives/planilha_modelo.csv" class="btn btn-link mt-3 mb-3" download="CSV_Modelo_Lojas.csv">Baixar Planilha Modelo</a>
                 <button type="button" class="btn btn-danger mt-3 mb-3 ml-3" onclick="deleteSelectedStores()">Excluir Selecionadas</button>
                 <button type="button" class="btn btn-primary mt-3 mb-3" onclick="openAssignVendedorModalMultiple()">Atribuir Vendedor às Selecionadas</button>
 
                 <?php if ($user && $user['tipo'] === 'Administrador'): ?>
-                    <button onclick="exportAllDataToExcel()" class="btn btn-primary mt-3 mb-3">Exportar para Excel</button>
+                    <button onclick="exportAllDataToExcel()" class="btn btn-warning mt-3 mb-3">Exportar para Excel</button>
                 <?php endif; ?>
                 <div id="storeCount" class="mt-3 mb-3"></div> <!-- Elemento para mostrar a contagem de lojas -->
                 <div class="table-responsive">
@@ -47,6 +55,9 @@ if (!isset($_SESSION['user_id'])) {
                         <tr>
                             <th><input type="checkbox" id="selectAll"></th>
                             <th>ID</th>
+                            <th>Ações</th>
+                            <th>Hunter</th>
+                            <th>Vendedor</th>
                             <th>Nome</th>
                             <th>CNPJ</th>
                             <th>Status</th>
@@ -61,11 +72,9 @@ if (!isset($_SESSION['user_id'])) {
                             <th>Decisor</th>
                             <th>Telefone Decisor</th>
                             <th>E-mail</th>
+                            <th>Perfil da Loja</th>
                             <th>Marcadores</th>
                             <th>Data Registro</th>
-                            <th>Hunter</th>
-                            <th>Vendedor</th>
-                            <th>Ações</th>
                         </tr>
                     </thead>
 
@@ -153,19 +162,30 @@ if (!isset($_SESSION['user_id'])) {
 
                         <div class="form-group">
                             <label for="storeMarker">Marcadores:</label>
-                            <select class="form-control p-1" id="storeMarker" name="marker">
-                                <?php
-                                // Pegar os marcadores da tabela markers
-                                $stmt = $pdo->prepare("SELECT id, nome FROM markers");
-                                $stmt->execute();
-                                $marcadores = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            <?php
+                            // Pegar os marcadores da tabela markers
+                            $stmt = $pdo->prepare("SELECT id, nome FROM markers");
+                            $stmt->execute();
+                            $marcadores = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                                foreach ($marcadores as $marcador) {
-                                    echo '<option value="'.$marcador['id'].'">' . $marcador['nome'] . '</option>';
-                                }
-                                ?>
+                            foreach ($marcadores as $marcador) {
+                                echo '<div class="form-check">';
+                                echo '<input class="form-check-input" type="checkbox" name="markers[]" value="' . $marcador['id'] . '" id="marker' . $marcador['id'] . '">';
+                                echo '<label class="form-check-label" for="marker' . $marcador['id'] . '">' . $marcador['nome'] . '</label>';
+                                echo '</div>';
+                            }
+                            ?>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="perfilLoja">Perfil da Loja:</label>
+                            <select class="form-control p-1" id="perfilLoja" name="perfil_loja">
+                                <option value="ICP">ICP</option>
+                                <option value="Cosmético Geral">Cosmético Geral</option>
                             </select>
                         </div>
+
+
 
                         <div class="form-group">
                             <label for="storeAnotacao">Especialidade:</label>
@@ -218,7 +238,7 @@ if (!isset($_SESSION['user_id'])) {
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-secondary" -dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary" form="storeForm">Salvar</button>
                         </div>
                     </form>
@@ -340,28 +360,29 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
 
-    <!-- Modal Importar CSV -->
-    <div class="modal fade" id="importCSVModal" tabindex="-1" aria-labelledby="importCSVModalLabel" aria-hidden="true">
+   <!-- Modal para o Formulário de Upload de Planilha -->
+    <div class="modal fade" id="importLojasModal" tabindex="-1" aria-labelledby="importLojasModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="importCSVModalLabel">Importar CSV</h5>
+                    <h5 class="modal-title" id="importLojasModalLabel">Importar Planilha de Lojas (.xlsx)</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="importCSVForm" enctype="multipart/form-data">
+                    <!-- Formulário de Upload dentro do Modal -->
+                    <form id="importForm" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="csvFile">Arquivo CSV:</label>
-                            <input type="file" class="form-control p-1" id="csvFile" name="file" accept=".csv" required>
+                            <label for="storeFile">Selecione a planilha de lojas (.xlsx):</label>
+                            <input type="file" name="storeFile" id="storeFile" accept=".xlsx" required class="form-control">
                         </div>
                     </form>
-                    <div id="importMessage" class="mt-3"></div> <!-- Adiciona a mensagem de sucesso -->
+                    <div id="importStatus" class="mt-3"></div> <!-- Exibição de mensagem de status -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="importCSV()">Importar</button>
+                    <button type="button" class="btn btn-primary" onclick="importStores()">Importar Lojas</button>
                 </div>
             </div>
         </div>
@@ -396,6 +417,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
     <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -414,6 +436,7 @@ if (!isset($_SESSION['user_id'])) {
     <script src="statics/js/selecionarLojas.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script src="statics/js/exportDataToExcell.js"></script>
+    <script src="statics/js/importExcelData.js"></script>
 </body>
 </html>
 

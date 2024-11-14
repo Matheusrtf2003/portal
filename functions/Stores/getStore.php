@@ -21,7 +21,7 @@ try {
     // Consulta para buscar a loja e seus marcadores
     $stmt = $pdo->prepare("
     SELECT 
-        s.id AS store_id,  -- Alias para evitar conflito de nomes
+        s.id AS store_id,
         s.nome,
         s.cnpj,
         s.status,
@@ -37,9 +37,9 @@ try {
         s.telefone_decisor,
         s.email,
         s.datetime,
-        GROUP_CONCAT(m.id) as marcador_ids,
-        GROUP_CONCAT(m.nome) as marcador_nomes,
-        GROUP_CONCAT(m.cor) as marcador_cores
+        GROUP_CONCAT(m.id) AS marcador_ids,
+        GROUP_CONCAT(m.nome) AS marcador_nomes,
+        GROUP_CONCAT(m.cor) AS marcador_cores
     FROM stores s
     LEFT JOIN stores_markers sm ON s.id = sm.loja_id
     LEFT JOIN markers m ON sm.marcador_id = m.id
@@ -51,18 +51,18 @@ try {
     $store = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($store) {
-        // Processa os marcadores
-        $marcador_ids = explode(',', $store['marcador_ids']);
-        $marcador_nomes = explode(',', $store['marcador_nomes']);
-        $marcador_cores = explode(',', $store['marcador_cores']);
+        // Processa os marcadores, garantindo que não sejam null antes de chamar explode()
+        $marcador_ids = !empty($store['marcador_ids']) ? explode(',', $store['marcador_ids']) : [];
+        $marcador_nomes = !empty($store['marcador_nomes']) ? explode(',', $store['marcador_nomes']) : [];
+        $marcador_cores = !empty($store['marcador_cores']) ? explode(',', $store['marcador_cores']) : [];
         
         $marcadores = [];
         for ($i = 0; $i < count($marcador_ids); $i++) {
             if (!empty($marcador_ids[$i])) { // Certifica-se de que o ID do marcador não esteja vazio
                 $marcadores[] = [
                     'id' => $marcador_ids[$i],
-                    'nome' => $marcador_nomes[$i],
-                    'cor' => $marcador_cores[$i]
+                    'nome' => $marcador_nomes[$i] ?? 'Sem Nome',
+                    'cor' => $marcador_cores[$i] ?? '#000000'
                 ];
             }
         }

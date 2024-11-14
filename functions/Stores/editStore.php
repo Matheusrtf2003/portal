@@ -19,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $decisor = $data['decisor'] ?? '';
     $telefone_decisor = $data['telefone_decisor'] ?? '';
     $email = $data['email'] ?? '';
+    $store['perfil_loja'] = $storeData['perfil_loja'] ?? 'ICP';
+    echo json_encode(['success' => true, 'store' => $store]);
+
 
     if (!$storeId) {
         echo json_encode(['success' => false, 'message' => 'Dados obrigatórios não foram fornecidos.']);
@@ -27,11 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         $stmt = $pdo->prepare("
-            UPDATE stores 
-            SET nome = ?, cnpj = ?, status = ?, endereco = ?, cidade = ?, estado = ?, mesorregiao = ?, telefone = ?, instagram = ?, site = ?, decisor = ?, telefone_decisor = ?, email = ?
-            WHERE id = ?
-        ");
-        $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $mesorregiao, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email, $storeId]);
+    UPDATE stores 
+    SET nome = ?, cnpj = ?, status = ?, endereco = ?, cidade = ?, estado = ?, mesorregiao = ?, telefone = ?, instagram = ?, site = ?, decisor = ?, telefone_decisor = ?, email = ?, perfil_loja = ?
+    WHERE id = ?
+    ");
+    $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $mesorregiao, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email, $perfil_loja, $storeId]);
 
         echo json_encode(['success' => true, 'message' => 'Loja editada com sucesso!']);
     } catch (Exception $e) {

@@ -70,7 +70,9 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="col-md-7 offset-md-3">
                 <h1 style="margin-top: 20px;">Todos os Usuários</h1>
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addUserModal" style="margin-bottom: 20px; margin-top: 50px;">Adicionar Usuário</button>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#userModal" style="margin-bottom: 20px; margin-top: 50px;">
+                    Adicionar Usuário
+                </button>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="usersTable">
                         <thead>
@@ -120,11 +122,11 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <!-- Modal Adicionar Usuário -->
-    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addUserModalLabel">Adicionar Usuário</h5>
+                    <h5 class="modal-title" id="userModalLabel">Adicionar Usuário</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -164,11 +166,15 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <select class="form-control py-0" id="userFunctionInput" name="function" required>
                                 <option value="Hunter">Hunter</option>
                                 <option value="Vendedor">Vendedor</option>
-                                <option value="Representantes">Representante</option>
+                                <option value="Representante">Representante</option>
                                 <option value="Suporte Afiadores">Suporte Afiadores</option>
                                 <option value="Suporte Educadores">Suporte Educadores</option>
                                 <option value="Gerente">Gerente</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="userAgendorApiKey">API Key do Agendor</label>
+                            <input type="text" class="form-control" id="userAgendorApiKey" name="agendor_api_key" placeholder="Digite a chave API do Agendor">
                         </div>
                     </form>
                 </div>
@@ -179,6 +185,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
     </div>
+
 
     <!-- jQuery, Popper.js, Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

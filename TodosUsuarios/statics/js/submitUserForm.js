@@ -1,13 +1,14 @@
 // submitUserForm.js
 
-// submitUserForm.js
-
 document.getElementById('userForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const formData = new FormData(this);
     const userId = document.getElementById('userId').value;
     const url = userId ? '../functions/Users/updateUser.php' : '../functions/Users/addUser.php';
+
+    // Verifique os dados que estão sendo enviados
+    console.log('Dados do FormData:', Array.from(formData.entries()));
 
     fetch(url, {
         method: 'POST',
@@ -43,4 +44,3 @@ function clearUserForm() {
 $('#addUserModal').on('hidden.bs.modal', function () {
     clearUserForm(); // Limpa o formulário quando o modal é fechado
 });
-

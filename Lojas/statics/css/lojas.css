@@ -196,3 +196,35 @@ h1 {
     vertical-align: middle; /* Alinhar verticalmente ao centro */
     font-size: 12px; /* Ajustar o tamanho da fonte */
 }
+
+#importStatus .status-message {
+    position: relative;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding-right: 30px; /* espaço para o botão de fechar */
+}
+.status-success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+.status-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+#importStatus .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+}
+#importStatus ul {
+    padding-left: 20px;
+}

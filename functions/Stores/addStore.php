@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = trim($data['nome'] ?? '');
     $cnpj = trim($data['cnpj'] ?? '');
     $status = trim($data['status'] ?? '');
-    $marker = trim($data['marker'] ?? '');
+    $markers = $data['markers'] ?? [];  // Receber marcadores como um array
     $anotacao = trim($data['anotacao'] ?? '');
     $endereco = trim($data['endereco'] ?? '');
     $cidade = trim($data['cidade'] ?? '');
@@ -23,6 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $telefone_decisor = trim($data['telefone_decisor'] ?? '');
     $email = trim($data['email'] ?? '');
     $userId = $_SESSION['user_id'] ?? null;
+    $perfil_loja = trim($data['perfil_loja'] ?? 'ICP');  // Defina um valor padrão se necessário
+
 
     // Verificar campos obrigatórios
     if (!$nome || !$cnpj || !$status || !$endereco) {
@@ -38,21 +40,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Atualizar loja
             $stmt = $pdo->prepare("
                 UPDATE stores 
-                SET nome = ?, cnpj = ?, status = ?, endereco = ?, cidade = ?, estado = ?, mesorregiao = ?, telefone = ?, instagram = ?, site = ?, decisor = ?, telefone_decisor = ?, email = ?
+                SET nome = ?, cnpj = ?, status = ?, endereco = ?, cidade = ?, estado = ?, mesorregiao = ?, telefone = ?, instagram = ?, site = ?, decisor = ?, telefone_decisor = ?, email = ?, perfil_loja = ?
                 WHERE id = ?
             ");
-            $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $mesorregiao, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email, $storeId]);
-
+            $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $mesorregiao, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email, $perfil_loja, $storeId]);
             $message = 'Loja atualizada com sucesso!';
         } else {
             // Inserir nova loja
             $stmt = $pdo->prepare("
-                INSERT INTO stores 
-                    (nome, cnpj, status, endereco, cidade, estado, mesorregiao, telefone, instagram, site, decisor, telefone_decisor, email) 
-                VALUES 
-                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ");
-            $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $mesorregiao, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email]);
+    INSERT INTO stores 
+        (nome, cnpj, status, endereco, cidade, estado, mesorregiao, telefone, instagram, site, decisor, telefone_decisor, email, perfil_loja) 
+    VALUES 
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ");
+    $stmt->execute([$nome, $cnpj, $status, $endereco, $cidade, $estado, $mesorregiao, $telefone, $instagram, $site, $decisor, $telefone_decisor, $email, $perfil_loja]);
+
             $storeId = $pdo->lastInsertId();
 
             $message = 'Loja adicionada com sucesso!';
@@ -64,10 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$storeId]);
 
         // Em seguida, insira os novos marcadores selecionados
-        if (!empty($marker)) {
+        if (!empty($markers)) {
             $stmt = $pdo->prepare("INSERT INTO stores_markers (loja_id, marcador_id) VALUES (?, ?)");
-            if ($marker) {
-                $stmt->execute([$storeId, $marker]);
+            foreach ($markers as $markerId) {
+                $stmt->execute([$storeId, $markerId]);
             }
         }
 

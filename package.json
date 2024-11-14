@@ -16,6 +16,7 @@
     "gulp-uglify": "^3.0.2"
   },
   "dependencies": {
+    "@googlemaps/markerclusterer": "^2.5.3",
     "openai": "^4.0.0"
   }
 }

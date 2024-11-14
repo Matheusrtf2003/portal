@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '1b9163144c728bf344898779418bc5d37a67ca7f',
+        'reference' => '2f930dc60154addb1a690b9feadc0c600adad3d5',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '1b9163144c728bf344898779418bc5d37a67ca7f',
+            'reference' => '2f930dc60154addb1a690b9feadc0c600adad3d5',
             'dev_requirement' => false,
         ),
         'firebase/php-jwt' => array(
@@ -92,12 +92,12 @@
             'dev_requirement' => false,
         ),
         'phpoffice/phpspreadsheet' => array(
-            'pretty_version' => '2.1.0',
-            'version' => '2.1.0.0',
+            'pretty_version' => '3.3.0',
+            'version' => '3.3.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpoffice/phpspreadsheet',
             'aliases' => array(),
-            'reference' => 'dbed77bd3a0f68f96c0dd68ad4499d5674fecc3e',
+            'reference' => '87ddd21eb0b6b7ad20a11d314348ef307475f547',
             'dev_requirement' => false,
         ),
         'psr/http-client' => array(

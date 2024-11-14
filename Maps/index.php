@@ -1,8 +1,8 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-  header("Location: ../index.php");
-  exit;
+    echo json_encode(["success" => false, "error" => "Usuário não autenticado."]);
+    exit();
 }
 
 include '../functions/config.php';
@@ -19,7 +19,7 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
   <meta charset="UTF-8">
   <meta http-equiv="Cache-Control" content="no-cache" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="statics\img\favi-icon.png" type="image/x-icon">
+  <link rel="icon" href="../statics/img/favi-icon.png" type="image/x-icon">
   <link rel="stylesheet" href="statics/css/maps.css">
   <link rel="stylesheet" href="statics/css/legenda.css">
   <link rel="stylesheet" href="../sidebar/css/sidebar.css">
@@ -49,9 +49,9 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
                     Mapear
                 </button> -->
         <div id="resultCount"></div> <!-- Elemento para mostrar o total de resultados -->
-        <label>
-          <input type="checkbox" id="selectAllCheckbox"> Selecionar todas
-        </label>
+        <div id="loading">
+            <img style='max-width: 50px;' src="https://lh3.googleusercontent.com/proxy/9rLje0-3FNznCiW_PB26zLjadDVYYEDc6WyBUIcYBKXfbLZN8VMuPw_lBCo2FRl6ap4JPSUJGCqL8Q6FFb3oNEOY2JGJPKfGq_LdtfcP6nnp3dCWqZwQ27aW8_hbp3Zxcy9_rWFxryXb" alt="Loading..." />
+        </div>
         <div class="list-group mt-0" id="storeList">
           <!-- Lista de lojas será carregada aqui -->
         </div>
@@ -97,9 +97,25 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
               </select>
             </div>
             <div class="form-group">
-              <label for="filterUsuario">Usuário</label>
-              <select class="form-control p-1" id="filterUsuarioSelect">
-                <!-- Carregar opções dinamicamente no JavaScript -->
+              <label for="filterPerfil">Perfil da Loja</label>
+              <select class="form-control p-1" id="filterPerfilSelect">
+                  <option value="">Todos os perfis</option>
+                  <option value="ICP">ICP</option>
+                  <option value="Cosmético Geral">Cosmético Geral</option>
+                  <!-- Adicione outros perfis conforme necessário -->
+              </select>
+          </div>
+            <div class="form-group">
+              <label for="filterUsuario">Hunter</label>
+              <select class="form-control p-1" id="filterHunterSelect">
+                  <option value="">Todos os hunters</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="filterVendedor">Vendedor</label>
+              <select id="filterVendedorSelect" class="form-control p-1">
+                <option value="">Todos os vendedores</option>
+                <!-- As opções serão carregadas dinamicamente -->
               </select>
             </div>
             <div class="form-group">
@@ -107,55 +123,42 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
               <select class="form-control p-1" id="filterStateSelect">
                 <!-- Adicione estados aqui -->
                 <option value="">Todos</option>
-                <option value="AC">Acre</option>
-                <option value="AL">Alagoas</option>
-                <option value="AP">Amapá</option>
-                <option value="AM">Amazonas</option>
-                <option value="BA">Bahia</option>
-                <option value="CE">Ceará</option>
-                <option value="DF">Distrito Federal</option>
-                <option value="ES">Espírito Santo</option>
-                <option value="GO">Goiás</option>
-                <option value="MA">Maranhão</option>
-                <option value="MT">Mato Grosso</option>
-                <option value="MS">Mato Grosso do Sul</option>
-                <option value="MG">Minas Gerais</option>
-                <option value="PA">Pará</option>
-                <option value="PB">Paraíba</option>
-                <option value="PR">Paraná</option>
-                <option value="PE">Pernambuco</option>
-                <option value="PI">Piauí</option>
-                <option value="RJ">Rio de Janeiro</option>
-                <option value="RN">Rio Grande do Norte</option>
-                <option value="RS">Rio Grande do Sul</option>
-                <option value="RO">Rondônia</option>
-                <option value="RR">Roraima</option>
-                <option value="SC">Santa Catarina</option>
-                <option value="SP">São Paulo</option>
-                <option value="SE">Sergipe</option>
-                <option value="TO">Tocantins</option>
+                <option value="1">Acre</option>
+                <option value="2">Alagoas</option>
+                <option value="3">Amapá</option>
+                <option value="4">Amazonas</option>
+                <option value="5">Bahia</option>
+                <option value="6">Ceará</option>
+                <option value="7">Distrito Federal</option>
+                <option value="8">Espírito Santo</option>
+                <option value="9">Goiás</option>
+                <option value="10">Maranhão</option>
+                <option value="11">Mato Grosso</option>
+                <option value="12">Mato Grosso do Sul</option>
+                <option value="13">Minas Gerais</option>
+                <option value="14">Pará</option>
+                <option value="15">Paraíba</option>
+                <option value="16">Paraná</option>
+                <option value="17">Pernambuco</option>
+                <option value="18">Piauí</option>
+                <option value="19">Rio de Janeiro</option>
+                <option value="20">Rio Grande do Norte</option>
+                <option value="21">Rio Grande do Sul</option>
+                <option value="22">Rondônia</option>
+                <option value="23">Roraima</option>
+                <option value="24">Santa Catarina</option>
+                <option value="25">São Paulo</option>
+                <option value="26">Sergipe</option>
+                <option value="27">Tocantins</option>
               </select>
-            </div>
-            <div class="form-group">
-              <label for="filterMarker">Marcador</label>
-              <select class="form-control p-1" id="filterMarkerSelect">
-                <!-- Carregar opções dinamicamente no JavaScript -->
-              </select>
-            </div>
-            <!-- Filtro de Cidade -->
-            <div class="form-group">
+            <!--</div>
+             Filtro de Cidade -->
+            <!-- Adicione estados aqui <div class="form-group">
               <label for="filterCity">Cidade</label>
-              <select class="form-control p-1" id="filterCitySelect">
-                <!-- Carregar opções dinamicamente -->
-              </select>
-            </div>
-            <!-- Filtro de Mesorregião -->
-            <div class="form-group">
-              <label for="filterMesorregiao">Mesorregião</label>
-              <select class="form-control p-1" id="filterMesorregiaoSelect">
-                <!-- Carregar opções dinamicamente -->
-              </select>
-            </div>
+              <select class="form-control p-1" id="filterCitySelect"> 
+               Carregar opções dinamicamente
+              </select> 
+            </div> -->
           </form>
         </div>
         <div class="modal-footer">
@@ -165,15 +168,48 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
       </div>
     </div>
   </div>
+
+  <!-- Modal para Adicionar Vendedor -->
+<div class="modal fade" id="addVendedorModal" tabindex="-1" aria-labelledby="addVendedorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addVendedorModalLabel">Adicionar Vendedor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              <form id="addVendedorForm">
+                  <div class="form-group">
+                      <label for="goalUsers">Escolha o Vendedor:</label>
+                      <select class="form-control p-0" id="goalUsers" required>
+                          <option value="">Selecione um vendedor</option>
+                          <!-- As opções de vendedores serão inseridas aqui -->
+                      </select>
+                    </div>
+                    <button type="submit" id="addVendedorButton" class="btn btn-primary">Adicionar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+  
+
   <!-- jQuery, Popper.js, Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="statics/js/Maps/mapMarkers.js"></script>
-  <script src="statics/js/Maps/geocoding.js"></script>
-  <script src="statics/js/Maps/storeManagement.js"></script>
-  <script src="statics/js/Maps/storeFilters.js"></script>
-  <script src="statics/js/Maps/domEvents.js"></script>
+  <script src="statics/js/mapMarkers.js" type="module"></script>
+  <script src="statics/js/geocoding.js" type="module"></script>
+  <script src="statics/js/storeManagement.js" type="module"></script>
+  <script src="statics/js/storeFilters.js" type="module"></script>
+  <script src="statics/js/domEvents.js" type="module"></script>
+  <script src="statics/js/enviaAgendor.js"></script>
+  <script type='module' src="statics/js/apis.js"></script>
+  <script type='module' src="statics/js/coordinates.js"></script>
+  <script type='module' src="statics/js/utils.js"></script>
+  <script type='module' src="statics/js/loadMarkers.js"></script>
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnqVbnVlRY2EaQL7pzLQMKMhBGxm6T02c&loading=async&callback=initMap" async>
   </script>

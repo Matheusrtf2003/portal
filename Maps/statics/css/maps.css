@@ -107,4 +107,62 @@
 .close-details:hover {
     background-color: #c82333;
 }
+.store-item {
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suave transição ao mover */
+}
 
+.store-item:hover {
+    transform: translateY(-5px); /* Move o card 10px para cima ao passar o cursor */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Aumenta a sombra para dar um efeito de elevação */
+}
+
+
+/* Adicione transição suave */
+.store-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+    opacity: 0;
+}
+
+.store-details.show {
+    max-height: 1000px; /* Defina um valor maior para garantir espaço */
+    opacity: 1;
+}
+
+
+/* CSS customizado para garantir que o modal seja exibido acima do mapa */
+.modal-backdrop {
+    z-index: 1040 !important; /* fundo do modal */
+}
+
+.modal {
+    z-index: 1050 !important; /* conteúdo do modal */
+}
+#loading {
+    display: none; /* Inicialmente escondido */
+    position: fixed; /* Para centralizar em relação à tela */
+    top: 50%; /* Centralizar verticalmente */
+    left: 50%; /* Centralizar horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta a posição para o centro exato */
+    z-index: 1000; /* Para garantir que o loader fique acima de outros elementos */
+}
+
+#loading img {
+    width: 50px; /* Ajuste o tamanho conforme necessário */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+.store-list-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto; /* Rolagem horizontal */
+    white-space: nowrap; /* Impede quebra de linha entre os cards */
+    padding: 10px;
+}
+
+.store-item {
+    display: inline-block; /* Para que cada card fique lado a lado */
+    margin-right: 10px; /* Espaçamento entre os cards */
+    min-width: 300px; /* Define uma largura mínima para cada card */
+}

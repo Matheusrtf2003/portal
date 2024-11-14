@@ -13,7 +13,6 @@ $user_function = isset($_SESSION['user_function']) ? $_SESSION['user_function'] 
 <link rel="stylesheet" href="../Perfil/statics/css/view_profile.css">
 <!-- Inclua o CSS dos ícones do Bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<link rel="stylesheet" href="css/sidebar.css">
 <nav class="sidebar-menu">
     <ul class="nav flex-column mb-5">
         <!-- Dashboard -->

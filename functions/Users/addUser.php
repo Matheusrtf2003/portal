@@ -1,32 +1,17 @@
 <?php
+// Inclui a configuração do banco de dados
 include '../config.php';
 
-// Verifica se os dados foram enviados
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Valida os dados recebidos
-    $nome = trim($_POST['nome']);
-    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    $senha = trim($_POST['senha']);
-    $tipo = trim($_POST['tipo']);
-    $status = trim($_POST['status']);
-    $function = trim($_POST['function']);
+$nome = $_POST['nome'];
+$email = $_POST['email'];
+$senha = $_POST['senha'];
+$tipo = $_POST['tipo'];
+$status = $_POST['status'];
+$funcao = $_POST['function'];
+$agendorApiKey = $_POST['agendor_api_key']; // Captura a chave de API
 
-    // Verifica se todos os campos foram preenchidos corretamente
-    if ($nome && $email && $senha && $tipo && $status && $function) {
-        // Prepara a query para inserir os dados no banco de dados
-        $sql = "INSERT INTO users (nome, email, senha, tipo, status, function) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = $pdo->prepare($sql);
+$sql = "INSERT INTO users (nome, email, senha, tipo, status, function, agendor_api) VALUES (?, ?, ?, ?, ?, ?, ?)";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$nome, $email, $senha, $tipo, $status, $funcao, $agendorApiKey]);
 
-        // Executa a query
-        if ($stmt->execute([$nome, $email, $senha, $tipo, $status, $function])) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Erro ao adicionar usuário.']);
-        }
-    } else {
-        echo json_encode(['success' => false, 'message' => 'Dados inválidos fornecidos.']);
-    }
-} else {
-    echo json_encode(['success' => false, 'message' => 'Método de requisição inválido.']);
-}
-?>
+echo json_encode(["success" => true]);

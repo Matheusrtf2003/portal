@@ -1,6 +1,17 @@
 <?php
+// No início do script PHP responsável por carregar a loja
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+header('Content-Type: application/json');
 session_start();
 include 'config.php';
+
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_tipo'])) {
+    echo json_encode(['success' => false, 'message' => 'Sessão expirada ou usuário não autenticado.']);
+    exit;
+}
 
 $userId = $_SESSION['user_id'];
 $userTipo = $_SESSION['user_tipo'];
@@ -71,11 +82,11 @@ try {
         $marcador_cores = isset($store['marcador_cores']) ? explode(',', $store['marcador_cores']) : [];
 
         $marcadores = [];
-        for ($i = 0; $i < count($marcador_ids); $i++) {
+        for ($i = 0; $i < max(count($marcador_ids), count($marcador_nomes), count($marcador_cores)); $i++) {
             $marcadores[] = [
-                'id' => $marcador_ids[$i],
-                'nome' => $marcador_nomes[$i],
-                'cor' => $marcador_cores[$i]
+                'id' => $marcador_ids[$i] ?? null,
+                'nome' => $marcador_nomes[$i] ?? 'Sem Nome',
+                'cor' => $marcador_cores[$i] ?? '#000000'
             ];
         }
         $store['marcadores'] = $marcadores;
@@ -101,7 +112,6 @@ try {
             'nome' => $store['vendedor_nome']
         ];
         unset($store['vendedor_id'], $store['vendedor_nome']); // Clean up raw data
-        
     }
 
     echo json_encode(['success' => true, 'stores' => $stores]);

@@ -1,5 +1,5 @@
 <?php
-include '../config.php';
+include 'config.php';
 
 session_start();
 $vendedorId = $_SESSION['user_id']; // Assumindo que o ID do vendedor esteja armazenado na sessão

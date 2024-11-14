@@ -10,7 +10,7 @@ function fetchUser(id) {
             document.getElementById('userPasswordInput').value = ''; // Não mostrar a senha
             document.getElementById('userTipoInput').value = data.tipo;
             document.getElementById('userStatusInput').value = data.status;
-            document.getElementById('userFunctionInput').value = data.function;
+            document.getElementById('userAgendorApiKey').value = data.agendor_api_key; // Adicione esta linha
 
             $('#addUserModal').modal('show');
         })

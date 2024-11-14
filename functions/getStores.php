@@ -1,6 +1,14 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+header('Content-Type: application/json');
 session_start();
 include 'config.php';
+
+$string = $some_value ?? ''; // Default to an empty string if $some_value is null
+$result = explode(',', $string);
+
 
 $userId = $_SESSION['user_id'];
 $userTipo = $_SESSION['user_tipo'];
@@ -55,12 +63,15 @@ try {
     // Processa as lojas para incluir os marcadores e vendedores
     foreach ($stores as &$store) {
         // Marcadores
-        $marcador_ids = explode(',', $store['marcador_ids']);
-        $marcador_nomes = explode(',', $store['marcador_nomes']);
-        $marcador_cores = explode(',', $store['marcador_cores']);
-        
+        $marcador_ids = explode(',', $store['marcador_ids'] ?? '');
+        $marcador_nomes = explode(',', $store['marcador_nomes'] ?? '');
+        $marcador_cores = explode(',', $store['marcador_cores'] ?? '');
+
+        // Find the minimum length of the arrays to avoid accessing undefined indices
+        $minCount = min(count($marcador_ids), count($marcador_nomes), count($marcador_cores));
+
         $marcadores = [];
-        for ($i = 0; $i < count($marcador_ids); $i++) {
+        for ($i = 0; $i < $minCount; $i++) {
             if (!empty($marcador_ids[$i])) {
                 $marcadores[] = [
                     'id' => $marcador_ids[$i],
@@ -70,6 +81,7 @@ try {
             }
         }
         $store['marcadores'] = $marcadores;
+
 
         // Vendedor (se existir)
         $store['vendedor'] = $store['vendedor_nome'] ?: 'Sem vendedor';

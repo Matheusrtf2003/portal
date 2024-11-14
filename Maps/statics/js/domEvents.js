@@ -1,3 +1,5 @@
+import { applyFilters } from './storeFilters.js';
+
 document.addEventListener('DOMContentLoaded', function () {
     // Garantindo que a função loadAllStores existe antes de chamá-la
     if (typeof loadAllStores === 'function') {
@@ -27,11 +29,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const applyFilterButton = document.getElementById('applyFilterButton');
     if (applyFilterButton) {
-        applyFilterButton.addEventListener('click', filterByState);
+        applyFilterButton.addEventListener('click', () => {
+            applyFilters();
+            $('#filterModal').modal('hide'); // Fechar o modal após aplicar o filtro
+        });
     }
 
     const applyStatusFilterButton = document.getElementById('applyStatusFilterButton');
     if (applyStatusFilterButton) {
-        applyStatusFilterButton.addEventListener('click', filterByStatus);
+        applyStatusFilterButton.addEventListener('click', () => {
+            applyFilters();
+            $('#statusFilterModal').modal('hide'); // Fechar o modal após aplicar o filtro
+        });
     }
 });
